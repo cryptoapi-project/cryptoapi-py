@@ -34,7 +34,7 @@ class Models:
     def __init__(self):
         self.get_coins = Model(get_coins, True)
         self.error = Model(error)
-
+  
         self.rates = Rates(Model)
         self.eth = Eth(Model)
         self.btc = None

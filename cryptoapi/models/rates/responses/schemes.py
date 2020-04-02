@@ -27,7 +27,7 @@ _rates_item = {
     'rate': _rate_schema
 }
 
-get_coin_rates_history = {
+get_coins_history = {
     'symbol': string_type,
     'rates': {
         'type': 'list',

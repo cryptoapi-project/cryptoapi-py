@@ -14,18 +14,19 @@ class Http(Rpc):
             return None
         return {"http": proxy_url, "https": proxy_url}
 
-    def _make_request(self, method, url, data=None, params=None, validators=[]):
+    def _make_request(self, method, url, data=None, params=None, validators={}):
         response = method(
             url=self.url + url,
             data=data,
             params=params,
             proxies=self.proxies()
         )
+        json_response = response.json()
+        status_code = response.status_code
+        if status_code in validators:
+            validators[status_code].validate(json_response)
 
-        for validator in validators:
-            validator(response)
-
-        return response.json()
+        return json_response
 
     def get(self, url, params=None, validators=[]):
         return self._make_request(
