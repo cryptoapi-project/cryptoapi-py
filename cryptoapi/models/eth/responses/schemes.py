@@ -249,7 +249,12 @@ _receipt = {
 }
 
 get_transaction_information = _transactions_item.copy()
-get_transaction_information.update({'receipt': _receipt})
+get_transaction_information.update({
+    'receipt': {
+        'type': 'dict',
+        'schema': _receipt
+    }
+})
 
 get_transaction_receipt = _receipt.copy()
 get_transaction_receipt.update({
