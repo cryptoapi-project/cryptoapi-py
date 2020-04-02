@@ -1,4 +1,4 @@
-from cryptoapi.models.utils import regex_is_hex, hex_type, string_type, integer_type, required_string_type
+from cryptoapi.models.utils import regex_is_hex, hex_type, string_type, integer_type, required_string_type, boolean_type
 
 
 # ETH.Common
@@ -43,7 +43,10 @@ get_general_information_by_addresses = {
 get_token_transfers_by_addresses = {
     'skip': integer_type,
     'limit': integer_type,
-    'addresses': {'required': True, 'type': 'list', 'schema': string_type},
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': string_type},
     'token': required_string_type
 }
 
@@ -56,7 +59,10 @@ get_tokens_balances_by_holders = {
 get_token_balance_by_holders_and_token = {
     'skip': integer_type,
     'limit': integer_type,
-    'addresses': {'required': True, 'type': 'list', 'schema': string_type},
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': string_type},
     'token': required_string_type
 }
 
@@ -70,11 +76,19 @@ get_transactions_with_pagination = {
 }
 
 get_transaction_information = {
-    'hash': {'required': True, 'type': 'string', 'regex': regex_is_hex}
+    'hash': {
+        'required': True,
+        'type': 'string',
+        'regex': regex_is_hex
+    }
 }
 
 get_transaction_receipt = {
-    'hash': {'required': True, 'type': 'string', 'regex': regex_is_hex}
+    'hash': {
+        'required': True,
+        'type': 'string',
+        'regex': regex_is_hex
+    }
 }
 
 send_transaction = {
@@ -90,18 +104,28 @@ get_tokens = {
     'query': hex_type,
     'skip': integer_type,
     'limit': integer_type,
-    'types': {'type': 'list', 'schema': string_type}
+    'types': {
+        'type': 'list',
+        'schema': string_type
+    }
 }
 
 get_token_transfers_by_token_address = {
     'skip': integer_type,
     'limit': integer_type,
-    'addresses': {'type': 'list', 'schema': string_type},
+    'addresses': {
+        'type': 'list',
+        'schema': string_type
+    },
     'token': required_string_type
 }
 
 get_token_contract = {
-    'address': {'required': True, 'type': 'list', 'schema': string_type},
+    'address': {
+        'required': True,
+        'type': 'list',
+        'schema': string_type
+    },
 }
 
 # ETH.Push Notifications
@@ -117,11 +141,17 @@ unsubscribe_from_addresses_notifications = {
 # ETH.Contracts
 get_contracts_logs = {
     'cursor': string_type,
-    'reversed_fetch': {'type': 'boolean'},
+    'reversed_fetch': boolean_type,
     'from_block': integer_type,
     'to_block': integer_type,
-    'addresses': {'type': 'list', 'schema': string_type},
-    'topics': {'type': 'list', 'schema': string_type}
+    'addresses': {
+        'type': 'list',
+        'schema': string_type
+    },
+    'topics': {
+        'type': 'list',
+        'schema': string_type
+    }
 }
 
 contract_call = {
