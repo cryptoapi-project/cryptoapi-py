@@ -1,4 +1,4 @@
-from cryptoapi.models.utils import hex_type, string_type, integer_type, utc_type, boolean_type
+from cryptoapi.models.utils import hex_type, string_type, integer_type, utc_type, boolean_type, string_nullable_type
 
 # ETH.Common
 
@@ -232,10 +232,7 @@ _receipt_logs = {
 }
 
 _receipt = {
-    'contract_address': {
-        'type': 'string',
-        'nullable': True
-    },
+    'contract_address': string_nullable_type,
     'cumulative_gas_used': integer_type,
     'gas_used': integer_type,
     'status': boolean_type,
@@ -303,10 +300,7 @@ _get_tokens_items = {
 }
 
 get_tokens = {
-    'query': {
-        'type': 'string',
-        'nullable': True
-    },
+    'query': string_nullable_type,
     'skip': integer_type,
     'limit': integer_type,
     'count': integer_type,
