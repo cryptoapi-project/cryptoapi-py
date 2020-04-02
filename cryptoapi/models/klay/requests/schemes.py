@@ -68,35 +68,27 @@ get_token_balance_by_holders_and_token = {
 
 # ETH.Transactions
 get_transactions_with_pagination = {
-    'from': hex_type,
-    'to': hex_type,
+    'from': string_type,
+    'to': string_type,
     'skip': integer_type,
     'limit': integer_type,
     'block_number': integer_type
 }
 
 get_transaction_information = {
-    'hash': {
-        'required': True,
-        'type': 'string',
-        'regex': regex_is_hex
-    }
+    'hash': required_string_type
 }
 
 get_transaction_receipt = {
-    'hash': {
-        'required': True,
-        'type': 'string',
-        'regex': regex_is_hex
-    }
+    'hash': required_string_type
 }
 
 send_transaction = {
-    'tx': hex_type
+    'tx': required_string_type
 }
 
 decode_transaction = {
-    'tx': hex_type
+    'tx': required_string_type
 }
 
 # ETH.Tokens
@@ -121,11 +113,7 @@ get_token_transfers_by_token_address = {
 }
 
 get_token_contract = {
-    'address': {
-        'required': True,
-        'type': 'list',
-        'schema': string_type
-    },
+    'address': required_string_type
 }
 
 # ETH.Push Notifications
@@ -167,7 +155,6 @@ contract_call_body = {
     'amount': required_string_type,
     'bytecode': required_string_type
 }
-
 
 get_contract_general_information = {
     'address': required_string_type

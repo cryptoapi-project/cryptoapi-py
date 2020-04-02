@@ -3,6 +3,7 @@ regex_is_hex = '^[0-9a-fA-F]+'
 hex_type = {'type': 'string', 'regex': regex_is_hex}
 utc_type = {'type': 'string', 'regex': regex_is_utc}
 string_type = {'type': 'string'}
+string_nullable_type = {'type': 'string', 'nullable': True}
 integer_type = {'type': 'integer'}
 required_string_type = {'required': True, 'type': 'string'}
 boolean_type = {'type': 'boolean'}
