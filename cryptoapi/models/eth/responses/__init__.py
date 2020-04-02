@@ -8,12 +8,16 @@ from .schemes import get_network_information, estimate_gas, get_block_informatio
     subscribe_to_addresses_notifications, unsubscribe_from_addresses_notifications, get_contracts_logs, \
     contract_call, get_contract_general_information
 
+
 class Responses:
+
     def __init__(self, model_wrapper):
         self.get_network_information = model_wrapper(get_network_information)
         self.estimate_gas = model_wrapper(estimate_gas)
-        self.get_block_information_by_block_number_or_hash = model_wrapper(get_block_information_by_block_number_or_hash)
-        self.get_information_about_the_latest_blocks_with_pagination = model_wrapper(get_information_about_the_latest_blocks_with_pagination)
+        self.get_block_information_by_block_number_or_hash = model_wrapper(
+            get_block_information_by_block_number_or_hash)
+        self.get_information_about_the_latest_blocks_with_pagination = model_wrapper(
+            get_information_about_the_latest_blocks_with_pagination)
         self.get_transactions_by_addresses = model_wrapper(get_transactions_by_addresses)
         self.get_transaction_intersections_by_addresses = model_wrapper(get_transaction_intersections_by_addresses)
         self.get_balances_by_addresses = model_wrapper(get_balances_by_addresses)

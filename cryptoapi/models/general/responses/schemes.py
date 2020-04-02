@@ -7,6 +7,7 @@ from cryptoapi.models.utils import string_type, utc_type, integer_type
 #     }
 # }
 
+
 def get_coins(value):
     return isinstance(value, str)
 

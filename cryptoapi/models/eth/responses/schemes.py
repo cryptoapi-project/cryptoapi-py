@@ -308,6 +308,7 @@ get_contracts_logs = {
     'address': hex_type,
 }
 
+
 def contract_call(value):
     return isinstance(value, str)
 
