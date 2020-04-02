@@ -1,6 +1,7 @@
-regex_is_hex = "^[0-9a-fA-F]+"
+from cryptoapi.models.utils import regex_is_hex
 
 
+# ETH.Common
 schema_ETH_common_gas_request = {
     'from': {'type': 'string', 'regex': regex_is_hex},
     'to': {'type': 'string', 'regex': regex_is_hex},

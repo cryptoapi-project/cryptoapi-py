@@ -1,6 +1,5 @@
+from cryptoapi.models.utils import regex_is_hex, regex_is_utc
 
-regex_is_hex = '^[0-9a-fA-F]+'
-regex_utc = '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]*Z$'
 
 schema_ETH_common_network = {
     'last_block': {'type': 'integer'},
@@ -35,7 +34,7 @@ schema_block_item = {
     'extra_data': {'type': 'string', 'regex': regex_is_hex},
     'gas_limit': {'type': 'string'},
     'gas_used': {'type': 'integer'},
-    'utc': {'type': 'string', 'regex': regex_utc},
+    'utc': {'type': 'string', 'regex': regex_is_utc},
     'reward': {'type': 'string'},
     'uncle_rewards': {'type': 'list'},
     'count_transactions': {'type': 'integer'}
@@ -50,7 +49,7 @@ schema_ETH_block_ = {
 
 schema_transfer_item = {
     'block_number': {'type': 'integer'},
-    'utc': {'type': 'string', 'regex': regex_utc},
+    'utc': {'type': 'string', 'regex': regex_is_utc},
     'from': {'type': 'string', 'regex': regex_is_hex},
     'gas': {'type': 'integer'},
     'hash': {'type': 'string', 'regex': regex_is_hex},
@@ -80,7 +79,7 @@ schema_internal_transactions = {
 schema_transactions_item = {
     'block_hash': {'type': 'string', 'regex': regex_is_hex},
     'block_number': {'type': 'integer'},
-    'utc': {'type': 'string', 'regex': regex_utc},
+    'utc': {'type': 'string', 'regex': regex_is_utc},
     'from': {'type': 'string', 'regex': regex_is_hex},
     'gas': {'type': 'integer'},
     'gas_price': {'type': 'string'},
@@ -129,7 +128,7 @@ schema_token_item = {
     'transaction_hash': {'type': 'string', 'regex': regex_is_hex},
     'transaction_index': {'type': 'integer'},
     'log_index': {'type': 'integer'},
-    'utc': {'type': 'string', 'regex': regex_utc},
+    'utc': {'type': 'string', 'regex': regex_is_utc},
 }
 
 schema_ETH_addresses_transfer_token = {
@@ -232,7 +231,7 @@ get_tokens = {
 }
 get_token_transfers_by_token_address_item = {
     'transaction_hash': {'type': 'string', 'regex': regex_is_hex},
-    'utc': {'type': 'string', 'regex': regex_utc},
+    'utc': {'type': 'string', 'regex': regex_is_utc},
     'to': {'type': 'string', 'regex': regex_is_hex},
     'type': {'type': 'string'},
     'value': {'type': 'string', 'regex': regex_is_hex},
