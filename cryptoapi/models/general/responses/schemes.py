@@ -1,22 +1,6 @@
 from cryptoapi.models.utils import regex_is_utc
 
-
-# requests
-_coins_request = {
-    'type': 'list',
-    'schema': {'type': 'string'}
-}
-get_coins_rates_request = {
-    'coins': _coins_request,
-}
-
-get_coin_rates_history_request = {
-    'coins': _coins_request,
-}
-
-
-# responses
-get_coins_response = {
+get_coins = {
     'type': 'string'
 }
 
@@ -36,7 +20,7 @@ _rate_schema = {
     }
 }
 
-get_coins_rates_response = {
+get_coins_rates = {
     'symbol': {'type': 'string'},
     'rate': _rate_schema
 }
@@ -50,7 +34,7 @@ _rates_item = {
     'rate': _rate_schema
 }
 
-get_coin_rates_history_response = {
+get_coin_rates_history = {
     'symbol': {'type': 'string'},
     'rates': {
         'type': 'list',
@@ -59,4 +43,15 @@ get_coin_rates_history_response = {
             'schema': _rates_item
         }
     }
+}
+
+error = {
+    'errors': {
+        'type': 'list',
+        'schema': {
+            'message': {'type': 'string'},
+            'field': {'type': 'string'}
+        }
+    },
+    'status': {'type': 'integer'}
 }
