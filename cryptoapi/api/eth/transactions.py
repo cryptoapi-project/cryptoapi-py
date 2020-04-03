@@ -1,3 +1,6 @@
+from cryptoapi.utils.api import api_method_preprocessing, validate_data
+
+
 class Transactions:
     def __init__(
         self,
@@ -9,19 +12,8 @@ class Transactions:
         self._api_key = api_key
         self._models = models
 
-    def _prepare(self):
-        if not self._api_key:
-            raise Exception('api_key exception')
-
-        validators = {
-            401: self._models.error,
-            422: self._models.error
-        }
-
-        return {'token': self._api_key}, validators
-
     def get_transactions(self, _from=None, to=None, skip=None, limit=None, block_number=None):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
 
         params = {
         }
@@ -41,7 +33,10 @@ class Transactions:
         if block_number is not None:
             params.update({'block_number': block_number})
 
-        self._models.eth.requests.get_transactions.validate(params)
+        validate_data(
+            self._models.eth.requests.get_transactions,
+            params
+        )
 
         params.update(api_key)
 
@@ -56,13 +51,16 @@ class Transactions:
         )
 
     def get_transaction_information(self, _hash):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
 
         params = {
             'hash': _hash
         }
 
-        self._models.eth.requests.get_transaction_information.validate(params)
+        validate_data(
+            self._models.eth.requests.get_transaction_information,
+            params
+        )
 
         validators.update({
             200: self._models.eth.responses.get_transaction_information
@@ -75,13 +73,16 @@ class Transactions:
         )
 
     def get_transaction_receipt(self, _hash):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
 
         params = {
             'hash': _hash
         }
 
-        self._models.eth.requests.get_transaction_receipt.validate(params)
+        validate_data(
+            self._models.eth.requests.get_transaction_receipt,
+            params
+        )
 
         validators.update({
             200: self._models.eth.responses.get_transaction_receipt
@@ -94,12 +95,16 @@ class Transactions:
         )
 
     def send_transaction(self, tx):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
 
         data = {
             'tx': tx
         }
-        self._models.eth.requests.send_transaction.validate(data)
+
+        validate_data(
+            self._models.eth.requests.send_transaction,
+            data
+        )
 
         validators.update({
             200: self._models.eth.responses.send_transaction
@@ -113,12 +118,16 @@ class Transactions:
         )
 
     def decode_transaction(self, tx):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
 
         data = {
             'tx': tx
         }
-        self._models.eth.requests.decode_transaction.validate(data)
+
+        validate_data(
+            self._models.eth.requests.decode_transaction,
+            data
+        )
 
         validators.update({
             200: self._models.eth.responses.decode_transaction

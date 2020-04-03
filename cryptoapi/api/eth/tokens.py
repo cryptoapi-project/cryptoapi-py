@@ -1,3 +1,6 @@
+from cryptoapi.utils.api import api_method_preprocessing, validate_data
+
+
 class Tokens:
     def __init__(
         self,
@@ -9,19 +12,8 @@ class Tokens:
         self._api_key = api_key
         self._models = models
 
-    def _prepare(self):
-        if not self._api_key:
-            raise Exception('api_key exception')
-
-        validators = {
-            401: self._models.error,
-            422: self._models.error
-        }
-
-        return {'token': self._api_key}, validators
-
     def get_tokens(self, query=None, skip=None, limit=None, types=None):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
 
         params = {
         }
@@ -38,7 +30,10 @@ class Tokens:
         if types is not None:
             params.update({'types': ','.join(types)})
 
-        self._models.eth.requests.get_tokens.validate(params)
+        validate_data(
+            self._models.eth.requests.get_tokens,
+            params
+        )
 
         params.update(api_key)
 
@@ -53,7 +48,7 @@ class Tokens:
         )
 
     def get_token_transfers_by_token_address(self, token, skip=None, limit=None, addresses=None):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
 
         params = {
             'token': token
@@ -68,7 +63,10 @@ class Tokens:
         if addresses is not None:
             params.update({'addresses': ','.join(addresses)})
 
-        self._models.eth.requests.get_token_transfers_by_token_address.validate(params)
+        validate_data(
+            self._models.eth.requests.get_token_transfers_by_token_address,
+            params
+        )
 
         params.update(api_key)
 
@@ -83,13 +81,16 @@ class Tokens:
         )
 
     def get_token_contract(self, addresses):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
 
         params = {
             'addresses': ','.join(addresses)
         }
 
-        self._models.eth.requests.get_token_contract.validate(params)
+        validate_data(
+            self._models.eth.requests.get_token_contract,
+            params
+        )
 
         validators.update({
             200: self._models.eth.responses.get_token_contract

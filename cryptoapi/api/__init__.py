@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from .config import Config
+from cryptoapi.configs.api import Config
+from cryptoapi.utils.api import api_method_preprocessing
 from .rates import Rates
 from .eth import Eth
 
@@ -39,19 +40,8 @@ class Api:
         self.bch = None
         self.klay = None
 
-    def _prepare(self):
-        if not self._api_key:
-            raise Exception('api_key exception')
-
-        validators = {
-            401: self._models.error,
-            422: self._models.error
-        }
-
-        return {'token': self._api_key}, validators
-
     def get_coins(self):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
         validators.update({
             200: self._models.get_coins
         })

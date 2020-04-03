@@ -4,7 +4,7 @@ from .eth import Eth
 from .btc import Btc
 from .klay import Klay
 
-from .utils import string_type, integer_type
+from cryptoapi.utils.models import CustomValidator, string_type, integer_type, string_type_not_required
 
 
 # get_coins = {
@@ -15,16 +15,25 @@ from .utils import string_type, integer_type
 # }
 
 
-def get_coins(value):
+def get_coins_validation(value):
     return isinstance(value, str)
+
+get_coins = CustomValidator(
+    get_coins_validation,
+    'Get coins result must be a list of strings'
+)
 
 
 error = {
     'errors': {
         'type': 'list',
         'schema': {
-            'message': string_type,
-            'field': string_type
+            'type': 'dict',
+            'schema': {
+                'message': string_type,
+                'field': string_type_not_required,
+                'value': string_type_not_required
+            }
         }
     },
     'status': integer_type
