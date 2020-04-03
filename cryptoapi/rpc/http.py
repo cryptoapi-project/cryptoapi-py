@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
-import requests
+from requests import get, post, delete
 from .rpc import Rpc
 
 log = logging.getLogger(__name__)
@@ -14,40 +14,41 @@ class Http(Rpc):
             return None
         return {"http": proxy_url, "https": proxy_url}
 
-    def _make_request(self, method, url, data=None, params=None, validators=[]):
+    def _make_request(self, method, url, data=None, params=None, validators={}):
         response = method(
-            url=self.url,
+            url=self.url + url,
             data=data,
             params=params,
-            proxies=self.proxies
+            proxies=self.proxies()
         )
+        json_response = response.json()
+        status_code = response.status_code
+        if status_code in validators:
+            validators[status_code].validate(json_response)
 
-        for validator in validators:
-            validator(response)
+        return json_response
 
-        return response.json()
-
-    def get(self, params=None, validators=[]):
+    def get(self, url, params=None, validators=[]):
         return self._make_request(
-            method=requests.get,
-            url=self.url,
+            method=get,
+            url=url,
             params=params,
             validators=validators
         )
 
-    def post(self, data=None, params=None, validators=[]):
+    def post(self, url, data=None, params=None, validators=[]):
         return self._make_request(
-            method=requests.post,
-            url=self.url,
+            method=post,
+            url=url,
             data=data,
             params=params,
             validators=validators
         )
 
-    def delete(self, params=None, validators=[]):
+    def delete(self, url, params=None, validators=[]):
         return self._make_request(
-            method=requests.delete,
-            url=self.url,
+            method=delete,
+            url=url,
             params=params,
             validators=validators
         )

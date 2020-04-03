@@ -2,7 +2,7 @@ from .requests import Requests
 from .responses import Responses
 
 
-class General:
+class Rates:
 
     def __init__(self, model_wrapper):
         self.requests = Requests(model_wrapper)
