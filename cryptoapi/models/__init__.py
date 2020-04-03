@@ -10,5 +10,5 @@ class Models:
 
         self.eth = Eth(Model)
         self.btc = BTC(Model)
-        self.bch = None
+        self.bch = BTC(Model)
         self.klay = None
