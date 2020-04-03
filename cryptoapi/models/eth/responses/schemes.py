@@ -300,10 +300,7 @@ _get_tokens_items = {
 }
 
 get_tokens = {
-    'query': {
-        'type': 'string',
-        'nullable': True
-    },
+    'query': string_nullable_type,
     'skip': integer_type,
     'limit': integer_type,
     'count': integer_type,

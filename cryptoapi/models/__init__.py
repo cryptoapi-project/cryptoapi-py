@@ -2,6 +2,8 @@ from .model import Model
 from .general import General
 from .eth import Eth
 from .klay import Klay
+from .btc import BTC
+
 
 class Models:
 
@@ -9,6 +11,6 @@ class Models:
         self.general = General(Model)
 
         self.eth = Eth(Model)
-        self.btc = None
-        self.bch = None
+        self.btc = BTC(Model)
+        self.bch = BTC(Model)
         self.klay = Klay(Model)
