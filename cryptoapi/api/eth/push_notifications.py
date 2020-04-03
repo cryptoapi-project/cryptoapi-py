@@ -21,34 +21,45 @@ class PushNotifications:
 
         return {'token': self._api_key}, validators
 
-    # def get_tokens(self, query=None, skip=None, limit=None, types=None):
-    #     api_key, validators = self._prepare()
+    def subscribe_to_addresses_notifications(self, addresses, firebase_token):
+        api_key, validators = self._prepare()
 
-    #     params = {
-    #     }
+        params = {
+            'addresses': ','.join(addresses)
+        }
 
-    #     if query is not None:
-    #         params.update({'query': query})
+        data = {
+            'firebase_token': firebase_token
+        }
 
-    #     if skip is not None:
-    #         params.update({'skip': skip})
+        self._models.eth.requests.subscribe_to_addresses_notifications_params.validate(params)
+        self._models.eth.requests.subscribe_to_addresses_notifications_body.validate(data)
 
-    #     if limit is not None:
-    #         params.update({'limit': limit})
+        validators.update({
+            200: self._models.eth.responses.subscribe_to_addresses_notifications
+        })
 
-    #     if types is not None:
-    #         params.update({'types': ','.join(types)})
+        return self._http.post(
+            url='/push-notifications/addresses/{}/balance'.format(params['addresses']),
+            data=data,
+            params=api_key,
+            validators=validators
+        )
 
-    #     self._models.eth.requests.get_tokens.validate(params)
+    def unsubscribe_from_addresses_notifications(self, addresses, firebase_token):
+        api_key, validators = self._prepare()
 
-    #     params.update(api_key)
+        params = {
+            'addresses': ','.join(addresses),
+            'firebase_token': firebase_token
+        }
 
-    #     validators.update({
-    #         200: self._models.eth.responses.get_tokens
-    #     })
+        self._models.eth.requests.unsubscribe_from_addresses_notifications.validate(params)
 
-    #     return self._http.get(
-    #         url='/tokens/search',
-    #         params=params,
-    #         validators=validators
-    #     )
+        params.update(api_key)
+
+        return self._http.delete(
+            url='/push-notifications/addresses/{}/balance'.format(params['addresses']),
+            params=params,
+            validators=validators
+        )
