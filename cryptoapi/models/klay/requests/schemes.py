@@ -49,7 +49,8 @@ get_token_transfers_by_addresses = {
     'addresses': {
         'required': True,
         'type': 'list',
-        'schema': required_string_type},
+        'schema': required_string_type
+    },
     'token': required_string_type
 }
 
@@ -65,7 +66,8 @@ get_token_balance_by_holders_and_token = {
     'addresses': {
         'required': True,
         'type': 'list',
-        'schema': required_string_type},
+        'schema': required_string_type
+    },
     'token': required_string_type
 }
 
