@@ -2,6 +2,7 @@ from .model import Model
 from .rates import Rates
 from .eth import Eth
 from .btc import Btc
+from .klay import Klay
 
 from .utils import string_type, integer_type
 
@@ -40,4 +41,4 @@ class Models:
         self.eth = Eth(Model)
         self.btc = Btc(Model)
         self.bch = Btc(Model)
-        self.klay = None
+        self.klay = Klay(Model)
