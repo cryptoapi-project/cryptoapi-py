@@ -1,6 +1,7 @@
 from .model import Model
 from .rates import Rates
 from .eth import Eth
+from .btc import Btc
 
 from .utils import string_type, integer_type
 
@@ -34,9 +35,9 @@ class Models:
     def __init__(self):
         self.get_coins = Model(get_coins, True)
         self.error = Model(error)
-  
+
         self.rates = Rates(Model)
         self.eth = Eth(Model)
-        self.btc = None
-        self.bch = None
+        self.btc = Btc(Model)
+        self.bch = Btc(Model)
         self.klay = None
