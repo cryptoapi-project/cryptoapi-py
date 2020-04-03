@@ -1,7 +1,9 @@
 from .model import Model
 from .general import General
 from .eth import Eth
+from .klay import Klay
 from .btc import BTC
+
 
 class Models:
 
@@ -11,4 +13,4 @@ class Models:
         self.eth = Eth(Model)
         self.btc = BTC(Model)
         self.bch = BTC(Model)
-        self.klay = None
+        self.klay = Klay(Model)

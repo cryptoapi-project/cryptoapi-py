@@ -1,8 +1,7 @@
-from cryptoapi.models.utils import hex_type_not_required, string_type_not_required, integer_type_not_required,\
-    required_string_type, boolean_type_not_required
+from cryptoapi.models.utils import hex_type_not_required, string_type_not_required, integer_type_not_required, required_string_type, boolean_type_not_required
 
 
-# ETH.Common
+# KLAY.Common
 estimate_gas = {
     'from': hex_type_not_required,
     'to': hex_type_not_required,
@@ -10,12 +9,12 @@ estimate_gas = {
     'value': hex_type_not_required
 }
 
-# ETH.Blocks
+# KLAY.Blocks
 get_block_information_by_block_number_or_hash = {
     'block_number_or_hash': {
         'type': ['string', 'integer'],
         'required': True
-    }
+    },
 }
 
 get_information_about_the_latest_blocks_with_pagination = {
@@ -23,7 +22,7 @@ get_information_about_the_latest_blocks_with_pagination = {
     'limit': integer_type_not_required
 }
 
-# ETH.Addresses
+# KLAY.Addresses
 get_transactions_by_addresses = {
     'addresses': required_string_type,
     'skip': integer_type_not_required,
@@ -72,39 +71,40 @@ get_token_balance_by_holders_and_token = {
     'token': required_string_type
 }
 
-# ETH.Transactions
+# KLAY.Transactions
 get_transactions_with_pagination = {
-    'from': hex_type_not_required,
-    'to': hex_type_not_required,
+    'from': string_type_not_required,
+    'to': string_type_not_required,
     'skip': integer_type_not_required,
     'limit': integer_type_not_required,
     'block_number': integer_type_not_required
 }
 
 get_transaction_information = {
-    'hash': hex_type_not_required
+    'hash': required_string_type
 }
 
 get_transaction_receipt = {
-    'hash': hex_type_not_required
+    'hash': required_string_type
 }
 
 send_transaction = {
-    'tx': hex_type_not_required
+    'tx': required_string_type
 }
 
 decode_transaction = {
-    'tx': hex_type_not_required
+    'tx': required_string_type
 }
 
-# ETH.Tokens
+# KLAY.Tokens
 get_tokens = {
     'query': string_type_not_required,
     'skip': integer_type_not_required,
     'limit': integer_type_not_required,
     'types': {
         'type': 'list',
-        'schema': string_type_not_required
+        'required': False,
+        'schema': required_string_type
     }
 }
 
@@ -113,17 +113,14 @@ get_token_transfers_by_token_address = {
     'limit': integer_type_not_required,
     'addresses': {
         'type': 'list',
-        'schema': string_type_not_required
+        'required': False,
+        'schema': required_string_type
     },
     'token': required_string_type
 }
 
 get_token_contract = {
-    'address': {
-        'required': True,
-        'type': 'list',
-        'schema': required_string_type
-    },
+    'address': required_string_type
 }
 
 # ETH.Push Notifications
@@ -140,7 +137,7 @@ unsubscribe_from_addresses_notifications = {
     'firebase_token': required_string_type
 }
 
-# ETH.Contracts
+# KLAY.Contracts
 get_contracts_logs = {
     'cursor': string_type_not_required,
     'reversed_fetch': boolean_type_not_required,
@@ -148,11 +145,13 @@ get_contracts_logs = {
     'to_block': integer_type_not_required,
     'addresses': {
         'type': 'list',
-        'schema': string_type_not_required
+        'required': False,
+        'schema': required_string_type
     },
     'topics': {
         'type': 'list',
-        'schema': string_type_not_required
+        'required': False,
+        'schema': required_string_type
     }
 }
 
@@ -165,7 +164,6 @@ contract_call_body = {
     'amount': required_string_type,
     'bytecode': required_string_type
 }
-
 
 get_contract_general_information = {
     'address': required_string_type
