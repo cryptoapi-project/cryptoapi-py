@@ -1,3 +1,6 @@
+from cryptoapi.utils.api import api_method_preprocessing, validate_data
+
+
 class PushNotifications:
     def __init__(
         self,
@@ -9,19 +12,8 @@ class PushNotifications:
         self._api_key = api_key
         self._models = models
 
-    def _prepare(self):
-        if not self._api_key:
-            raise Exception('api_key exception')
-
-        validators = {
-            401: self._models.error,
-            422: self._models.error
-        }
-
-        return {'token': self._api_key}, validators
-
     def subscribe_to_addresses_notifications(self, addresses, firebase_token):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
 
         params = {
             'addresses': ','.join(addresses)
@@ -31,8 +23,14 @@ class PushNotifications:
             'firebase_token': firebase_token
         }
 
-        self._models.eth.requests.subscribe_to_addresses_notifications_params.validate(params)
-        self._models.eth.requests.subscribe_to_addresses_notifications_body.validate(data)
+        validate_data(
+            self._models.eth.requests.subscribe_to_addresses_notifications_params,
+            params
+        )
+        validate_data(
+            self._models.eth.requests.subscribe_to_addresses_notifications_body,
+            data
+        )
 
         validators.update({
             200: self._models.eth.responses.subscribe_to_addresses_notifications
@@ -46,14 +44,17 @@ class PushNotifications:
         )
 
     def unsubscribe_from_addresses_notifications(self, addresses, firebase_token):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
 
         params = {
             'addresses': ','.join(addresses),
             'firebase_token': firebase_token
         }
 
-        self._models.eth.requests.unsubscribe_from_addresses_notifications.validate(params)
+        validate_data(
+            self._models.eth.requests.unsubscribe_from_addresses_notifications,
+            params
+        )
 
         params.update(api_key)
 

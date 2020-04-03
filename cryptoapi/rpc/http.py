@@ -24,7 +24,9 @@ class Http(Rpc):
         json_response = response.json()
         status_code = response.status_code
         if status_code in validators:
-            validators[status_code].validate(json_response)
+            validator = validators[status_code]
+            if not validator.validate(json_response):
+                raise Exception(validator.errors)
 
         return json_response
 

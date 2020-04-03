@@ -1,4 +1,5 @@
-from cryptoapi.utils.models import hex_type, string_type, integer_type, utc_type, boolean_type, string_nullable_type
+from cryptoapi.utils.models import CustomValidator, hex_type, string_type, integer_type, utc_type, boolean_type,\
+    string_nullable_type
 
 # KLAY.Common
 
@@ -425,8 +426,13 @@ get_contracts_logs = {
 }
 
 
-def contract_call(value):
+def _contract_call_validation(value):
     return isinstance(value, str)
+
+contract_call = CustomValidator(
+    _contract_call_validation,
+    'Contract call result must be a string'
+)
 
 get_contract_general_information = {
     'bytecode': hex_type,
