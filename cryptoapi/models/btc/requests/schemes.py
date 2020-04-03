@@ -1,4 +1,4 @@
-from cryptoapi.models.utils import string_type_not_required, integer_type_not_required, required_string_type
+from cryptoapi.utils.models import string_type_not_required, integer_type_not_required, required_string_type
 
 # BTC.Blocks
 

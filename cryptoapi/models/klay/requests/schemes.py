@@ -1,4 +1,4 @@
-from cryptoapi.models.utils import hex_type_not_required, string_type_not_required, integer_type_not_required, required_string_type, boolean_type_not_required
+from cryptoapi.utils.models import hex_type_not_required, string_type_not_required, integer_type_not_required, required_string_type, boolean_type_not_required
 
 
 # KLAY.Common

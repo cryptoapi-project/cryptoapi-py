@@ -1,4 +1,5 @@
-from cryptoapi.models.utils import hex_type, string_type, integer_type, utc_type, boolean_type, string_nullable_type
+from cryptoapi.utils.models import CustomValidator, hex_type, string_type, integer_type, utc_type, boolean_type,\
+    string_nullable_type
 
 # BTC.Common
 
@@ -11,8 +12,13 @@ network_information = {
 }
 
 
-def estimate_fee(value):
+def _estimate_fee_validation(value):
     return isinstance(value, str)
+
+estimate_fee = CustomValidator(
+    _estimate_fee_validation,
+    'Fee value must be a string'
+)
 
 # BTC.Blocks
 

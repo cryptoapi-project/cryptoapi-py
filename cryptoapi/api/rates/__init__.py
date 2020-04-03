@@ -1,3 +1,6 @@
+from cryptoapi.utils.api import api_method_preprocessing, validate_data
+
+
 class Rates:
 
     def __init__(
@@ -15,21 +18,14 @@ class Rates:
         self._api_key = api_key
         self._models = models
 
-    def _prepare(self):
-        if not self._api_key:
-            raise Exception('api_key exception')
-
-        validators = {
-            401: self._models.error,
-            422: self._models.error
-        }
-
-        return {'token': self._api_key}, validators
-
     def get_coins_rates(self, coins):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
         params = {'coins': ','.join(coins)}
-        self._models.rates.requests.get_coins_rates.validate(params)
+
+        validate_data(
+            self._models.rates.requests.get_coins_rates,
+            params
+        )
 
         validators.update({
             200: self._models.rates.responses.get_coins_rates
@@ -42,9 +38,13 @@ class Rates:
         )
 
     def get_coins_history(self, coins):
-        api_key, validators = self._prepare()
+        api_key, validators = api_method_preprocessing(self)
         params = {'coins': ','.join(coins)}
-        self.models.rates.requests.get_coins_history.validate(params)
+
+        validate_data(
+            self._models.rates.requests.get_coins_history,
+            params
+        )
 
         validators.update({
             200: self._models.rates.responses.get_coins_history
