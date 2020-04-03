@@ -67,7 +67,7 @@ get_token_balance_by_holders_and_token = {
 }
 
 # ETH.Transactions
-get_transactions_with_pagination = {
+get_transactions = {
     'from': hex_type,
     'to': hex_type,
     'skip': integer_type,

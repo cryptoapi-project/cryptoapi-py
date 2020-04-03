@@ -42,10 +42,13 @@ class Blocks:
     def get_blocks(self, skip=None, limit=None):
         api_key, validators = self._prepare()
 
-        params = {
-            'skip': skip
+        params = {}
+        if skip is not None:
+            params.update({'skip': skip})
 
-        }
+        if limit is not None:
+            params.update({'limit': limit})
+
         self._models.eth.requests.estimate_gas.validate(params)
 
         validators.update({
@@ -54,8 +57,8 @@ class Blocks:
 
         params.update(api_key)
 
-        return self._http.post(
+        return self._http.get(
             url='/blocks',
-            data=params,
+            params=params,
             validators=validators
         )

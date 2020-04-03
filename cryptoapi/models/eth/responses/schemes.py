@@ -205,7 +205,7 @@ get_token_balance_by_holders_and_token = get_tokens_balances_by_holders
 
 # ETH.Transactions
 
-get_transactions_with_pagination = {
+get_transactions = {
     'items': {
         'type': 'list',
         'schema': {
