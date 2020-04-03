@@ -3,7 +3,6 @@ class PushNotifications:
         self,
         http,
         models,
-        debug,
         api_key
     ):
         self._http = http

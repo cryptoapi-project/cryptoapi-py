@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from .config import Config
 from .rates import Rates
+from .eth import Eth
 
 
 class Api:
@@ -27,7 +28,13 @@ class Api:
             debug,
             api_key
         )
-        self.eth = None
+        self.eth = Eth(
+            http_wrapper,
+            self._models,
+            self._config,
+            debug,
+            api_key
+        )
         self.btc = None
         self.bch = None
         self.klay = None

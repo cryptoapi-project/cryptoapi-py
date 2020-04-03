@@ -3,7 +3,6 @@ class Tokens:
         self,
         http,
         models,
-        debug,
         api_key
     ):
         self._http = http
