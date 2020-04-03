@@ -1,7 +1,7 @@
 from .model import Model
 from .general import General
 from .eth import Eth
-
+from .btc import BTC
 
 class Models:
 
@@ -9,6 +9,6 @@ class Models:
         self.general = General(Model)
 
         self.eth = Eth(Model)
-        self.btc = None
+        self.btc = BTC(Model)
         self.bch = None
         self.klay = None
