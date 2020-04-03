@@ -11,14 +11,14 @@ estimate_gas = {
 }
 
 # ETH.Blocks
-get_block_information_by_block_number_or_hash = {
+get_block = {
     'block_number_or_hash': {
         'type': ['string', 'integer'],
         'required': True
     }
 }
 
-get_information_about_the_latest_blocks_with_pagination = {
+get_blocks = {
     'skip': integer_type_not_required,
     'limit': integer_type_not_required
 }
@@ -73,7 +73,7 @@ get_token_balance_by_holders_and_token = {
 }
 
 # ETH.Transactions
-get_transactions_with_pagination = {
+get_transactions = {
     'from': hex_type_not_required,
     'to': hex_type_not_required,
     'skip': integer_type_not_required,

@@ -15,9 +15,9 @@ class Rpc:
         self.user = kwargs.get("user")
         self.password = kwargs.get("password")
 
-        self.url = url
         self.debug = debug
         self.api_key = kwargs.get("api_key")
+        self.url = url
 
     @property
     def debug(self):
