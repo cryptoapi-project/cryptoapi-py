@@ -1,17 +1,12 @@
-class Rates:
-
+class Common:
     def __init__(
         self,
-        http_wrapper,
+        http,
         models,
-        config,
         debug,
         api_key
     ):
-        self._http = http_wrapper(
-            url=config.BASE_HTTP_URL + '/rates',
-            debug=debug
-        )
+        self._http = http
         self._api_key = api_key
         self._models = models
 
@@ -26,32 +21,37 @@ class Rates:
 
         return {'token': self._api_key}, validators
 
-    def get_coins_rates(self, coins):
+    def get_network_info(self):
         api_key, validators = self._prepare()
-        params = {'coins': ','.join(coins)}
-        self._models.rates.requests.get_coins_rates.validate(params)
 
         validators.update({
-            200: self._models.rates.responses.get_coins_rates
+            200: self._models.eth.responses.get_network_info
         })
 
         return self._http.get(
-            url='/{}/'.format(params['coins']),
+            url='/network',
             params=api_key,
             validators=validators
         )
 
-    def get_coins_history(self, coins):
+    def estimate_gas(self, _from, to, data, value):
         api_key, validators = self._prepare()
-        params = {'coins': ','.join(coins)}
-        self.models.rates.requests.get_coins_history.validate(params)
+
+        data = {
+            'from': _from,
+            'to': to,
+            'data': data,
+            'value': value
+        }
+        self._models.eth.requests.estimate_gas.validate(data)
 
         validators.update({
-            200: self._models.rates.responses.get_coins_history
+            200: self._models.eth.responses.estimate_gas
         })
 
-        return self._http.get(
-            url='/{}/history'.format((params['coins'])),
+        return self._http.post(
+            url='/estimate-gas',
+            data=data,
             params=api_key,
             validators=validators
         )

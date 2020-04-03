@@ -10,11 +10,11 @@ estimate_gas = {
 }
 
 # ETH.Blocks
-get_block_information_by_block_number_or_hash = {
+get_block = {
     'block_number_or_hash': {'type': ['string', 'integer']}
 }
 
-get_information_about_the_latest_blocks_with_pagination = {
+get_blocks = {
     'skip': integer_type,
     'limit': integer_type
 }

@@ -2,7 +2,7 @@ from cryptoapi.models.utils import hex_type, string_type, integer_type, utc_type
 
 # ETH.Common
 
-get_network_information = {
+get_network_info = {
     'last_block': integer_type,
     'count_transactions': string_type,
     'gas_price': string_type,
@@ -43,10 +43,10 @@ _block_item = {
     'count_transactions': integer_type
 }
 
-get_block_information_by_block_number_or_hash = _block_item
+get_block = _block_item
 
 
-get_information_about_the_latest_blocks_with_pagination = {
+get_blocks = {
     'skip': integer_type,
     'limit': integer_type,
     'count': integer_type,
