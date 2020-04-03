@@ -1,12 +1,11 @@
 from cryptoapi.models.utils import hex_type, string_type, integer_type, utc_type, boolean_type, string_nullable_type
 
-# ETH.Common
+# KLAY.Common
 
 get_network_information = {
     'last_block': integer_type,
     'count_transactions': string_type,
     'gas_price': string_type,
-    'hashrate': integer_type,
     'difficulty': integer_type
 }
 
@@ -16,32 +15,30 @@ estimate_gas = {
     'nonce': string_type
 }
 
-# ETH.Blocks
+# KLAY.Blocks
 
 _block_item = {
-    'size': integer_type,
-    'difficulty': integer_type,
-    'total_difficulty': string_type,
-    'uncles': {'type': 'list'},
+    "size": integer_type,
+    'block_score': string_type,
+    'total_block_score': string_type,
     'number': integer_type,
     'hash': hex_type,
     'parent_hash': hex_type,
-    'nonce': hex_type,
-    'sha3_uncles': hex_type,
-    'logs_bloom': hex_type,
+    'reward': hex_type,
+    'governance_data': string_type,
+    'vote_data': string_type,
+    'timestamp_fos': string_type,
+    'logs_bloom': string_type,
     'transaction_root': hex_type,
     'state_root': hex_type,
     'receipts_root': hex_type,
-    'miner': hex_type,
-    'mix_hash': hex_type,
-    'extra_data': hex_type,
-    'gas_limit': string_type,
+    'extra_data': string_type,
     'gas_used': integer_type,
     'utc': utc_type,
-    'reward': string_type,
-    'uncle_rewards': {'type': 'list'},
+    'block_reward': string_type,
     'count_transactions': integer_type
 }
+
 
 get_block_information_by_block_number_or_hash = _block_item.copy()
 
@@ -59,7 +56,7 @@ get_information_about_the_latest_blocks_with_pagination = {
     }
 }
 
-# ETH.Addresses
+# KLAY.Addresses
 
 _transfer_item = {
     'block_number': integer_type,
@@ -98,6 +95,11 @@ _internal_transactions = {
     'is_suicide': boolean_type,
     'type': string_type
 }
+_signatures = {
+    's': hex_type,
+    'r': hex_type,
+    'v': hex_type,
+}
 
 _transactions_item = {
     'block_hash': hex_type,
@@ -112,16 +114,35 @@ _transactions_item = {
     'to': hex_type,
     'transaction_index': integer_type,
     'value': string_type,
-    'v': hex_type,
-    's': hex_type,
-    'r': hex_type,
     'internal_transactions': {
         'type': 'list',
         'schema': {
             'type': 'dict',
             'schema': _internal_transactions
         }
-    }
+    },
+    'type': string_type,
+    'type_int': integer_type,
+    'signatures': {
+        'type': 'list',
+        'schema': {
+            'type': 'dict',
+            'schema': _signatures
+        }
+    },
+    'code_format': string_nullable_type,
+    'fee_payer': string_nullable_type,
+    'fee_payer_signatures': {
+        'type': 'list',
+        'schema': {
+            'type': 'dict',
+            'schema': _signatures
+        }
+    },
+    'fee_ratio': string_nullable_type,
+    'human_readable': string_nullable_type,
+    'key': string_nullable_type,
+    'sender_tx_hash': hex_type
 }
 
 get_transaction_intersections_by_addresses = {
@@ -203,7 +224,7 @@ get_tokens_balances_by_holders = {
 }
 get_token_balance_by_holders_and_token = get_tokens_balances_by_holders.copy()
 
-# ETH.Transactions
+# KLAY.Transactions
 
 get_transactions_with_pagination = {
     'items': {
@@ -233,7 +254,6 @@ _receipt_logs = {
 
 _receipt = {
     'contract_address': string_nullable_type,
-    'cumulative_gas_used': integer_type,
     'gas_used': integer_type,
     'status': boolean_type,
     'logs': {
@@ -268,18 +288,38 @@ send_transaction = {
     'hash': hex_type,
 }
 
-decode_transaction = {
-    'nonce': integer_type,
-    'gas_price': string_type,
-    'gas_limit': string_type,
-    'to': string_type,
-    'data': hex_type,
-    'v': integer_type,
-    'r': hex_type,
-    's': hex_type
+_decode_transaction_signatures = {
+    'type': 'list',
+    'schema': hex_type
 }
 
-# ETH.Tokens
+decode_transaction = {
+    'type': string_type,
+    'nonce': integer_type,
+    'gas_price': string_type,
+    'gas': string_type,
+    'from': hex_type,
+    'human_readable': boolean_type,
+    'fee_ratio': string_type,
+    'code_format': string_type,
+    'fee_payer': string_type,
+    'payer_v': string_type,
+    'payer_r': string_type,
+    'payer_s': string_type,
+    'fee_payer_signatures': _decode_transaction_signatures,
+    'to': string_type,
+    'value': string_type,
+    'data': string_type,
+    'v': string_type,
+    'r': string_type,
+    's': string_type,
+    'signatures': {
+        'type': 'list',
+        'schema': _decode_transaction_signatures
+    }
+}
+
+# KLAY.Tokens
 
 _tokens_items = {
     'total_supply': string_type,
@@ -315,17 +355,17 @@ get_tokens = {
 
 }
 _token_transfers = {
-    'transaction_hash': hex_type,
-    'utc': utc_type,
-    'to': hex_type,
     'type': string_type,
-    'value': hex_type,
-    'log_index': integer_type,
-    'block_number': integer_type,
-    'address': hex_type,
-    'transaction_index': integer_type,
-    'from': hex_type,
     'execute_address': hex_type,
+    'from': hex_type,
+    'to': hex_type,
+    'value': string_type,
+    'address': hex_type,
+    'block_number': integer_type,
+    'transaction_hash': hex_type,
+    'transaction_index': integer_type,
+    'log_index': integer_type,
+    'utc': utc_type,
 }
 
 get_token_transfers_by_token_address = {
@@ -369,30 +409,19 @@ subscribe_to_addresses_notifications = {
     'token': string_type,
 }
 
-_topics_indexed = {
-    'topic': hex_type,
-    'index': integer_type,
-}
-
 get_contracts_logs = {
-    'transaction_hash': hex_type,
-    'block_hash': hex_type,
+    'address': hex_type,
     'data': hex_type,
-    'transaction_index': integer_type,
-    'log_index': integer_type,
-    'topics_indexed': {
-        'type': 'list',
-        'schema': {
-            'type': 'dict',
-            'schema': _topics_indexed
-        }
-    },
     'topics': {
         'type': 'list',
         'schema': hex_type
     },
+    'log_index': integer_type,
+    'transaction_hash': hex_type,
+    'transaction_index': integer_type,
+    'block_hash': hex_type,
     'block_number': integer_type,
-    'address': hex_type
+    'id': string_type
 }
 
 
