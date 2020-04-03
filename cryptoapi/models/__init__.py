@@ -4,7 +4,7 @@ from .eth import Eth
 from .btc import Btc
 from .klay import Klay
 
-from .utils import string_type, integer_type
+from cryptoapi.utils.models import string_type, integer_type
 
 
 # get_coins = {

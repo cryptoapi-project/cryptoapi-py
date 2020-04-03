@@ -1,4 +1,4 @@
-from cryptoapi.models.utils import hex_type, string_type, integer_type, utc_type, boolean_type, string_nullable_type
+from cryptoapi.utils.models import hex_type, string_type, integer_type, utc_type, boolean_type, string_nullable_type
 
 # BTC.Common
 

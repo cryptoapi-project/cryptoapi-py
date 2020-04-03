@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from .config import Config
+from cryptoapi.configs.api import Config
 from .rates import Rates
 from .eth import Eth
 

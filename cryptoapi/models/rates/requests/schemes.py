@@ -1,4 +1,4 @@
-from cryptoapi.models.utils import string_type
+from cryptoapi.utils.models import string_type
 
 _coins_request = {
     'type': 'list',

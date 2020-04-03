@@ -1,4 +1,4 @@
-from cryptoapi.models.utils import string_type, utc_type
+from cryptoapi.utils.models import string_type, utc_type
 
 _rate_schema = {
     'type': 'dict',
