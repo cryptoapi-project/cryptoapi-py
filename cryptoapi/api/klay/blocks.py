@@ -44,12 +44,12 @@ class Blocks:
             params.update({'limit': limit})
 
         validate_data(
-            self._models.klay.requests.estimate_gas,
+            self._models.klay.requests.get_blocks,
             params
         )
 
         validators.update({
-            200: self._models.klay.responses.estimate_gas
+            200: self._models.klay.responses.get_blocks
         })
 
         params.update(api_key)

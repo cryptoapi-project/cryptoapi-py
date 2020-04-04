@@ -44,12 +44,12 @@ class Blocks:
             params.update({'limit': limit})
 
         validate_data(
-            self._models.eth.requests.estimate_gas,
+            self._models.eth.requests.get_blocks,
             params
         )
 
         validators.update({
-            200: self._models.eth.responses.estimate_gas
+            200: self._models.eth.responses.get_blocks
         })
 
         params.update(api_key)
