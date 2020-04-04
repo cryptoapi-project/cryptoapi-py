@@ -82,7 +82,10 @@ class Addresses:
             'addresses': ','.join(addresses)
         }
 
-        self._models.eth.requests.get_balances_by_addresses.validate(params)
+        validate_data(
+            self._models.eth.requests.get_balances_by_addresses,
+            params
+        )
 
         validators.update({
             200: self._models.eth.responses.get_balances_by_addresses
