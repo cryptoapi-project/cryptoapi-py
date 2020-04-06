@@ -3,6 +3,7 @@ from cryptoapi.configs.api import Config
 from cryptoapi.utils.api import api_method_preprocessing
 from .rates import Rates
 from .eth import Eth
+from .btc import Btc, Bch
 from .klay import Klay
 
 
@@ -37,8 +38,20 @@ class Api:
             debug,
             api_key
         )
-        self.btc = None
-        self.bch = None
+        self.btc = Btc(
+            http_wrapper,
+            self._models,
+            self._config,
+            debug,
+            api_key
+        )
+        self.bch = Bch(
+            http_wrapper,
+            self._models,
+            self._config,
+            debug,
+            api_key
+        )
         self.klay = Klay(
             http_wrapper,
             self._models,

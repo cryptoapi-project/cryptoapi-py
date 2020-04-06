@@ -10,13 +10,14 @@ class Testnet:
     def __init__(
         self,
         http_wrapper,
+        coin_url,
         models,
         config,
         debug,
         api_key
     ):
         self._http = http_wrapper(
-            url=config.BASE_TESTNET_HTTP_URL + '/coins/btc',
+            url=config.BASE_TESTNET_HTTP_URL + coin_url,
             debug=debug
         )
         self._api_key = api_key
