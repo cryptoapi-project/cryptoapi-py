@@ -3,6 +3,7 @@ from cryptoapi.configs.api import Config
 from cryptoapi.utils.api import api_method_preprocessing
 from .rates import Rates
 from .eth import Eth
+from .klay import Klay
 
 
 class Api:
@@ -38,7 +39,13 @@ class Api:
         )
         self.btc = None
         self.bch = None
-        self.klay = None
+        self.klay = Klay(
+            http_wrapper,
+            self._models,
+            self._config,
+            debug,
+            api_key
+        )
 
     def get_coins(self):
         api_key, validators = api_method_preprocessing(self)

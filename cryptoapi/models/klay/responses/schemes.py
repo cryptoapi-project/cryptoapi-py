@@ -3,7 +3,7 @@ from cryptoapi.utils.models import CustomValidator, hex_type, string_type, integ
 
 # KLAY.Common
 
-get_network_information = {
+get_network_info = {
     'last_block': integer_type,
     'count_transactions': string_type,
     'gas_price': string_type,
@@ -41,10 +41,10 @@ _block_item = {
 }
 
 
-get_block_information_by_block_number_or_hash = _block_item.copy()
+get_block = _block_item.copy()
 
 
-get_information_about_the_latest_blocks_with_pagination = {
+get_blocks = {
     'skip': integer_type,
     'limit': integer_type,
     'count': integer_type,
@@ -227,7 +227,7 @@ get_token_balance_by_holders_and_token = get_tokens_balances_by_holders.copy()
 
 # KLAY.Transactions
 
-get_transactions_with_pagination = {
+get_transactions = {
     'items': {
         'type': 'list',
         'schema': {
