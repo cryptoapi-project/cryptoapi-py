@@ -2,23 +2,23 @@ from cryptoapi.utils.models import string_type_not_required, integer_type_not_re
 
 # BTC.Blocks
 
-block_by_height_or_hash = {
+get_block = {
     'block_height_or_hash': required_string_type
 }
 
 
-blocks = {
+get_blocks = {
     'skip': integer_type_not_required,
     'limit': integer_type_not_required,
 }
 
 # BTC.Transactions
 
-transaction_by_hash = {
+get_transaction_by_hash = {
     'hash': required_string_type
 }
 
-transactions = {
+get_transactions = {
     'block_height_or_hash': string_type_not_required,
     'skip': integer_type_not_required,
     'limit': integer_type_not_required,
@@ -36,18 +36,18 @@ decode_transaction = {
 
 # BTC.Addresses
 
-outputs_by_addresses = {
+get_outputs_by_addresses = {
     'addresses': required_string_type,
     'status': required_string_type,
     'skip': integer_type_not_required,
     'limit': integer_type_not_required
 }
 
-utxo_coin_addresses_info = {
+get_utxo_coin_addresses_info = {
     'addresses': required_string_type
 }
 
-utxo_coin_addresses_history = {
+get_utxo_coin_addresses_history = {
     'addresses': required_string_type,
     'skip': integer_type_not_required,
     'limit': integer_type_not_required

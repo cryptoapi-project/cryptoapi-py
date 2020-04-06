@@ -16,7 +16,7 @@ class Common:
         api_key, validators = api_method_preprocessing(self)
 
         validators.update({
-            200: self._models.btc.responses.network_information
+            200: self._models.btc.responses.get_network_information
         })
 
         return self._http.get(
@@ -36,12 +36,12 @@ class Common:
         }
 
         validate_data(
-            self._models.btc.requests.estimate_fee,
+            self._models.btc.requests.get_estimate_fee,
             data
         )
 
         validators.update({
-            200: self._models.btc.responses.estimate_fee
+            200: self._models.btc.responses.get_estimate_fee
         })
 
         return self._http.post(
