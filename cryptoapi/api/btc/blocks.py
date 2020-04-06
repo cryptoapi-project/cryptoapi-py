@@ -12,19 +12,19 @@ class Blocks:
         self._api_key = api_key
         self._models = models
 
-    def get_block_by_height_or_hash(self, block_height_or_hash):
+    def get_block(self, block_height_or_hash):
         api_key, validators = api_method_preprocessing(self)
 
         params = {
             'block_height_or_hash': block_height_or_hash
         }
         validate_data(
-            self._models.btc.requests.block_by_height_or_hash,
+            self._models.btc.requests.get_block,
             params
         )
 
         validators.update({
-            200: self._models.btc.responses.block_by_height_or_hash
+            200: self._models.btc.responses.get_block
         })
 
         return self._http.get(
@@ -44,12 +44,12 @@ class Blocks:
             params.update({'limit': limit})
 
         validate_data(
-            self._models.btc.requests.blocks,
+            self._models.btc.requests.get_blocks,
             params
         )
 
         validators.update({
-            200: self._models.btc.responses.blocks
+            200: self._models.btc.responses.get_blocks
         })
 
         params.update(api_key)
