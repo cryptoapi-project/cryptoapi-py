@@ -3,7 +3,7 @@ from cryptoapi.utils.models import CustomValidator, hex_type, string_type, integ
 
 # BTC.Common
 
-network_information = {
+get_network_information = {
     'last_block': string_type,
     'count_transactions': string_type,
     'hashrate': string_type,
@@ -15,14 +15,14 @@ network_information = {
 def _estimate_fee_validation(value):
     return isinstance(value, str)
 
-estimate_fee = CustomValidator(
+get_estimate_fee = CustomValidator(
     _estimate_fee_validation,
     'Fee value must be a string'
 )
 
 # BTC.Blocks
 
-block_by_height_or_hash = {
+get_block = {
     'height': integer_type,
     'hash': hex_type,
     'bits': integer_type,
@@ -50,7 +50,7 @@ _blocks_items = {
     'reward': integer_type,
     'count_transactions': integer_type
 }
-blocks = {
+get_blocks = {
     'skip': string_type,
     'limit': integer_type,
     'count': integer_type,
@@ -73,7 +73,7 @@ _outputs_items = {
     'script': string_type
 }
 
-transaction_by_hash = {
+get_transaction_by_hash = {
     'block_height': integer_type,
     'block_hash': hex_type,
     'block_time': utc_type,
@@ -102,9 +102,9 @@ transaction_by_hash = {
     }
 }
 
-_transactions_items = transaction_by_hash.copy()
+_transactions_items = get_transaction_by_hash.copy()
 
-transactions = {
+get_transactions = {
     'block_height_or_hash': integer_type,
     'skip': integer_type,
     'limit': integer_type,
@@ -157,7 +157,7 @@ decode_transaction = {
 
 # BTC.Addresses
 
-outputs_by_addresses = {
+get_outputs_by_addresses = {
     'address': string_type,
     'is_coinbase': boolean_type,
     'mint_block_height': integer_type,
@@ -179,7 +179,7 @@ _balance = {
     'unconfirmed': string_type
 }
 
-utxo_coin_addresses_info = {
+get_utxo_coin_addresses_info = {
     'address': string_type,
     'balance': {
         'type': 'dict',
@@ -188,9 +188,9 @@ utxo_coin_addresses_info = {
 }
 
 
-_utxo_coin_addresses_history_items = transaction_by_hash.copy()
+_utxo_coin_addresses_history_items = get_transaction_by_hash.copy()
 
-utxo_coin_addresses_history = {
+get_utxo_coin_addresses_history = {
     'skip': string_type,
     'limit': integer_type,
     'count': integer_type,

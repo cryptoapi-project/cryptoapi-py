@@ -33,14 +33,14 @@ class Transactions:
             params.update({'block_height_or_hash': block_height_or_hash})
 
         validate_data(
-            self._models.btc.requests.transactions,
+            self._models.btc.requests.get_transactions,
             params
         )
 
         params.update(api_key)
 
         validators.update({
-            200: self._models.btc.responses.transactions
+            200: self._models.btc.responses.get_transactions
         })
 
         return self._http.get(
@@ -57,12 +57,12 @@ class Transactions:
         }
 
         validate_data(
-            self._models.btc.requests.transaction_by_hash,
+            self._models.btc.requests.get_transaction_by_hash,
             params
         )
 
         validators.update({
-            200: self._models.btc.responses.transaction_by_hash
+            200: self._models.btc.responses.get_transaction_by_hash
         })
 
         return self._http.get(
