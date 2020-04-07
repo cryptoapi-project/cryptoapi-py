@@ -52,4 +52,4 @@ class Models:
         self.btc = Btc(Model)
         self.bch = Btc(Model)
         self.klay = Klay(Model)
-        self.whooks = Klay(Whooks)
+        self.whooks = Whooks(Model)

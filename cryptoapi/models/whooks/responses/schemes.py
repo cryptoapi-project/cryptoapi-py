@@ -2,8 +2,8 @@ from cryptoapi.utils.models import hex_type_not_required, string_type, integer_t
 
 
 _transfer_triggers = {
-    "transfer_address": "string",
-    "token_address": "string"
+    'transfer_address': string_type,
+    'token_address': string_type
 }
 
 create_webhook = {

@@ -4,8 +4,8 @@ from cryptoapi.utils.models import string_type, integer_type,\
 
 
 _transfer_triggers = {
-    "transfer_address": "string",
-    "token_address": "string"
+    'transfer_address': string_type,
+    'token_address': string_type
 }
 
 create_webhook = {
@@ -23,7 +23,10 @@ create_webhook = {
     'transfer_triggers': {
         'required': True,
         'type': 'list',
-        'schema': _transfer_triggers
+        'schema': {
+            'type': 'dict',
+            'schema': _transfer_triggers
+        }
     }
 }
 
@@ -45,12 +48,18 @@ change_webhook = {
     'transaction_addresses': {
         'required': True,
         'type': 'list',
-        'schema': required_string_type
+        'schema': {
+            'type': 'dict',
+            'schema': _transfer_triggers
+        }
     },
     'transfer_triggers': {
         'required': True,
         'type': 'list',
-        'schema': _transfer_triggers
+        'schema': {
+            'type': 'dict',
+            'schema': _transfer_triggers
+        }
     },
     'id': integer_type
 }
