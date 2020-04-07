@@ -5,6 +5,7 @@ from .rates import Rates
 from .eth import Eth
 from .btc import Btc, Bch
 from .klay import Klay
+from .whooks import Whooks
 
 
 class Api:
@@ -53,6 +54,13 @@ class Api:
             api_key
         )
         self.klay = Klay(
+            http_wrapper,
+            self._models,
+            self._config,
+            debug,
+            api_key
+        )
+        self.whooks = Whooks(
             http_wrapper,
             self._models,
             self._config,
