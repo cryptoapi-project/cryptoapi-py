@@ -3,6 +3,7 @@ from .rates import Rates
 from .eth import Eth
 from .btc import Btc
 from .klay import Klay
+from .whooks import Whooks
 
 from cryptoapi.utils.models import CustomValidator, string_type, integer_type, string_type_not_required
 
@@ -51,3 +52,4 @@ class Models:
         self.btc = Btc(Model)
         self.bch = Btc(Model)
         self.klay = Klay(Model)
+        self.whooks = Klay(Whooks)
