@@ -5,13 +5,14 @@ utc_type = {'type': 'string', 'regex': regex_is_utc}
 string_type = {'type': 'string'}
 string_nullable_type = {'type': 'string', 'nullable': True}
 integer_type = {'type': 'integer'}
+integer_nullable_type = {'type': 'integer', 'nullable': True}
 required_string_type = {'required': True, 'type': 'string'}
 boolean_type = {'type': 'boolean'}
 hex_type_not_required = {'type': 'string', 'required': False, 'regex': regex_is_hex}
 string_type_not_required = {'type': 'string', 'required': False}
 integer_type_not_required = {'type': 'integer', 'required': False}
 boolean_type_not_required = {'type': 'boolean', 'required': False}
-
+string_int_type = {'type': ['string', 'integer']}
 
 class CustomValidator:
 

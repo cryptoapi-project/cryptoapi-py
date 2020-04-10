@@ -1,5 +1,5 @@
 from cryptoapi.utils.models import CustomValidator, hex_type, string_type, integer_type, utc_type, boolean_type,\
-    string_nullable_type
+    string_nullable_type, integer_nullable_type
 
 # BTC.Common
 
@@ -13,11 +13,11 @@ get_network_information = {
 
 
 def _estimate_fee_validation(value):
-    return isinstance(value, str)
+    return isinstance(value, float)
 
 get_estimate_fee = CustomValidator(
     _estimate_fee_validation,
-    'Fee value must be a string'
+    'Fee value must be a float'
 )
 
 # BTC.Blocks
@@ -51,7 +51,7 @@ _blocks_items = {
     'count_transactions': integer_type
 }
 get_blocks = {
-    'skip': string_type,
+    'skip': integer_type,
     'limit': integer_type,
     'count': integer_type,
     'items': {'type': 'list', 'schema': {'type': 'dict', 'schema': _blocks_items}}
@@ -64,19 +64,19 @@ _inputs_items = {
     'previous_transaction_hash': hex_type,
     'output_index': integer_type,
     'sequence_number': integer_type,
-    'script': string_nullable_type,
-    'satoshis': string_nullable_type
+    'script': string_nullable_type
 }
+
 _outputs_items = {
-    'address': string_type,
+    'address': string_nullable_type,
     'satoshis': integer_type,
     'script': string_type
 }
 
 get_transaction_by_hash = {
     'block_height': integer_type,
-    'block_hash': hex_type,
-    'block_time': utc_type,
+    'block_hash': string_nullable_type,
+    'block_time': string_nullable_type,
     'mempool_time': string_nullable_type,
     'fee': integer_type,
     'size': integer_type,
@@ -105,11 +105,11 @@ get_transaction_by_hash = {
 _transactions_items = get_transaction_by_hash.copy()
 
 get_transactions = {
-    'block_height_or_hash': integer_type,
+    'block_height_or_hash': integer_nullable_type,
     'skip': integer_type,
     'limit': integer_type,
     'from': string_nullable_type,
-    'to': string_type,
+    'to': string_nullable_type,
     'items': {
         'type': 'list',
         'schema': {
@@ -188,10 +188,52 @@ get_utxo_coin_addresses_info = {
 }
 
 
-_utxo_coin_addresses_history_items = get_transaction_by_hash.copy()
+_inputs_items = {
+    'address': string_nullable_type,
+    'previous_transaction_hash': hex_type,
+    'output_index': integer_type,
+    'sequence_number': integer_type,
+    'script': string_nullable_type,
+    'satoshis': integer_nullable_type
+}
 
+_outputs_items = {
+    'address': string_nullable_type,
+    'satoshis': integer_type,
+    'script': string_type
+}
+
+
+_utxo_coin_addresses_history_items = {
+    'block_height': integer_type,
+    'block_hash': string_nullable_type,
+    'block_time': string_nullable_type,
+    'mempool_time': string_nullable_type,
+    'fee': integer_type,
+    'size': integer_type,
+    'transaction_index': integer_type,
+    'n_lock_time': integer_type,
+    'value': integer_type,
+    'hash': hex_type,
+    'input_count': integer_type,
+    'output_count': integer_type,
+    'inputs': {
+        'type': 'list',
+        'schema': {
+            'type': 'dict',
+            'schema': _inputs_items
+        }
+    },
+    'outputs': {
+        'type': 'list',
+        'schema': {
+            'type': 'dict',
+            'schema': _outputs_items
+        }
+    }
+}
 get_utxo_coin_addresses_history = {
-    'skip': string_type,
+    'skip': integer_type,
     'limit': integer_type,
     'count': integer_type,
     'items': {
