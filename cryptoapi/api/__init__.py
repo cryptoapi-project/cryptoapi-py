@@ -3,7 +3,8 @@ from cryptoapi.configs.api import Config
 from cryptoapi.utils.api import api_method_preprocessing
 from .rates import Rates
 from .eth import Eth
-from .btc import Btc, Bch
+from .btc import Btc
+from .bch import Bch
 from .klay import Klay
 from .whooks import Whooks
 

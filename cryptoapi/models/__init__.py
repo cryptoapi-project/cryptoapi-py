@@ -2,6 +2,7 @@ from .model import Model
 from .rates import Rates
 from .eth import Eth
 from .btc import Btc
+from .bch import Bch
 from .klay import Klay
 from .whooks import Whooks
 
@@ -50,6 +51,6 @@ class Models:
         self.rates = Rates(Model)
         self.eth = Eth(Model)
         self.btc = Btc(Model)
-        self.bch = Btc(Model)
+        self.bch = Bch(Model)
         self.klay = Klay(Model)
         self.whooks = Whooks(Model)
