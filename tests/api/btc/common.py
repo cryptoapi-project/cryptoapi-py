@@ -1,10 +1,10 @@
 import unittest
 from cryptoapi import Client
-
+from .config import api_key
 
 class AddressesTestCase(unittest.TestCase):
     def setUp(self):
-        self.cli = Client("51228473d659eb21da3696f25e36d2d364225a9c80d52988ac2a711f1eb3d5d1")
+        self.cli = Client(api_key)
 
     def test_get_utxo_coin_addresses_info(self):
         response = self.cli.api.btc.common.get_estimate_fee()
