@@ -1,13 +1,13 @@
 import unittest
 from cryptoapi import Client
-from .config import api_key, trx_hash, trx_hex
+from .config import api_key, trx_hash, trx_hex, block_height
 
 class AddressesTestCase(unittest.TestCase):
     def setUp(self):
         self.cli = Client(api_key)
 
     def test_get_transactions(self):
-        response = self.cli.api.btc.transactions.get_transactions(6)
+        response = self.cli.api.btc.transactions.get_transactions(block_height)
         self.assertNotIn("status", response)
 
     def test_get_transaction_by_hash(self):
