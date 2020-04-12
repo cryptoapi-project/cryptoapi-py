@@ -168,5 +168,9 @@ contract_call_body = {
 
 
 get_contract_general_information = {
-    'address': required_string_type
+    'address': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    },
 }

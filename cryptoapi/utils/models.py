@@ -1,5 +1,5 @@
 regex_is_utc = '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]*Z$'
-regex_is_hex = '^[0-9a-fA-F]+'
+regex_is_hex = '^0x[0-9a-fA-F]+'
 hex_type = {'type': 'string', 'regex': regex_is_hex}
 utc_type = {'type': 'string', 'regex': regex_is_utc}
 string_type = {'type': 'string'}

@@ -40,7 +40,7 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/transfers'.format(params['addresses']),
+            url='/addresses/{}/transfers'.format(params.pop('addresses')),
             params=params,
             validators=validators
         )
@@ -70,7 +70,7 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/transactions'.format(params['addresses']),
+            url='/addresses/{}/transactions'.format(params.pop('addresses')),
             params=params,
             validators=validators
         )
@@ -92,7 +92,7 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/balance'.format(params['addresses']),
+            url='/addresses/{}/balance'.format(params.pop('addresses')),
             params=api_key,
             validators=validators
         )
@@ -114,7 +114,7 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}'.format(params['addresses']),
+            url='/addresses/{}'.format(params.pop('addresses')),
             params=api_key,
             validators=validators
         )
@@ -178,7 +178,7 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/balance/tokens'.format(params['addresses']),
+            url='/addresses/{}/balance/tokens'.format(params.pop('addresses')),
             params=params,
             validators=validators
         )
@@ -210,8 +210,8 @@ class Addresses:
 
         return self._http.get(
             url='/addresses/{}/balance/tokens/{}'.format(
-                params['addresses'],
-                params['token']
+                params.pop('addresses'),
+                params.pop('token')
             ),
             params=params,
             validators=validators

@@ -40,7 +40,7 @@ _block_item = {
     'gas_used': integer_type,
     'utc': utc_type,
     'reward': string_type,
-    'uncle_rewards': {'type': 'list'},
+    'uncle_rewards': {'type': 'dict'},
     'count_transactions': integer_type
 }
 
@@ -79,7 +79,7 @@ get_transactions_by_addresses = {
         'type': 'list',
         'schema': hex_type
     },
-    'skip': string_type,
+    'skip': integer_type,
     'limit': integer_type,
     'items': {
         'type': 'list',
@@ -130,7 +130,7 @@ get_transaction_intersections_by_addresses = {
         'type': 'list',
         'schema': hex_type
     },
-    'skip': string_type,
+    'skip': integer_type,
     'limit': integer_type,
     'items': {
         'type': 'list',
@@ -274,10 +274,11 @@ decode_transaction = {
     'gas_price': string_type,
     'gas_limit': string_type,
     'to': string_type,
-    'data': hex_type,
+    'value': string_type,
+    'data': string_type,
     'v': integer_type,
-    'r': hex_type,
-    's': hex_type
+    'r': string_type,
+    's': string_type
 }
 
 # ETH.Tokens
@@ -376,24 +377,18 @@ _topics_indexed = {
 }
 
 get_contracts_logs = {
-    'transaction_hash': hex_type,
-    'block_hash': hex_type,
-    'data': hex_type,
+    'transaction_hash': string_type,
+    'block_hash': string_type,
+    'data': string_type,
     'transaction_index': integer_type,
     'log_index': integer_type,
-    'topics_indexed': {
-        'type': 'list',
-        'schema': {
-            'type': 'dict',
-            'schema': _topics_indexed
-        }
-    },
     'topics': {
         'type': 'list',
-        'schema': hex_type
+        'schema': string_type
     },
     'block_number': integer_type,
-    'address': hex_type
+    'address': string_type,
+    "id": string_type
 }
 
 
@@ -406,5 +401,5 @@ contract_call = CustomValidator(
 )
 
 get_contract_general_information = {
-    'bytecode': hex_type,
+    'bytecode': string_type,
 }
