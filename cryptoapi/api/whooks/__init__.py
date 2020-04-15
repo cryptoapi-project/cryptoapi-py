@@ -12,7 +12,7 @@ class Whooks(Testnet):
         api_key
     ):
         self._http = http_wrapper(
-            url=config.BASE_WEB_HOOKS_URL,
+            url=config.api.BASE_WEB_HOOKS_URL,
             debug=debug
         )
         self._api_key = api_key
