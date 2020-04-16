@@ -18,7 +18,7 @@ class Testnet:
         api_key
     ):
         self._http = http_wrapper(
-            url=config.BASE_TESTNET_HTTP_URL + '/coins/eth',
+            url=config.api.BASE_TESTNET_HTTP_URL + '/coins/eth',
             debug=debug
         )
         self._api_key = api_key
