@@ -1,27 +1,49 @@
 import unittest
 from cryptoapi import Client
-from .config import trx_hex
+from .config import trx_hex, client_api_key
 
-class AddressesTestCase(unittest.TestCase):
+
+class TransactionsTestCase(unittest.TestCase):
     def setUp(self):
-        self.cli = Client("347d123568e7f83f7971fe7d19366c04258ed62b5a80925b87545a2bb87e57eb")
+        self.client = Client("347d123568e7f83f7971fe7d19366c04258ed62b5a80925b87545a2bb87e57eb")
 
     # def test_get_transactions(self):
-    #     block_by_hash = self.cli.api.eth.transactions.get_transactions()
-    #     self.assertNotIn("status", block_by_hash)
+    #     trx = self.client.api.eth.testnet.transactions.get_transactions()
+    #     self.assertNotIn(
+    #         'status',
+    #         trx
+    #     )
 
     # def test_get_transaction_information(self):
-    #     response = self.cli.api.eth.transactions.get_transaction_information(tx_hash)
-    #     self.assertNotIn("status", response)
+    #     trx_information = self.client.api.eth.testnet.transactions.get_transaction_information(
+    #         tx_hash
+    #     )
+    #     self.assertNotIn(
+    #         'status',
+    #         trx_information
+    #     )
 
     # def test_get_transaction_receipt(self):
-    #     response = self.cli.api.eth.transactions.get_transaction_receipt(tx_hash)
-    #     self.assertNotIn("status", response)
+    #     trx_receipt = self.client.api.eth.testnet.transactions.get_transaction_receipt(
+    #         tx_hash
+    #     )
+    #     self.assertNotIn(
+    #         'status',
+    #         trx_receipt
+    #     )
 
     # def test_send_transaction(self):
-    #     response = self.cli.api.eth.transactions.send_transaction()
-    #     self.assertNotIn("status", response)
+    #     send_transaction = self.client.api.eth.testnet.transactions.send_transaction()
+    #     self.assertNotIn(
+    #         'status',
+    #         send_transaction
+    #     )
 
     def test_decode_transaction(self):
-        response = self.cli.api.eth.transactions.decode_transaction(trx_hex)
-        self.assertNotIn("status", response)
+        decode_transactions = self.client.api.eth.testnet.transactions.decode_transaction(
+            trx_hex
+        )
+        self.assertNotIn(
+            'status',
+            decode_transactions
+        )

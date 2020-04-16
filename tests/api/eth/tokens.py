@@ -1,19 +1,31 @@
 import unittest
 from cryptoapi import Client
+from .config import client_api_key
 
 
-class AddressesTestCase(unittest.TestCase):
+class TokensTestCase(unittest.TestCase):
     def setUp(self):
-        self.cli = Client("347d123568e7f83f7971fe7d19366c04258ed62b5a80925b87545a2bb87e57eb")
+        self.client = Client(client_api_key)
 
     def test_get_tokens(self):
-        block_by_hash = self.cli.api.eth.tokens.get_tokens()
-        self.assertNotIn("status", block_by_hash)
+        tokens = self.client.api.eth.testnet.tokens.get_tokens()
+        self.assertNotIn(
+            'status',
+            tokens
+        )
 
     # def test_get_token_transfers_by_token_address(self):
-    #     block_by_hash = self.cli.api.eth.tokens.get_token_transfers_by_token_address([address])
-    #     self.assertNotIn("status", block_by_hash)
+    #     token_transfers = self.client.api.eth.testnet.tokens.get_token_transfers_by_token_address(
+    #         [address]
+    #     )
+    #     self.assertNotIn(
+    #         'status',
+    #         token_transfers
+    #     )
 
     # def test_get_token_contract(self):
-    #     block_by_hash = self.cli.api.eth.tokens.get_token_contract()
-    #     self.assertNotIn("status", block_by_hash)
+    #     token_contract = self.client.api.eth.testnet.tokens.get_token_contract()
+    #     self.assertNotIn(
+    #         'status',
+    #         token_contract
+    #     )
