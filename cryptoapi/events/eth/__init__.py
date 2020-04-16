@@ -69,7 +69,7 @@ class Eth:
     def on_connected(self, callback):
         self._ws.on_connected_callbacks.append(callback)
 
-    def on_diconnected(self, callback):
+    def on_disconnected(self, callback):
         self._ws.on_disconnected_callbacks.append(callback)
 
     def unsubscribe(self, subscription_id):
