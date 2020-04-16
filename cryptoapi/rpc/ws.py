@@ -16,6 +16,7 @@ class WS:
         self.debug = debug
         self._ws = None
         self._thread = None
+        self._request_id = 0
 
         self._ws = websocket.WebSocketApp(
             url='{}?token={}'.format(
@@ -23,16 +24,20 @@ class WS:
                 self.api_key
             )
         )
+        self._connected = False
 
         self.subscribers = {}
         self.pending_subscribers = {}
         self.message_status = {}
 
-    def on_message(ws, message):
+        self.on_connected_callbacks = []
+        self.on_disconnected_callbacks = []
+        self._callbacks_threads = []
+        self._joiner_thread = None
+        self._joiner_flag = False
+
+    def _on_message(ws, message):
         message = json.loads(message)
-        print(message)
-        print(ws.__dict__)
-        print('result' in message)
         if 'result' in message:
             subscription_id = message['id']
             ws.message_status.update(
@@ -43,44 +48,106 @@ class WS:
                     }
                 }
             )
-            print(ws.message_status)
+        else:
+            message_id, message_object = message['params']
+            ws.subscribers[message_id][1](message_object)
 
-    @staticmethod
-    def on_open(ws):
-        print('ws open')
+    def _on_open(ws):
+        ws._connected = True
 
-    @staticmethod
-    def on_close(ws):
-        print('ws close')
+    def _on_close(ws):
+        ws._connected = False
+        ws.pending_subscribers = ws.subscribers
+        ws.subscribers = {}
 
-    def _get_request_id(self):
+    def get_request_id(self):
         self._request_id += 1
         return self._request_id
 
+    def _resubscribe(self):
+        for subscription_id, subscription_info in self.pending_subscribers.items():
+            self.on_event(
+                subscription_info[0],
+                subscription_info[1],
+                subscription_id
+            )
+        if self.pending_subscribers:
+            self._request_id = max(self.pending_subscribers)
+
+        self.pending_subscribers = {}
+
+    def _on_connected(self):
+        for callback in self.on_connected_callbacks:
+            thread = threading.Thread(
+                target=callback,
+                args=(),
+                kwargs={}
+            )
+            thread.start()
+            self._callbacks_threads.append(thread)
+
+    def _on_disconnected(self):
+        for callback in self.on_disconnected_callbacks:
+            thread = threading.Thread(
+                target=callback,
+                args=(),
+                kwargs={}
+            )
+            thread.start()
+            self._callbacks_threads.append(thread)
+
+    def _joiner(self):
+        while self._joiner_flag:
+            for thread in self._callbacks_threads:
+                if not thread.is_alive():
+                    thread.join()
+                    self._callbacks_threads.remove(thread)
+
     def connect(self):
-        self._request_id = 0
-        self._ws.on_message = self.on_message
-        self._ws.on_open = self.on_open
-        self._ws.on_close = self.on_close
-        self._thread = threading.Thread(
-            target=self._ws.run_forever,
-            args=(),
-            kwargs={}
-        )
-        self._thread.start()
+        if not self._connected:
+            self._request_id = 0
+            self._ws.on_message = self._on_message
+            self._ws.on_open = self._on_open
+            self._ws.on_close = self._on_close
+            self._thread = threading.Thread(
+                target=self._ws.run_forever,
+                args=(),
+                kwargs={'ping_interval': 1}
+            )
+            self._thread.start()
+
+            self._joiner_flag = True
+            self._joiner_thread = threading.Thread(
+                target=self._joiner,
+                args=(),
+                kwargs={}
+            )
+            self._joiner_thread.start()
+
+            while not self._connected:
+                continue
+
+            self._on_connected()
+            self._resubscribe()
 
     def disconnect(self):
-        if self._ws:
-            try:
-                while self._thread.is_alive():
-                    self._ws.close()
-                self._thread = None
-            except Exception:
-                pass
+        while self._connected:
+            self._ws.close()
+
+        self._on_disconnected()
+        self._thread.join()
+        self._thread = None
+
+        self._joiner_flag = False
+        self._joiner_thread.join()
+        self._joiner_thread = None
 
     def _send_message(self, method, params, _id):
-        if not self._ws.keep_running:
+        if not self._connected:
             self.connect()
+
+        while not self._connected:
+            continue
 
         self.__lock.acquire()
         try:
@@ -101,37 +168,36 @@ class WS:
             # Release lock
             self.__lock.release()
 
-    def on_event(self, method, params, callback=None):
-        subscription_id = self._get_request_id()
+    def on_event(self, params, callback, subscription_id=None):
+        if not callable(callback):
+            raise Exception('Callback must be callable object')
+
+        if subscription_id is None:
+            subscription_id = self.get_request_id()
         self._send_message(
-            method,
+            'subscribe',
             params,
             subscription_id
         )
-        self.pending_subscribers[subscription_id] = [params, callback]
 
         while subscription_id not in self.message_status:
             continue
 
         message = self.message_status.pop(subscription_id)
-        pending_subscriber = self.pending_subscribers.pop(subscription_id)
         if message['result'] is None:
             raise Exception(message['error']['message'])
 
-        self.subscribers[subscription_id] = pending_subscriber
+        self.subscribers[subscription_id] = [params, callback]
         return subscription_id
 
-    def on_block(self, callback):
-        return self._on_event(
-            method='subscribe',
-            params=['new_block'],
-            callback=callback
-        )
-
     def unsubscribe(self, subscription_id):
+        subscription_info = self.subscribers.get(subscription_id, None)
+        if subscription_info is None:
+            return False
+
         self._send_message(
             'unsubscribe',
-            ['new_block'],
+            subscription_info[0],
             subscription_id
         )
 
@@ -142,5 +208,5 @@ class WS:
         if message['result'] is None:
             return False
 
-        self.subscribers.pop(subscription_id)
+        del self.subscribers[subscription_id]
         return True

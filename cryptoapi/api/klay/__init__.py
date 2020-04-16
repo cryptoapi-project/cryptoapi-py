@@ -12,7 +12,7 @@ class Klay(Testnet):
         api_key
     ):
         self._http = http_wrapper(
-            url=config.BASE_HTTP_URL + '/coins/klay',
+            url=config.api.BASE_HTTP_URL + '/coins/klay',
             debug=debug
         )
         self._api_key = api_key
