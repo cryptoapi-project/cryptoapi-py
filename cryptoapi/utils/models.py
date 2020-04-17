@@ -14,6 +14,7 @@ integer_type_not_required = {'type': 'integer', 'required': False}
 boolean_type_not_required = {'type': 'boolean', 'required': False}
 string_int_type = {'type': ['string', 'integer']}
 
+
 class CustomValidator:
 
     def __init__(self, func, error_text):
