@@ -25,28 +25,15 @@ class Common:
             validators=validators
         )
 
-    def get_estimate_fee(self, _from, to, data, value):
+    def get_estimate_fee(self):
         api_key, validators = api_method_preprocessing(self)
-
-        data = {
-            'from': _from,
-            'to': to,
-            'data': data,
-            'value': value
-        }
-
-        validate_data(
-            self._models.btc.requests.get_estimate_fee,
-            data
-        )
 
         validators.update({
             200: self._models.btc.responses.get_estimate_fee
         })
 
-        return self._http.post(
+        return self._http.get(
             url='/estimate-fee',
-            data=data,
             params=api_key,
             validators=validators
         )
