@@ -27,14 +27,14 @@ class Addresses:
             params.update({'limit': limit})
 
         validate_data(
-            self._models.btc.requests.get_outputs_by_addresses,
+            self._models.bch.requests.get_outputs_by_addresses,
             params
         )
 
         params.update(api_key)
 
         validators.update({
-            200: self._models.btc.responses.get_outputs_by_addresses
+            200: self._models.bch.responses.get_outputs_by_addresses
         })
 
         return self._http.get(
@@ -51,12 +51,12 @@ class Addresses:
         }
 
         validate_data(
-            self._models.btc.requests.get_utxo_coin_addresses_info,
+            self._models.bch.requests.get_utxo_coin_addresses_info,
             params
         )
 
         validators.update({
-            200: self._models.btc.responses.get_utxo_coin_addresses_info
+            200: self._models.bch.responses.get_utxo_coin_addresses_info
         })
 
         return self._http.get(
@@ -79,14 +79,14 @@ class Addresses:
             params.update({'limit': limit})
 
         validate_data(
-            self._models.btc.requests.get_utxo_coin_addresses_history,
+            self._models.bch.requests.get_utxo_coin_addresses_history,
             params
         )
 
         params.update(api_key)
 
         validators.update({
-            200: self._models.btc.responses.get_utxo_coin_addresses_history
+            200: self._models.bch.responses.get_utxo_coin_addresses_history
         })
 
         return self._http.get(

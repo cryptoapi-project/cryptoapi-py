@@ -64,13 +64,15 @@ _inputs_items = {
     'previous_transaction_hash': hex_type,
     'output_index': integer_type,
     'sequence_number': integer_type,
-    'script': string_nullable_type
+    'script': string_nullable_type,
+    'legacy_address': string_nullable_type
 }
 
 _outputs_items = {
     'address': string_nullable_type,
     'satoshis': integer_type,
-    'script': string_type
+    'script': string_type,
+    'legacy_address': string_nullable_type
 }
 
 get_transaction_by_hash = {
@@ -104,6 +106,7 @@ get_transaction_by_hash = {
 
 _transactions_items = get_transaction_by_hash.copy()
 
+_transactions_items['inputs']['schema']['schema'].update({'satoshis': integer_type})
 get_transactions = {
     'block_height_or_hash': integer_nullable_type,
     'skip': integer_type,
@@ -112,6 +115,7 @@ get_transactions = {
     'to': string_nullable_type,
     'items': {
         'type': 'list',
+        'nullable': True,
         'schema': {
             'type': 'dict',
             'schema': _transactions_items
@@ -194,13 +198,14 @@ _inputs_items = {
     'output_index': integer_type,
     'sequence_number': integer_type,
     'script': string_nullable_type,
-    'satoshis': integer_nullable_type
+    'legacy_address': string_nullable_type
 }
 
 _outputs_items = {
     'address': string_nullable_type,
     'satoshis': integer_type,
-    'script': string_type
+    'script': string_type,
+    'legacy_address': string_nullable_type
 }
 
 
