@@ -1,4 +1,4 @@
-from cryptoapi.utils.api import api_method_preprocessing, validate_data
+from cryptoapi.utils.api import api_method_preprocessing
 
 
 class Common:

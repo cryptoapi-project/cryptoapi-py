@@ -1,19 +1,39 @@
 import unittest
 from cryptoapi import Client
-from .config import api_key, trx_hash, trx_hex, block_height
+from .config import client_api_key, trx_hash, trx_hex, block_height
 
-class AddressesTestCase(unittest.TestCase):
+
+class TransactionsTestCase(unittest.TestCase):
     def setUp(self):
-        self.cli = Client(api_key)
+        self.client = Client(client_api_key).api.bch.testnet.transactions
 
     def test_get_transactions(self):
-        response = self.cli.api.bch.transactions.get_transactions(block_height)
-        self.assertNotIn("status", response)
+        trx = self.client.get_transactions(
+            block_height
+        )
+        self.assertNotIn(
+            'status',
+            trx
+        )
 
     def test_get_transaction_by_hash(self):
-        response = self.cli.api.bch.transactions.get_transaction_by_hash(trx_hash)
-        self.assertNotIn("status", response)
+        trx = self.client.get_transaction_by_hash(
+            trx_hash
+        )
+        self.assertNotIn(
+            'status',
+            trx
+        )
 
     def test_decode_transaction(self):
-        response = self.cli.api.bch.transactions.decode_transaction(trx_hex)
-        self.assertNotIn("status", response)
+        decode_trx = self.client.decode_transaction(
+            trx_hex
+        )
+        self.assertNotIn(
+            'status',
+            decode_trx
+        )
+
+    @unittest.skip('Future')
+    def test_send_transactions(self):
+        pass

@@ -1,15 +1,22 @@
 import unittest
 from cryptoapi import Client
-from .config import api_key
+from .config import client_api_key
 
-class AddressesTestCase(unittest.TestCase):
+
+class CommonTestCase(unittest.TestCase):
     def setUp(self):
-        self.cli = Client(api_key)
+        self.client = Client(client_api_key).api.bch.testnet.common
 
-    def test_get_utxo_coin_addresses_info(self):
-        response = self.cli.api.bch.common.get_estimate_fee()
-        self.assertIs(type(response), float)
+    def test_get_estimate_fee(self):
+        estimate_fee = self.client.get_estimate_fee()
+        self.assertIs(
+            type(estimate_fee),
+            float
+        )
 
-    def test_get_utxo_coin_addresses_history(self):
-        response = self.cli.api.bch.common.get_network_information()
-        self.assertNotIn("status", response)
+    def test_get_network_information(self):
+        network_information = self.client.get_network_information()
+        self.assertNotIn(
+            'status',
+            network_information
+        )

@@ -12,7 +12,7 @@ class Transactions:
         self._api_key = api_key
         self._models = models
 
-    def get_transactions(self, block_height_or_hash=None, skip=None, limit=None, _from=None, to=None ):
+    def get_transactions(self, block_height_or_hash=None, skip=None, limit=None, _from=None, to=None):
         api_key, validators = api_method_preprocessing(self)
 
         params = {}
