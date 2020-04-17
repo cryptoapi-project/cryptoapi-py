@@ -13,7 +13,7 @@ class Btc(Testnet):
     ):
         coin_url = '/coins/btc'
         self._http = http_wrapper(
-            url=config.BASE_HTTP_URL + coin_url,
+            url=config.api.BASE_HTTP_URL + coin_url,
             debug=debug
         )
         self._api_key = api_key
@@ -43,7 +43,7 @@ class Bch(Testnet):
     ):
         coin_url = '/coins/bch'
         self._http = http_wrapper(
-            url=config.BASE_HTTP_URL + coin_url,
+            url=config.api.BASE_HTTP_URL + coin_url,
             debug=debug
         )
         self._api_key = api_key

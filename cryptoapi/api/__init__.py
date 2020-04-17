@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from cryptoapi.configs.api import Config
 from cryptoapi.utils.api import api_method_preprocessing
 from .rates import Rates
 from .eth import Eth
@@ -14,13 +13,14 @@ class Api:
     def __init__(
         self,
         http_wrapper,
+        config,
         models,
         api_key,
         debug=False
     ):
-        self._config = Config()
+        self._config = config
         self._http = http_wrapper(
-            self._config.BASE_HTTP_URL,
+            self._config.api.BASE_HTTP_URL,
             debug
         )
         self._api_key = api_key
