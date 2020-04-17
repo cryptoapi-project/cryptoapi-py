@@ -12,7 +12,7 @@ class Rates:
         api_key
     ):
         self._http = http_wrapper(
-            url=config.BASE_HTTP_URL + '/rates',
+            url=config.api.BASE_HTTP_URL + '/rates',
             debug=debug
         )
         self._api_key = api_key
