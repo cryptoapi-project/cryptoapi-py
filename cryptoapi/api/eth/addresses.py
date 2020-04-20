@@ -137,17 +137,18 @@ class Addresses:
             self._models.eth.requests.get_token_transfers_by_addresses,
             params
         )
-
+        token = params.pop('token')
+        addresses = params.pop('addresses')
         params.update(api_key)
 
         validators.update({
             200: self._models.eth.responses.get_token_transfers_by_addresses
         })
-
+        print(params)
         return self._http.get(
             url='/addresses/{}/transfers/tokens/{}'.format(
-                params['addresses'],
-                params['token']
+                addresses,
+                token
             ),
             params=params,
             validators=validators
@@ -201,7 +202,8 @@ class Addresses:
             self._models.eth.requests.get_token_balance_by_holders_and_token,
             params
         )
-
+        token = params.pop('token')
+        addresses = params.pop('addresses')
         params.update(api_key)
 
         validators.update({
@@ -210,8 +212,8 @@ class Addresses:
 
         return self._http.get(
             url='/addresses/{}/balance/tokens/{}'.format(
-                params.pop('addresses'),
-                params.pop('token')
+                addresses,
+                token
             ),
             params=params,
             validators=validators
