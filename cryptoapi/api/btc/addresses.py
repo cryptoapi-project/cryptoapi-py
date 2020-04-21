@@ -16,7 +16,7 @@ class Addresses:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses),
+            'addresses': addresses,
             'status': status
         }
 
@@ -38,7 +38,9 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/outputs'.format(params.pop('addresses')),
+            url='/addresses/{}/outputs'.format(
+                ','.join(params.pop('addresses'))
+            ),
             params=params,
             validators=validators
         )
@@ -47,7 +49,7 @@ class Addresses:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses)
+            'addresses': addresses
         }
 
         validate_data(
@@ -60,7 +62,9 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}'.format(params.pop('addresses')),
+            url='/addresses/{}'.format(
+                ','.join(params.pop('addresses'))
+            ),
             params=api_key,
             validators=validators
         )
@@ -69,7 +73,7 @@ class Addresses:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses)
+            'addresses': addresses
         }
 
         if skip is not None:
@@ -90,7 +94,9 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/transactions'.format(params.pop('addresses')),
+            url='/addresses/{}/transactions'.format(
+                ','.join(params.pop('addresses'))
+            ),
             params=params,
             validators=validators
         )

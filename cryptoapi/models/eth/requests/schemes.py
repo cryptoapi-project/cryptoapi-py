@@ -1,13 +1,13 @@
-from cryptoapi.utils.models import hex_type_not_required, string_type_not_required, integer_type_not_required,\
+from cryptoapi.utils.models import hex_type_not_required_eth, string_type_not_required, integer_type_not_required,\
     required_string_type, boolean_type_not_required
 
 
 # ETH.Common
 estimate_gas = {
-    'from': hex_type_not_required,
-    'to': hex_type_not_required,
-    'data': hex_type_not_required,
-    'value': hex_type_not_required
+    'from': hex_type_not_required_eth,
+    'to': hex_type_not_required_eth,
+    'data': hex_type_not_required_eth,
+    'value': hex_type_not_required_eth
 }
 
 # ETH.Blocks
@@ -25,23 +25,39 @@ get_blocks = {
 
 # ETH.Addresses
 get_transactions_by_addresses = {
-    'addresses': required_string_type,
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    },
     'skip': integer_type_not_required,
     'limit': integer_type_not_required,
     'positive': string_type_not_required
 }
 
 get_transaction_intersections_by_addresses = {
-    'addresses': required_string_type,
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    },
     'skip': integer_type_not_required,
     'limit': integer_type_not_required
 }
 
 get_balances_by_addresses = {
-    'addresses': required_string_type
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    }
 }
 get_general_information_by_addresses = {
-    'addresses': required_string_type
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    }
 }
 
 get_token_transfers_by_addresses = {
@@ -56,7 +72,11 @@ get_token_transfers_by_addresses = {
 }
 
 get_tokens_balances_by_holders = {
-    'addresses': required_string_type,
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    },
     'skip': integer_type_not_required,
     'limit': integer_type_not_required
 }
@@ -74,27 +94,27 @@ get_token_balance_by_holders_and_token = {
 
 # ETH.Transactions
 get_transactions = {
-    'from': hex_type_not_required,
-    'to': hex_type_not_required,
+    'from': hex_type_not_required_eth,
+    'to': hex_type_not_required_eth,
     'skip': integer_type_not_required,
     'limit': integer_type_not_required,
     'block_number': integer_type_not_required
 }
 
 get_transaction_information = {
-    'hash': hex_type_not_required
+    'hash': hex_type_not_required_eth
 }
 
 get_transaction_receipt = {
-    'hash': hex_type_not_required
+    'hash': hex_type_not_required_eth
 }
 
 send_transaction = {
-    'tx': hex_type_not_required
+    'tx': hex_type_not_required_eth
 }
 
 decode_transaction = {
-    'tx': hex_type_not_required
+    'tx': hex_type_not_required_eth
 }
 
 # ETH.Tokens
@@ -119,16 +139,16 @@ get_token_transfers_by_token_address = {
 }
 
 get_token_contract = {
-    'address': {
-        'required': True,
-        'type': 'list',
-        'schema': required_string_type
-    },
+    'address': required_string_type
 }
 
 # ETH.Push Notifications
 subscribe_to_addresses_notifications_params = {
-    'addresses': required_string_type
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    }
 }
 
 subscribe_to_addresses_notifications_body = {
@@ -136,7 +156,11 @@ subscribe_to_addresses_notifications_body = {
 }
 
 unsubscribe_from_addresses_notifications = {
-    'addresses': required_string_type,
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    },
     'firebase_token': required_string_type
 }
 
