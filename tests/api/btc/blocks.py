@@ -1,6 +1,6 @@
 import unittest
 from cryptoapi import Client
-from .config import block_hash, block_height, client_api_key
+from .config import block_number, client_api_key
 
 
 class BlocksTestCase(unittest.TestCase):
@@ -8,19 +8,21 @@ class BlocksTestCase(unittest.TestCase):
         self.client = Client(client_api_key).api.btc.testnet.blocks
 
     def test_get_block(self):
-        block_by_height = self.client.get_block(
-            block_height
+        block_by_number = self.client.get_block(
+            block_number
         )
         self.assertNotIn(
             'status',
-            block_by_height
+            block_by_number
         )
+
+        block_hash = block_by_number['hash']
 
         block_by_hash = self.client.get_block(
             block_hash
         )
         self.assertEqual(
-            block_by_height,
+            block_by_number,
             block_by_hash
         )
 

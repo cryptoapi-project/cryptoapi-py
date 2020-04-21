@@ -1,6 +1,6 @@
 import unittest
 from cryptoapi import Client
-from .config import client_api_key, trx_hash, trx_hex, block_height
+from .config import client_api_key, trx_hash, trx_hex, block_number
 
 
 class TransactionsTestCase(unittest.TestCase):
@@ -9,7 +9,7 @@ class TransactionsTestCase(unittest.TestCase):
 
     def test_get_transactions(self):
         trx = self.client.get_transactions(
-            block_height
+            block_number
         )
         self.assertNotIn(
             'status',
