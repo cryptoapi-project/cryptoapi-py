@@ -16,7 +16,7 @@ class Addresses:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses)
+            'addresses': addresses
         }
 
         if skip is not None:
@@ -40,7 +40,9 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/transfers'.format(params.pop('addresses')),
+            url='/addresses/{}/transfers'.format(
+                ','.join(params.pop('addresses'))
+            ),
             params=params,
             validators=validators
         )
@@ -49,7 +51,7 @@ class Addresses:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses)
+            'addresses': addresses
         }
 
         if skip is not None:
@@ -70,7 +72,9 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/transactions'.format(params.pop('addresses')),
+            url='/addresses/{}/transactions'.format(
+                ','.join(params.pop('addresses'))
+            ),
             params=params,
             validators=validators
         )
@@ -79,7 +83,7 @@ class Addresses:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses)
+            'addresses': addresses
         }
 
         validate_data(
@@ -92,7 +96,9 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/balance'.format(params.pop('addresses')),
+            url='/addresses/{}/balance'.format(
+                ','.join(params.pop('addresses'))
+            ),
             params=api_key,
             validators=validators
         )
@@ -101,7 +107,7 @@ class Addresses:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses)
+            'addresses': addresses
         }
 
         validate_data(
@@ -114,7 +120,9 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}'.format(params.pop('addresses')),
+            url='/addresses/{}'.format(
+                ','.join(params.pop('addresses'))
+            ),
             params=api_key,
             validators=validators
         )
@@ -123,7 +131,7 @@ class Addresses:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses),
+            'addresses': addresses,
             'token': token
         }
 
@@ -138,13 +146,13 @@ class Addresses:
             params
         )
         token = params.pop('token')
-        addresses = params.pop('addresses')
+        addresses = ','.join(params.pop('addresses'))
         params.update(api_key)
 
         validators.update({
             200: self._models.eth.responses.get_token_transfers_by_addresses
         })
-        print(params)
+
         return self._http.get(
             url='/addresses/{}/transfers/tokens/{}'.format(
                 addresses,
@@ -158,7 +166,7 @@ class Addresses:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses)
+            'addresses': addresses
         }
 
         if skip is not None:
@@ -179,7 +187,9 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/balance/tokens'.format(params.pop('addresses')),
+            url='/addresses/{}/balance/tokens'.format(
+                ','.join(params.pop('addresses'))
+            ),
             params=params,
             validators=validators
         )
@@ -188,7 +198,7 @@ class Addresses:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses),
+            'addresses': addresses,
             'token': token
         }
 
@@ -203,7 +213,7 @@ class Addresses:
             params
         )
         token = params.pop('token')
-        addresses = params.pop('addresses')
+        addresses = ','.join(params.pop('addresses'))
         params.update(api_key)
 
         validators.update({

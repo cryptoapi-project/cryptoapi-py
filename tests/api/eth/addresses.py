@@ -1,6 +1,6 @@
 import unittest
 from cryptoapi import Client
-from .config import address, address2, token, client_api_key
+from .config import address, addresses, token, client_api_key
 
 
 class AddressesTestCase(unittest.TestCase):
@@ -18,7 +18,7 @@ class AddressesTestCase(unittest.TestCase):
 
     def test_get_transaction_intersections_by_addresses(self):
         response = self.client.get_transaction_intersections_by_addresses(
-            [address, address2]
+            addresses
         )
         self.assertNotIn(
             'status',

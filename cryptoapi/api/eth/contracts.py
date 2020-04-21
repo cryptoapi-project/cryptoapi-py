@@ -30,15 +30,21 @@ class Contracts:
             params.update({'to_block': to_block})
 
         if addresses is not None:
-            params.update({'addresses': ','.join(addresses)})
+            params.update({'addresses': addresses})
 
         if topics is not None:
-            params.update({'topics': ','.join(topics)})
+            params.update({'topics': topics})
 
         validate_data(
             self._models.eth.requests.get_contracts_logs,
             params
         )
+
+        if 'addresses' in params:
+            params['addresses'] = ','.join(params['addresses'])
+
+        if 'topics' in params:
+            params['topics'] = ','.join(params['topics'])
 
         validators.update({
             200: self._models.eth.responses.get_contracts_logs

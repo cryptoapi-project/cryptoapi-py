@@ -1,23 +1,25 @@
 import unittest
 from cryptoapi import Client
-from .config import block_hash, block_number, limit, client_api_key
+from .config import block_number, limit, client_api_key
 
 
 class BlocksTestCase(unittest.TestCase):
     def setUp(self):
-        self.client = Client(client_api_key)
+        self.client = Client(client_api_key).api.eth.testnet.blocks
 
     def test_get_block(self):
-        block_by_hash = self.client.api.eth.testnet.blocks.get_block(
-            block_hash
+        block_by_num = self.client.get_block(
+            block_number
         )
         self.assertNotIn(
             'status',
-            block_by_hash
+            block_by_num
         )
 
-        block_by_num = self.client.api.eth.testnet.blocks.get_block(
-            block_number
+        block_hash = block_by_num['hash']
+
+        block_by_hash = self.client.get_block(
+            block_hash
         )
         self.assertEqual(
             block_by_num,
@@ -25,7 +27,7 @@ class BlocksTestCase(unittest.TestCase):
         )
 
     def test_get_blocks(self):
-        response = self.client.api.eth.testnet.blocks.get_blocks(
+        response = self.client.get_blocks(
             limit=limit
         )
         self.assertNotIn(

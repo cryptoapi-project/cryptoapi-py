@@ -71,7 +71,8 @@ _transfer_item = {
     'to': hex_type_eth,
     'value': string_type,
     'gas_price': string_type,
-    'internal': boolean_type
+    'internal': boolean_type,
+    'input': hex_type_eth
 }
 
 get_transactions_by_addresses = {
@@ -110,7 +111,7 @@ _transactions_item = {
     'hash': hex_type_eth,
     'input': hex_type_eth,
     'nonce': integer_type,
-    'to': hex_type_eth,
+    'to': string_nullable_type,
     'transaction_index': integer_type,
     'value': string_type,
     'v': hex_type_eth,
@@ -260,7 +261,7 @@ get_transaction_receipt.update({
     'block_number': integer_type,
     'from': hex_type_eth,
     'hash': hex_type_eth,
-    'to': hex_type_eth,
+    'to': string_nullable_type,
     'transaction_index': integer_type
 })
 

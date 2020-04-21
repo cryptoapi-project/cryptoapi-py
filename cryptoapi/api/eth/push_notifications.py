@@ -16,7 +16,7 @@ class PushNotifications:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses)
+            'addresses': addresses
         }
 
         data = {
@@ -37,7 +37,9 @@ class PushNotifications:
         })
 
         return self._http.post(
-            url='/push-notifications/addresses/{}/balance'.format(params['addresses']),
+            url='/push-notifications/addresses/{}/balance'.format(
+                ','.join(params.pop('addresses'))
+            ),
             data=data,
             params=api_key,
             validators=validators
@@ -47,7 +49,7 @@ class PushNotifications:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses),
+            'addresses': addresses,
             'firebase_token': firebase_token
         }
 
@@ -59,7 +61,9 @@ class PushNotifications:
         params.update(api_key)
 
         return self._http.delete(
-            url='/push-notifications/addresses/{}/balance'.format(params['addresses']),
+            url='/push-notifications/addresses/{}/balance'.format(
+                ','.join(params.pop('addresses'))
+            ),
             params=params,
             validators=validators
         )

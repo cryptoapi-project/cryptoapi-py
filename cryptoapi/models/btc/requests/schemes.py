@@ -37,18 +37,30 @@ decode_transaction = {
 # BTC.Addresses
 
 get_outputs_by_addresses = {
-    'addresses': required_string_type,
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    },
     'status': required_string_type,
     'skip': integer_type_not_required,
     'limit': integer_type_not_required
 }
 
 get_utxo_coin_addresses_info = {
-    'addresses': required_string_type
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    },
 }
 
 get_utxo_coin_addresses_history = {
-    'addresses': required_string_type,
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    },
     'skip': integer_type_not_required,
     'limit': integer_type_not_required
 }
@@ -56,7 +68,11 @@ get_utxo_coin_addresses_history = {
 # BTC.Push Notifications
 
 subscribe_to_addresses_notifications_params = {
-    'addresses': required_string_type
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    },
 }
 
 subscribe_to_addresses_notifications_body = {
@@ -64,6 +80,10 @@ subscribe_to_addresses_notifications_body = {
 }
 
 unsubscribe_from_addresses_notifications = {
-    'addresses': required_string_type,
+    'addresses': {
+        'required': True,
+        'type': 'list',
+        'schema': required_string_type
+    },
     'firebase_token': required_string_type
 }
