@@ -14,3 +14,5 @@ from .api.eth.common import CommonTestCase as EthCommonTestCase
 from .api.eth.contracts import ContractsTestCase as EthContractsTestCase
 from .api.eth.tokens import TokensTestCase as EthTokensTestCase
 from .api.eth.transactions import TransactionsTestCase as EthTransactionsTestCase
+
+from .api.whooks.whooks import WebhookTestCase

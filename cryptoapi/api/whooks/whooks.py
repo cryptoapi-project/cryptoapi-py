@@ -86,7 +86,7 @@ class Whooks:
         params.update(api_key)
 
         return self._http.delete(
-            url='/web-hooks/{}'.format(params['_id']),
+            url='/web-hooks/{}'.format(params['id']),
             params=params,
             validators=validators
         )
