@@ -123,7 +123,7 @@ class Addresses:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses),
+            'addresses': addresses,
             'token': token
         }
 
@@ -187,7 +187,7 @@ class Addresses:
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses),
+            'addresses': addresses,
             'token': token
         }
 
