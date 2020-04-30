@@ -67,7 +67,7 @@ class Tokens:
             self._models.klay.requests.get_token_transfers_by_token_address,
             params
         )
-
+        token = params.pop('token')
         params.update(api_key)
 
         validators.update({
@@ -75,7 +75,7 @@ class Tokens:
         })
 
         return self._http.get(
-            url='/tokens/{}/transfers'.format(params['token']),
+            url='/tokens/{}/transfers'.format(token),
             params=params,
             validators=validators
         )

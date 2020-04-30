@@ -194,7 +194,6 @@ class Addresses:
             validators=validators
         )
 
-
     def get_token_balance_by_holders_and_token(self, addresses, token, skip=None, limit=None):
         api_key, validators = api_method_preprocessing(self)
 
@@ -210,7 +209,7 @@ class Addresses:
             params.update({'limit': limit})
 
         validate_data(
-            self._models.klay.requests.get_token_balance_by_holders_and_token,
+            self._models.eth.requests.get_token_balance_by_holders_and_token,
             params
         )
         token = params.pop('token')
@@ -218,7 +217,7 @@ class Addresses:
         params.update(api_key)
 
         validators.update({
-            200: self._models.klay.responses.get_token_balance_by_holders_and_token
+            200: self._models.eth.responses.get_token_balance_by_holders_and_token
         })
 
         return self._http.get(

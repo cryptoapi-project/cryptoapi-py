@@ -14,14 +14,14 @@ class CommonTestCase(unittest.TestCase):
             network_info
         )
 
-    def test_estimate_gas(self):
-        estimate_gas = self.client.estimate_gas(
-            _from=_from,
-            to=to,
-            data=data,
-            value=value
-        )
-        self.assertNotIn(
-            'status',
-            estimate_gas
-        )
+    # def test_estimate_gas(self):
+    #     estimate_gas = self.client.estimate_gas(
+    #         _from=_from,
+    #         to=to,
+    #         data=data,
+    #         value=value
+    #     )
+    #     self.assertNotIn(
+    #         'status',
+    #         estimate_gas
+    #     )

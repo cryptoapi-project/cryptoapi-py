@@ -16,7 +16,7 @@ class TokensTestCase(unittest.TestCase):
 
     def test_get_token_transfers_by_token_address(self):
         token_transfers = self.client.get_token_transfers_by_token_address(
-            '0xb8c77482e45f1f44de1745f52c74426c631bdd52'
+            token
         )
         self.assertNotIn(
             'status',

@@ -79,7 +79,7 @@ class Contracts:
         })
 
         return self._http.post(
-            url='/contracts/{}/call'.format(params['address']),
+            url='/contracts/{}/call'.format(params.pop('address')),
             data=data,
             params=api_key,
             validators=validators
@@ -102,7 +102,7 @@ class Contracts:
         })
 
         return self._http.get(
-            url='/contracts/{}'.format(params['address']),
+            url='/contracts/{}'.format(params.pop('address')),
             params=api_key,
             validators=validators
         )
