@@ -68,7 +68,8 @@ _transfer_item = {
     'to': hex_type_eth,
     'value': string_type,
     'gas_price': string_type,
-    'internal': boolean_type
+    'internal': boolean_type,
+    'input': string_nullable_type
 }
 
 get_transactions_by_addresses = {
@@ -76,7 +77,7 @@ get_transactions_by_addresses = {
         'type': 'list',
         'schema': hex_type_eth
     },
-    'skip': string_type,
+    'skip': integer_type,
     'limit': integer_type,
     'items': {
         'type': 'list',
@@ -151,7 +152,7 @@ get_transaction_intersections_by_addresses = {
         'type': 'list',
         'schema': hex_type_eth
     },
-    'skip': string_type,
+    'skip': integer_type,
     'limit': integer_type,
     'items': {
         'type': 'list',
@@ -208,7 +209,7 @@ get_token_transfers_by_addresses = {
 }
 
 _balance_token_item = {
-    'addresses': hex_type_eth,
+    'address': string_type,
     'holder': hex_type_eth,
     'balance': string_type
 }

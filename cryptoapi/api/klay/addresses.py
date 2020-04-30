@@ -40,7 +40,7 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/transfers'.format(params['addresses']),
+            url='/addresses/{}/transfers'.format(params.pop('addresses')),
             params=params,
             validators=validators
         )
@@ -70,7 +70,7 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/transactions'.format(params['addresses']),
+            url='/addresses/{}/transactions'.format(params.pop('addresses')),
             params=params,
             validators=validators
         )
@@ -92,7 +92,7 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/balance'.format(params['addresses']),
+            url='/addresses/{}/balance'.format(params.pop('addresses')),
             params=api_key,
             validators=validators
         )
@@ -114,7 +114,7 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}'.format(params['addresses']),
+            url='/addresses/{}'.format(params.pop('addresses')),
             params=api_key,
             validators=validators
         )
@@ -134,20 +134,21 @@ class Addresses:
             params.update({'limit': limit})
 
         validate_data(
-            self._models.klay.requests.get_token_transfers_by_addresses,
+            self._models.eth.requests.get_token_transfers_by_addresses,
             params
         )
-
+        token = params.pop('token')
+        addresses = ','.join(params.pop('addresses'))
         params.update(api_key)
 
         validators.update({
-            200: self._models.klay.responses.get_token_transfers_by_addresses
+            200: self._models.eth.responses.get_token_transfers_by_addresses
         })
 
         return self._http.get(
             url='/addresses/{}/transfers/tokens/{}'.format(
-                params['addresses'],
-                params['token']
+                addresses,
+                token
             ),
             params=params,
             validators=validators
@@ -178,12 +179,12 @@ class Addresses:
         })
 
         return self._http.get(
-            url='/addresses/{}/balance/tokens'.format(params['addresses']),
+            url='/addresses/{}/balance/tokens'.format(params.pop('addresses')),
             params=params,
             validators=validators
         )
 
-    def get_token_balance_by_holders_and_token(self, addresses, token, skip=None, limit=None):
+    def get_token_balance_by_holders_and_token(self, addresses, token, skip=None, limit=12):
         api_key, validators = api_method_preprocessing(self)
 
         params = {
@@ -210,7 +211,7 @@ class Addresses:
 
         return self._http.get(
             url='/addresses/{}/balance/tokens/{}'.format(
-                params['addresses'],
+                params.pop('addresses'),
                 params['token']
             ),
             params=params,
