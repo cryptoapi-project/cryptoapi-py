@@ -1,12 +1,12 @@
-from cryptoapi.utils.models import hex_type_not_required, string_type_not_required, integer_type_not_required, required_string_type, boolean_type_not_required
+from cryptoapi.utils.models import string_type_not_required, integer_type_not_required, required_string_type, boolean_type_not_required
 
 
 # KLAY.Common
 estimate_gas = {
-    'from': hex_type_not_required,
-    'to': hex_type_not_required,
-    'data': hex_type_not_required,
-    'value': hex_type_not_required
+    'from': string_type_not_required,
+    'to': string_type_not_required,
+    'data': string_type_not_required,
+    'value': string_type_not_required
 }
 
 # KLAY.Blocks

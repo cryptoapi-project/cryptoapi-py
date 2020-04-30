@@ -80,11 +80,11 @@ class Tokens:
             validators=validators
         )
 
-    def get_token_contract(self, addresses):
+    def get_token_contract(self, address):
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses)
+            'address': address
         }
 
         validate_data(
@@ -97,7 +97,7 @@ class Tokens:
         })
 
         return self._http.get(
-            url='/tokens/{}'.format(params['addresses']),
+            url='/tokens/{}'.format(params.pop('address')),
             params=api_key,
             validators=validators
         )
