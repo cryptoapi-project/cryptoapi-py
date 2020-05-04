@@ -1,6 +1,6 @@
 ### Api
 
-This library provides cryptoapi methods.
+This examples of using all available api methods.
 
 #### BCH Api
 
@@ -8,8 +8,7 @@ This library provides cryptoapi methods.
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-BCH_address_methods = client.api.bch.testnet.addresses
-outputs_by_addresses_and_status = BCH_address_methods.get_outputs_by_addresses([<ADDRESSES>], <STATUS>)
+outputs_by_addresses_and_status = client.api.bch.testnet.blocks.get_block(<BLOCK_NUMBER>)
 
 ```
 
@@ -19,8 +18,7 @@ outputs_by_addresses_and_status = BCH_address_methods.get_outputs_by_addresses([
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-BTC_address_methods = client.api.btc.testnet.addresses
-outputs_by_addresses_and_status = BTC_address_methods.get_outputs_by_addresses([<ADDRESSES>], <STATUS>)
+outputs_by_addresses_and_status = client.api.btc.testnet.blocks.get_block(<BLOCK_NUMBER>)
 
 ```
 
@@ -30,8 +28,7 @@ outputs_by_addresses_and_status = BTC_address_methods.get_outputs_by_addresses([
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-ETH_address_methods = client.api.eth.testnet.addresses
-outputs_by_addresses_and_status = ETH_address_methods.get_transactions_by_addresses([<ADDRESSES>])
+transaction_by_address = client.api.eth.testnet.blocks.get_block(<BLOCK_NUMBER>)
 
 ```
 #### KLAY Api
@@ -40,9 +37,21 @@ outputs_by_addresses_and_status = ETH_address_methods.get_transactions_by_addres
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-KLAY_address_methods = client.api.klay.testnet.addresses
-outputs_by_addresses_and_status = KLAY_address_methods.get_transactions_by_addresses([<ADDRESSES>])
+transaction_by_address = client.api.klay.testnet.blocks.get_block(<BLOCK_NUMBER>)
+
+```
+
+#### Web Hooks
+
+```python
+from cryptoapi import Client
+
+client = Client(<YOUR_API_KEY>)
+KLAY_address_methods = 
+outputs_by_addresses_and_status = client.api.whooks.testnet.whooks.get_webhook(<PROJECT_ID>)
 
 ```
 
 More information about `API methods` can be browsed by <b><a href="https://testnet-api.apikey.io/api/">link</a></b>.
+
+More information about `Web Hooks` can be browsed by <b><a href="https://api.apikey.io/whooks-api/">link</a></b>.
