@@ -22,7 +22,7 @@ Cryptoapi-py library can be used to use cryptoapi methods and events with python
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-BTC_address = client.api.btc.testnet.addresses
+BTC_address = client.api.btc.testnet.addresses #client.api.btc.mainnet.addresses to use with mainnet
 outputs_by_addresses_and_status = BTC_address.get_outputs_by_addresses([<addresses>], <status>)
 
 ```
