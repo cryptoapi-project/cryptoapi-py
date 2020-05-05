@@ -1,7 +1,7 @@
 from cryptoapi.utils.models import CustomValidator, hex_type, string_type, integer_type, utc_type, boolean_type,\
     string_nullable_type, integer_nullable_type
 
-# BTC.Common
+# LTC.Common
 
 get_network_information = {
     'last_block': string_type,
@@ -20,7 +20,7 @@ get_estimate_fee = CustomValidator(
     'Fee value must be a float'
 )
 
-# BTC.Blocks
+# LTC.Blocks
 
 get_block = {
     'height': integer_type,
@@ -57,7 +57,7 @@ get_blocks = {
     'items': {'type': 'list', 'schema': {'type': 'dict', 'schema': _blocks_items}}
 }
 
-# BTC.Transactions
+# LTC.Transactions
 
 _inputs_items = {
     'address': string_nullable_type,
@@ -156,7 +156,7 @@ decode_transaction = {
     }
 }
 
-# BTC.Addresses
+# LTC.Addresses
 
 get_outputs_by_addresses = {
     'address': string_type,
@@ -246,7 +246,7 @@ get_utxo_coin_addresses_history = {
     }
 }
 
-# BTC.Push Notifications
+# LTC.Push Notifications
 
 subscribe_to_addresses_notifications = {
     'addresses': string_type,

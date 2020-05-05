@@ -1,6 +1,6 @@
 from cryptoapi.utils.models import string_type_not_required, integer_type_not_required, required_string_type, string_int_type
 
-# BTC.Blocks
+# LTC.Blocks
 
 get_block = {
     'block_height_or_hash': string_int_type
@@ -12,7 +12,7 @@ get_blocks = {
     'limit': integer_type_not_required,
 }
 
-# BTC.Transactions
+# LTC.Transactions
 
 get_transaction_by_hash = {
     'hash': required_string_type
@@ -34,7 +34,7 @@ decode_transaction = {
     'hash': required_string_type
 }
 
-# BTC.Addresses
+# LTC.Addresses
 
 get_outputs_by_addresses = {
     'addresses': {
@@ -65,7 +65,7 @@ get_utxo_coin_addresses_history = {
     'limit': integer_type_not_required
 }
 
-# BTC.Push Notifications
+# LTC.Push Notifications
 
 subscribe_to_addresses_notifications_params = {
     'addresses': {
