@@ -14,3 +14,10 @@ from .api.eth.common import CommonTestCase as EthCommonTestCase
 from .api.eth.contracts import ContractsTestCase as EthContractsTestCase
 from .api.eth.tokens import TokensTestCase as EthTokensTestCase
 from .api.eth.transactions import TransactionsTestCase as EthTransactionsTestCase
+
+from .api.klay.addresses import AddressesTestCase as KlayAddressesTestCase
+from .api.klay.blocks import BlocksTestCase as KlayBlocksTestCase
+from .api.klay.common import CommonTestCase as KlayCommonTestCase
+from .api.klay.contracts import ContractsTestCase as KlayContractsTestCase
+from .api.klay.tokens import TokensTestCase as KlayTokensTestCase
+from .api.klay.transactions import TransactionsTestCase as KlayTransactionsTestCase
