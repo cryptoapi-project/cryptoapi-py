@@ -67,7 +67,7 @@ class Tokens:
             self._models.klay.requests.get_token_transfers_by_token_address,
             params
         )
-
+        token = params.pop('token')
         params.update(api_key)
 
         validators.update({
@@ -75,16 +75,16 @@ class Tokens:
         })
 
         return self._http.get(
-            url='/tokens/{}/transfers'.format(params['token']),
+            url='/tokens/{}/transfers'.format(token),
             params=params,
             validators=validators
         )
 
-    def get_token_contract(self, addresses):
+    def get_token_contract(self, address):
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses)
+            'address': address
         }
 
         validate_data(
@@ -97,7 +97,7 @@ class Tokens:
         })
 
         return self._http.get(
-            url='/tokens/{}'.format(params['addresses']),
+            url='/tokens/{}'.format(params.pop('address')),
             params=api_key,
             validators=validators
         )
