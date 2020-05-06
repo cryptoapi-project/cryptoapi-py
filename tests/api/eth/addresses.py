@@ -12,7 +12,7 @@ class AddressesTestCase(unittest.TestCase):
             [address]
         )
         self.assertNotIn(
-            'status',
+            'errors',
             response
         )
 
@@ -21,7 +21,7 @@ class AddressesTestCase(unittest.TestCase):
             addresses
         )
         self.assertNotIn(
-            'status',
+            'errors',
             response
         )
 
@@ -30,7 +30,7 @@ class AddressesTestCase(unittest.TestCase):
             [address]
         )
         self.assertNotIn(
-            'status',
+            'errors',
             response
         )
 
@@ -39,7 +39,7 @@ class AddressesTestCase(unittest.TestCase):
             [address]
         )
         self.assertNotIn(
-            'status',
+            'errors',
             response
         )
 
@@ -49,7 +49,7 @@ class AddressesTestCase(unittest.TestCase):
             token
         )
         self.assertNotIn(
-            'status',
+            'errors',
             response
         )
 
@@ -58,7 +58,7 @@ class AddressesTestCase(unittest.TestCase):
             [address]
         )
         self.assertNotIn(
-            'status',
+            'errors',
             response
         )
 
@@ -68,6 +68,6 @@ class AddressesTestCase(unittest.TestCase):
             token
         )
         self.assertNotIn(
-            'status',
+            'errors',
             response
         )

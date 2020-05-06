@@ -13,7 +13,7 @@ class AddressesTestCase(unittest.TestCase):
             status
         )
         self.assertNotIn(
-            'status',
+            'errors',
             outputs
         )
 
@@ -22,7 +22,7 @@ class AddressesTestCase(unittest.TestCase):
             [address]
         )
         self.assertNotIn(
-            'status',
+            'errors',
             utxo_coin_addresses_info
         )
 
@@ -31,6 +31,6 @@ class AddressesTestCase(unittest.TestCase):
             [address]
         )
         self.assertNotIn(
-            'status',
+            'errors',
             utxo_coin_addresses_history
         )
