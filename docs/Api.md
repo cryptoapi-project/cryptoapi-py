@@ -46,6 +46,7 @@ block = client.api.eth.testnet.blocks.get_block(<BLOCK_NUMBER>)
 block = client.api.eth.blocks.get_block(<BLOCK_NUMBER>)
 
 ```
+
 #### KLAY Api
 
 ```python
@@ -58,13 +59,24 @@ block = client.api.klay.testnet.blocks.get_block(<BLOCK_NUMBER>)
 
 ```
 
+#### LTC Api
+
+```python
+from cryptoapi import Client
+
+client = Client(<YOUR_API_KEY>)
+
+# testnet example
+block = client.api.ltc.testnet.blocks.get_block(<BLOCK_NUMBER>)
+```
+
 #### Web Hooks
 
 ```python
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-outputs_by_addresses_and_status = client.api.whooks.testnet.whooks.get_webhook(<PROJECT_ID>)
+hook_events = client.api.whooks.get_hook_events(<HOOK_ID>)
 
 ```
 

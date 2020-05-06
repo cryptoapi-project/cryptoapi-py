@@ -1,6 +1,6 @@
 # Python library for cryptoapi
 
-Cryptoapi-py library can be used to use cryptoapi methods and events with python
+Cryptoapi-py library can be used to use cryptoapi methods and events subscriptions with python
 
 ## Installation
 
