@@ -2,6 +2,7 @@ from .eth import Eth
 from .klay import Klay
 from .btc import Btc
 from .bch import Bch
+from .ltc import Ltc
 
 
 class Events:
@@ -9,8 +10,8 @@ class Events:
             self,
             ws_wrapper,
             config,
-            debug,
-            api_key
+            api_key,
+            debug
     ):
         self.eth = Eth(
             ws_wrapper,
@@ -31,6 +32,12 @@ class Events:
             debug
         )
         self.bch = Bch(
+            ws_wrapper,
+            config,
+            api_key,
+            debug
+        )
+        self.ltc = Ltc(
             ws_wrapper,
             config,
             api_key,

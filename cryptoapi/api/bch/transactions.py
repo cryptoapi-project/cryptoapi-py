@@ -33,14 +33,14 @@ class Transactions:
             params.update({'block_height_or_hash': block_height_or_hash})
 
         validate_data(
-            self._models.bch.requests.get_transactions,
+            self._models.api.bch.requests.get_transactions,
             params
         )
 
         params.update(api_key)
 
         validators.update({
-            200: self._models.bch.responses.get_transactions
+            200: self._models.api.bch.responses.get_transactions
         })
 
         return self._http.get(
@@ -57,12 +57,12 @@ class Transactions:
         }
 
         validate_data(
-            self._models.bch.requests.get_transaction_by_hash,
+            self._models.api.bch.requests.get_transaction_by_hash,
             params
         )
 
         validators.update({
-            200: self._models.bch.responses.get_transaction_by_hash
+            200: self._models.api.bch.responses.get_transaction_by_hash
         })
 
         return self._http.get(
@@ -79,12 +79,12 @@ class Transactions:
         }
 
         validate_data(
-            self._models.bch.requests.send_transaction,
+            self._models.api.bch.requests.send_transaction,
             data
         )
 
         validators.update({
-            200: self._models.bch.responses.send_transaction
+            200: self._models.api.bch.responses.send_transaction
         })
 
         return self._http.post(
@@ -102,12 +102,12 @@ class Transactions:
         }
 
         validate_data(
-            self._models.bch.requests.decode_transaction,
+            self._models.api.bch.requests.decode_transaction,
             data
         )
 
         validators.update({
-            200: self._models.bch.responses.decode_transaction
+            200: self._models.api.bch.responses.decode_transaction
         })
 
         return self._http.post(
