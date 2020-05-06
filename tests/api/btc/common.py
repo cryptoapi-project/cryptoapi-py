@@ -10,13 +10,13 @@ class CommonTestCase(unittest.TestCase):
     def test_get_estimate_fee(self):
         estimate_fee = self.client.get_estimate_fee()
         self.assertIs(
-        	type(estimate_fee),
-        	float
+            type(estimate_fee),
+            float
         )
 
     def test_get_network_information(self):
         network_information = self.client.get_network_information()
         self.assertNotIn(
-        	'status',
-        	network_information
+            'errors',
+            network_information
         )

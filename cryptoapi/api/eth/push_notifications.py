@@ -24,16 +24,16 @@ class PushNotifications:
         }
 
         validate_data(
-            self._models.eth.requests.subscribe_to_addresses_notifications_params,
+            self._models.api.eth.requests.subscribe_to_addresses_notifications_params,
             params
         )
         validate_data(
-            self._models.eth.requests.subscribe_to_addresses_notifications_body,
+            self._models.api.eth.requests.subscribe_to_addresses_notifications_body,
             data
         )
 
         validators.update({
-            200: self._models.eth.responses.subscribe_to_addresses_notifications
+            200: self._models.api.eth.responses.subscribe_to_addresses_notifications
         })
 
         return self._http.post(
@@ -54,7 +54,7 @@ class PushNotifications:
         }
 
         validate_data(
-            self._models.eth.requests.unsubscribe_from_addresses_notifications,
+            self._models.api.eth.requests.unsubscribe_from_addresses_notifications,
             params
         )
 

@@ -10,7 +10,7 @@ class ContractsTestCase(unittest.TestCase):
     def test_get_contracts_logs(self):
         contracts_logs = self.client.get_contracts_logs()
         self.assertNotIn(
-            'status',
+            'errors',
             contracts_logs
         )
 
@@ -23,6 +23,6 @@ class ContractsTestCase(unittest.TestCase):
             contract
         )
         self.assertNotIn(
-            'status',
+            'errors',
             contract_general_information
         )

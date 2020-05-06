@@ -10,7 +10,7 @@ class TokensTestCase(unittest.TestCase):
     def test_get_tokens(self):
         tokens = self.client.get_tokens()
         self.assertNotIn(
-            'status',
+            'errors',
             tokens
         )
 
@@ -19,7 +19,7 @@ class TokensTestCase(unittest.TestCase):
             token
         )
         self.assertNotIn(
-            'status',
+            'errors',
             token_transfers
         )
 
@@ -28,6 +28,6 @@ class TokensTestCase(unittest.TestCase):
             contract
         )
         self.assertNotIn(
-            'status',
+            'errors',
             token_contract
         )

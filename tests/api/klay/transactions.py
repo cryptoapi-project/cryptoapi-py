@@ -10,7 +10,7 @@ class TransactionsTestCase(unittest.TestCase):
     def test_get_transactions(self):
         trx = self.client.get_transactions()
         self.assertNotIn(
-            'status',
+            'errors',
             trx
         )
 
@@ -19,7 +19,7 @@ class TransactionsTestCase(unittest.TestCase):
             trx_hash
         )
         self.assertNotIn(
-            'status',
+            'errors',
             trx_information
         )
 
@@ -41,6 +41,6 @@ class TransactionsTestCase(unittest.TestCase):
             trx_hex
         )
         self.assertNotIn(
-            'status',
+            'errors',
             decode_transactions
         )

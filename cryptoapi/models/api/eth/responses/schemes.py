@@ -72,7 +72,8 @@ _transfer_item = {
     'value': string_type,
     'gas_price': string_type,
     'internal': boolean_type,
-    'input': hex_type_eth
+    'input': hex_type_eth,
+    'status': boolean_type
 }
 
 get_transactions_by_addresses = {
@@ -123,7 +124,8 @@ _transactions_item = {
             'type': 'dict',
             'schema': _internal_transactions
         }
-    }
+    },
+    'status': boolean_type
 }
 
 get_transaction_intersections_by_addresses = {

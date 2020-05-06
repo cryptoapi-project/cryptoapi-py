@@ -24,16 +24,16 @@ class PushNotifications:
         }
 
         validate_data(
-            self._models.klay.requests.subscribe_to_addresses_notifications_params,
+            self._models.api.klay.requests.subscribe_to_addresses_notifications_params,
             params
         )
         validate_data(
-            self._models.klay.requests.subscribe_to_addresses_notifications_body,
+            self._models.api.klay.requests.subscribe_to_addresses_notifications_body,
             data
         )
 
         validators.update({
-            200: self._models.klay.responses.subscribe_to_addresses_notifications
+            200: self._models.api.klay.responses.subscribe_to_addresses_notifications
         })
 
         return self._http.post(
@@ -54,7 +54,7 @@ class PushNotifications:
         }
 
         validate_data(
-            self._models.klay.requests.unsubscribe_from_addresses_notifications,
+            self._models.api.klay.requests.unsubscribe_from_addresses_notifications,
             params
         )
 
