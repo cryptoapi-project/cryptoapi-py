@@ -36,12 +36,12 @@ class Contracts:
             params.update({'topics': ','.join(topics)})
 
         validate_data(
-            self._models.klay.requests.get_contracts_logs,
+            self._models.api.klay.requests.get_contracts_logs,
             params
         )
 
         validators.update({
-            200: self._models.klay.responses.get_contracts_logs
+            200: self._models.api.klay.responses.get_contracts_logs
         })
 
         params.update(api_key)
@@ -66,20 +66,20 @@ class Contracts:
         }
 
         validate_data(
-            self._models.klay.requests.contract_call_params,
+            self._models.api.klay.requests.contract_call_params,
             params
         )
         validate_data(
-            self._models.klay.requests.contract_call_body,
+            self._models.api.klay.requests.contract_call_body,
             data
         )
 
         validators.update({
-            200: self._models.klay.responses.contract_call
+            200: self._models.api.klay.responses.contract_call
         })
 
         return self._http.post(
-            url='/contracts/{}/call'.format(params['address']),
+            url='/contracts/{}/call'.format(params.pop('address')),
             data=data,
             params=api_key,
             validators=validators
@@ -93,16 +93,16 @@ class Contracts:
         }
 
         validate_data(
-            self._models.klay.requests.get_contract_general_information,
+            self._models.api.klay.requests.get_contract_general_information,
             params
         )
 
         validators.update({
-            200: self._models.klay.responses.get_contract_general_information
+            200: self._models.api.klay.responses.get_contract_general_information
         })
 
         return self._http.get(
-            url='/contracts/{}'.format(params['address']),
+            url='/contracts/{}'.format(params.pop('address')),
             params=api_key,
             validators=validators
         )

@@ -12,7 +12,7 @@ class BlocksTestCase(unittest.TestCase):
             block_number
         )
         self.assertNotIn(
-            'status',
+            'errors',
             block_by_number
         )
 
@@ -29,6 +29,6 @@ class BlocksTestCase(unittest.TestCase):
     def test_get_blocks(self):
         blocks = self.client.get_blocks()
         self.assertNotIn(
-            'status',
+            'errors',
             blocks
         )

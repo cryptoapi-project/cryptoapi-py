@@ -34,14 +34,14 @@ class Transactions:
             params.update({'block_number': block_number})
 
         validate_data(
-            self._models.klay.requests.get_transactions,
+            self._models.api.klay.requests.get_transactions,
             params
         )
 
         params.update(api_key)
 
         validators.update({
-            200: self._models.klay.responses.get_transactions
+            200: self._models.api.klay.responses.get_transactions
         })
 
         return self._http.get(
@@ -58,12 +58,12 @@ class Transactions:
         }
 
         validate_data(
-            self._models.klay.requests.get_transaction_information,
+            self._models.api.klay.requests.get_transaction_information,
             params
         )
 
         validators.update({
-            200: self._models.klay.responses.get_transaction_information
+            200: self._models.api.klay.responses.get_transaction_information
         })
 
         return self._http.get(
@@ -80,12 +80,12 @@ class Transactions:
         }
 
         validate_data(
-            self._models.klay.requests.get_transaction_receipt,
+            self._models.api.klay.requests.get_transaction_receipt,
             params
         )
 
         validators.update({
-            200: self._models.klay.responses.get_transaction_receipt
+            200: self._models.api.klay.responses.get_transaction_receipt
         })
 
         return self._http.get(
@@ -102,12 +102,12 @@ class Transactions:
         }
 
         validate_data(
-            self._models.klay.requests.send_transaction,
+            self._models.api.klay.requests.send_transaction,
             data
         )
 
         validators.update({
-            200: self._models.klay.responses.send_transaction
+            200: self._models.api.klay.responses.send_transaction
         })
 
         return self._http.post(
@@ -125,12 +125,12 @@ class Transactions:
         }
 
         validate_data(
-            self._models.klay.requests.decode_transaction,
+            self._models.api.klay.requests.decode_transaction,
             data
         )
 
         validators.update({
-            200: self._models.klay.responses.decode_transaction
+            200: self._models.api.klay.responses.decode_transaction
         })
 
         return self._http.post(

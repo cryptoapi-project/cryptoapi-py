@@ -31,14 +31,14 @@ class Tokens:
             params.update({'types': ','.join(types)})
 
         validate_data(
-            self._models.klay.requests.get_tokens,
+            self._models.api.klay.requests.get_tokens,
             params
         )
 
         params.update(api_key)
 
         validators.update({
-            200: self._models.klay.responses.get_tokens
+            200: self._models.api.klay.responses.get_tokens
         })
 
         return self._http.get(
@@ -64,40 +64,40 @@ class Tokens:
             params.update({'addresses': ','.join(addresses)})
 
         validate_data(
-            self._models.klay.requests.get_token_transfers_by_token_address,
+            self._models.api.klay.requests.get_token_transfers_by_token_address,
             params
         )
-
+        token = params.pop('token')
         params.update(api_key)
 
         validators.update({
-            200: self._models.klay.responses.get_token_transfers_by_token_address
+            200: self._models.api.klay.responses.get_token_transfers_by_token_address
         })
 
         return self._http.get(
-            url='/tokens/{}/transfers'.format(params['token']),
+            url='/tokens/{}/transfers'.format(token),
             params=params,
             validators=validators
         )
 
-    def get_token_contract(self, addresses):
+    def get_token_contract(self, address):
         api_key, validators = api_method_preprocessing(self)
 
         params = {
-            'addresses': ','.join(addresses)
+            'address': address
         }
 
         validate_data(
-            self._models.klay.requests.get_token_contract,
+            self._models.api.klay.requests.get_token_contract,
             params
         )
 
         validators.update({
-            200: self._models.klay.responses.get_token_contract
+            200: self._models.api.klay.responses.get_token_contract
         })
 
         return self._http.get(
-            url='/tokens/{}'.format(params['addresses']),
+            url='/tokens/{}'.format(params.pop('address')),
             params=api_key,
             validators=validators
         )
