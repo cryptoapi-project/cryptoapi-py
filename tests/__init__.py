@@ -21,3 +21,8 @@ from .api.klay.common import CommonTestCase as KlayCommonTestCase
 from .api.klay.contracts import ContractsTestCase as KlayContractsTestCase
 from .api.klay.tokens import TokensTestCase as KlayTokensTestCase
 from .api.klay.transactions import TransactionsTestCase as KlayTransactionsTestCase
+
+from .api.ltc.addresses import AddressesTestCase as LtcAddressesTestCase
+from .api.ltc.blocks import BlocksTestCase as LtcBlocksTestCase
+from .api.ltc.common import CommonTestCase as LtcCommonTestCase
+from .api.ltc.transactions import TransactionsTestCase as LtcTransactionsTestCase
