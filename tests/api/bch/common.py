@@ -17,6 +17,6 @@ class CommonTestCase(unittest.TestCase):
     def test_get_network_information(self):
         network_information = self.client.get_network_information()
         self.assertNotIn(
-            'status',
+            'errors',
             network_information
         )
