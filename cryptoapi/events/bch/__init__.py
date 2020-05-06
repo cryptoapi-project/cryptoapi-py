@@ -7,8 +7,8 @@ class Bch(Testnet):
         self,
         ws_wrapper,
         config,
-        debug,
-        api_key
+        api_key,
+        debug
     ):
         coin_prefix = 'bch'
         self._ws = ws_wrapper(

@@ -4,8 +4,8 @@ class Testnet:
         self,
         ws_wrapper,
         config,
-        debug,
-        api_key
+        api_key,
+        debug
     ):
         coin_prefix = 'eth'
         self._ws = ws_wrapper(

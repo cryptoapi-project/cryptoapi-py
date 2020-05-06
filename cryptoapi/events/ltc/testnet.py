@@ -7,7 +7,7 @@ class Testnet:
         api_key,
         debug
     ):
-        coin_prefix = 'btc'
+        coin_prefix = 'ltc'
         self._ws = ws_wrapper(
             url=config.events.WS_TESTNET_URL + coin_prefix,
             api_key=api_key,
