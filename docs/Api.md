@@ -8,7 +8,12 @@ This examples of using all available api methods.
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-outputs_by_addresses_and_status = client.api.bch.testnet.blocks.get_block(<BLOCK_NUMBER>)
+
+# testnet example
+block = client.api.bch.testnet.blocks.get_block(<BLOCK_NUMBER>)
+
+# mainnet example
+block = client.api.bch.blocks.get_block(<BLOCK_NUMBER>)
 
 ```
 
@@ -18,7 +23,12 @@ outputs_by_addresses_and_status = client.api.bch.testnet.blocks.get_block(<BLOCK
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-outputs_by_addresses_and_status = client.api.btc.testnet.blocks.get_block(<BLOCK_NUMBER>)
+
+# testnet example
+block = client.api.btc.testnet.blocks.get_block(<BLOCK_NUMBER>)
+
+# mainnet example
+block = client.api.btc.blocks.get_block(<BLOCK_NUMBER>)
 
 ```
 
@@ -28,7 +38,12 @@ outputs_by_addresses_and_status = client.api.btc.testnet.blocks.get_block(<BLOCK
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-transaction_by_address = client.api.eth.testnet.blocks.get_block(<BLOCK_NUMBER>)
+
+# testnet example
+block = client.api.eth.testnet.blocks.get_block(<BLOCK_NUMBER>)
+
+# mainnet example
+block = client.api.eth.blocks.get_block(<BLOCK_NUMBER>)
 
 ```
 #### KLAY Api
@@ -37,7 +52,9 @@ transaction_by_address = client.api.eth.testnet.blocks.get_block(<BLOCK_NUMBER>)
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-transaction_by_address = client.api.klay.testnet.blocks.get_block(<BLOCK_NUMBER>)
+
+# testnet example
+block = client.api.klay.testnet.blocks.get_block(<BLOCK_NUMBER>)
 
 ```
 
@@ -47,7 +64,6 @@ transaction_by_address = client.api.klay.testnet.blocks.get_block(<BLOCK_NUMBER>
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-KLAY_address_methods = 
 outputs_by_addresses_and_status = client.api.whooks.testnet.whooks.get_webhook(<PROJECT_ID>)
 
 ```
