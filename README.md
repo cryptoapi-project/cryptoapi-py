@@ -22,7 +22,7 @@ Cryptoapi-py library can be used to use cryptoapi methods and events subscriptio
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-network_information = client.api.btc.testnet.addresses.get_network_information()
+network_information = client.api.btc.testnet.common.get_network_information()
 
 ```
 
