@@ -62,7 +62,7 @@ class Testnet:
             callback
         )
 
-    def on_transaction_confirmations(self, _hash, confirmations, callback):
+    def on_transaction_confirmations(self, _hash, callback, confirmations=0):
         validate_data(
             self._models.is_integer,
             confirmations

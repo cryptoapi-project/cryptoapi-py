@@ -112,24 +112,27 @@ class Testnet:
             self._models.is_string,
             address
         )
-        validate_data(
-            self._models.is_string,
-            _from
-        )
-        validate_data(
-            self._models.is_string,
-            to
-        )
-        validate_data(
-            self._models.is_strings_list,
-            topics
-        )
+        if _from:
+            validate_data(
+                self._models.is_string,
+                _from
+            )
+        if to:
+            validate_data(
+                self._models.is_string,
+                to
+            )
+        if topics:
+            validate_data(
+                self._models.is_strings_list,
+                topics
+            )
         return self._ws.on_event(
             ['new_contract_log', address, confirmations, _from, to, topics],
             callback
         )
 
-    def on_transaction_confirmations(self, _hash, confirmations, callback):
+    def on_transaction_confirmations(self, _hash, callback, confirmations=0):
         validate_data(
             self._models.is_integer,
             confirmations
