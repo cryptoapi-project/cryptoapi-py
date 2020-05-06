@@ -5,7 +5,7 @@ from .config import address, status, client_api_key
 
 class AddressesTestCase(unittest.TestCase):
     def setUp(self):
-        self.client = Client(client_api_key).api.bch.testnet.addresses
+        self.client = Client(client_api_key).api.ltc.testnet.addresses
 
     def test_get_outputs_by_addresses(self):
         outputs = self.client.get_outputs_by_addresses(

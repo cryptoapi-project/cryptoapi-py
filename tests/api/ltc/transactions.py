@@ -5,7 +5,7 @@ from .config import client_api_key, trx_hash, trx_hex, block_number
 
 class TransactionsTestCase(unittest.TestCase):
     def setUp(self):
-        self.client = Client(client_api_key).api.btc.testnet.transactions
+        self.client = Client(client_api_key).api.ltc.testnet.transactions
 
     def test_get_transactions(self):
         trx = self.client.get_transactions(

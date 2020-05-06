@@ -10,7 +10,7 @@ class CommonTestCase(unittest.TestCase):
     def test_get_network_info(self):
         network_info = self.client.get_network_info()
         self.assertNotIn(
-            'status',
+            'errors',
             network_info
         )
 
@@ -22,6 +22,6 @@ class CommonTestCase(unittest.TestCase):
     #         value=value
     #     )
     #     self.assertNotIn(
-    #         'status',
+    #         'errors',
     #         estimate_gas
     #     )
