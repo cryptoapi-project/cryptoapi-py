@@ -12,7 +12,7 @@ class BlocksTestCase(unittest.TestCase):
             block_number
         )
         self.assertNotIn(
-            'status',
+            'errors',
             block_by_num
         )
 
@@ -31,6 +31,6 @@ class BlocksTestCase(unittest.TestCase):
             limit=limit
         )
         self.assertNotIn(
-            'status',
+            'errors',
             response
         )

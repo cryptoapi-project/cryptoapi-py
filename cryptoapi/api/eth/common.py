@@ -16,7 +16,7 @@ class Common:
         api_key, validators = api_method_preprocessing(self)
 
         validators.update({
-            200: self._models.eth.responses.get_network_info
+            200: self._models.api.eth.responses.get_network_info
         })
 
         return self._http.get(
@@ -36,12 +36,12 @@ class Common:
         }
 
         validate_data(
-            self._models.eth.requests.estimate_gas,
+            self._models.api.eth.requests.estimate_gas,
             data
         )
 
         validators.update({
-            200: self._models.eth.responses.estimate_gas
+            200: self._models.api.eth.responses.estimate_gas
         })
 
         return self._http.post(

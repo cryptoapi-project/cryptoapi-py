@@ -28,12 +28,12 @@ class Whooks:
         }
 
         validate_data(
-            self._models.whooks.requests.create_webhook,
+            self._models.api.whooks.requests.create_webhook,
             data
         )
 
         validators.update({
-            200: self._models.whooks.responses.create_webhook
+            200: self._models.api.whooks.responses.create_webhook
         })
 
         return self._http.post(
@@ -51,12 +51,12 @@ class Whooks:
         }
 
         validate_data(
-            self._models.whooks.requests.get_webhook,
+            self._models.api.whooks.requests.get_webhook,
             params
         )
 
         validators.update({
-            200: self._models.whooks.responses.get_webhook
+            200: self._models.api.whooks.responses.get_webhook
         })
 
         params.update(api_key)
@@ -75,12 +75,12 @@ class Whooks:
         }
 
         validate_data(
-            self._models.whooks.requests.delete_webhook,
+            self._models.api.whooks.requests.delete_webhook,
             params
         )
 
         validators.update({
-            200: self._models.whooks.responses.delete_webhook
+            200: self._models.api.whooks.responses.delete_webhook
         })
 
         params.update(api_key)
@@ -108,12 +108,12 @@ class Whooks:
         }
 
         validate_data(
-            self._models.whooks.requests.change_webhook,
+            self._models.api.whooks.requests.change_webhook,
             data
         )
 
         validators.update({
-            200: self._models.whooks.responses.change_webhook
+            200: self._models.api.whooks.responses.change_webhook
         })
 
         return self._http.post(
@@ -149,12 +149,12 @@ class Whooks:
             params.update({'type': _type})
 
         validate_data(
-            self._models.whooks.requests.get_events,
+            self._models.api.whooks.requests.get_events,
             params
         )
 
         validators.update({
-            200: self._models.whooks.responses.get_events
+            200: self._models.api.whooks.responses.get_events
         })
 
         params.update(api_key)

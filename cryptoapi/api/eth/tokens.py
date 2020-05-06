@@ -31,7 +31,7 @@ class Tokens:
             params.update({'types': types})
 
         validate_data(
-            self._models.eth.requests.get_tokens,
+            self._models.api.eth.requests.get_tokens,
             params
         )
 
@@ -41,7 +41,7 @@ class Tokens:
         params.update(api_key)
 
         validators.update({
-            200: self._models.eth.responses.get_tokens
+            200: self._models.api.eth.responses.get_tokens
         })
 
         return self._http.get(
@@ -67,7 +67,7 @@ class Tokens:
             params.update({'addresses': addresses})
 
         validate_data(
-            self._models.eth.requests.get_token_transfers_by_token_address,
+            self._models.api.eth.requests.get_token_transfers_by_token_address,
             params
         )
 
@@ -79,7 +79,7 @@ class Tokens:
         params.update(api_key)
 
         validators.update({
-            200: self._models.eth.responses.get_token_transfers_by_token_address
+            200: self._models.api.eth.responses.get_token_transfers_by_token_address
         })
 
         return self._http.get(
@@ -96,12 +96,12 @@ class Tokens:
         }
 
         validate_data(
-            self._models.eth.requests.get_token_contract,
+            self._models.api.eth.requests.get_token_contract,
             params
         )
 
         validators.update({
-            200: self._models.eth.responses.get_token_contract
+            200: self._models.api.eth.responses.get_token_contract
         })
 
         return self._http.get(

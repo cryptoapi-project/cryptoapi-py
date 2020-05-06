@@ -12,7 +12,7 @@ class TransactionsTestCase(unittest.TestCase):
             block_number
         )
         self.assertNotIn(
-            'status',
+            'errors',
             trx
         )
 
@@ -21,7 +21,7 @@ class TransactionsTestCase(unittest.TestCase):
             trx_hash
         )
         self.assertNotIn(
-            'status',
+            'errors',
             trx
         )
 
@@ -30,7 +30,7 @@ class TransactionsTestCase(unittest.TestCase):
             trx_hex
         )
         self.assertNotIn(
-            'status',
+            'errors',
             decode_trx
         )
 

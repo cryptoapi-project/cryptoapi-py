@@ -23,12 +23,12 @@ class Rates:
         params = {'coins': ','.join(coins)}
 
         validate_data(
-            self._models.rates.requests.get_coins_rates,
+            self._models.api.rates.requests.get_coins_rates,
             params
         )
 
         validators.update({
-            200: self._models.rates.responses.get_coins_rates
+            200: self._models.api.rates.responses.get_coins_rates
         })
 
         return self._http.get(
@@ -42,12 +42,12 @@ class Rates:
         params = {'coins': ','.join(coins)}
 
         validate_data(
-            self._models.rates.requests.get_coins_history,
+            self._models.api.rates.requests.get_coins_history,
             params
         )
 
         validators.update({
-            200: self._models.rates.responses.get_coins_history
+            200: self._models.api.rates.responses.get_coins_history
         })
 
         return self._http.get(

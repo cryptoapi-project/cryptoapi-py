@@ -36,7 +36,7 @@ class Contracts:
             params.update({'topics': topics})
 
         validate_data(
-            self._models.eth.requests.get_contracts_logs,
+            self._models.api.eth.requests.get_contracts_logs,
             params
         )
 
@@ -47,7 +47,7 @@ class Contracts:
             params['topics'] = ','.join(params['topics'])
 
         validators.update({
-            200: self._models.eth.responses.get_contracts_logs
+            200: self._models.api.eth.responses.get_contracts_logs
         })
 
         params.update(api_key)
@@ -72,16 +72,16 @@ class Contracts:
         }
 
         validate_data(
-            self._models.eth.requests.contract_call_params,
+            self._models.api.eth.requests.contract_call_params,
             params
         )
         validate_data(
-            self._models.eth.requests.contract_call_body,
+            self._models.api.eth.requests.contract_call_body,
             data
         )
 
         validators.update({
-            200: self._models.eth.responses.contract_call
+            200: self._models.api.eth.responses.contract_call
         })
 
         return self._http.post(
@@ -99,12 +99,12 @@ class Contracts:
         }
 
         validate_data(
-            self._models.eth.requests.get_contract_general_information,
+            self._models.api.eth.requests.get_contract_general_information,
             params
         )
 
         validators.update({
-            200: self._models.eth.responses.get_contract_general_information
+            200: self._models.api.eth.responses.get_contract_general_information
         })
 
         return self._http.get(
