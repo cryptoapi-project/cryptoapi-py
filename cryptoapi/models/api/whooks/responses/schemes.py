@@ -1,84 +1,5 @@
-from cryptoapi.utils.models import hex_type_not_required, string_type, integer_type, boolean_type
+from cryptoapi.utils.models import string_type, integer_type, boolean_type
 
-
-_transfer_triggers = {
-    'transfer_address': string_type,
-    'token_address': string_type
-}
-
-create_webhook = {
-    'project_id': integer_type,
-    'url': string_type,
-    'coin': string_type,
-    'is_subscribe_block': boolean_type,
-    'is_subscribe_transfer': boolean_type,
-    'is_subscribe_transaction': boolean_type,
-    'transaction_addresses': {
-        'required': True,
-        'type': 'list',
-        'schema': string_type
-    },
-    'transfer_triggers': {
-        'required': True,
-        'type': 'list',
-        'schema': {
-            'type': 'dict',
-            'schema': _transfer_triggers
-        }
-    },
-    'id': integer_type
-}
-
-get_webhook = {
-    'project_id': integer_type,
-    'url': string_type,
-    'coin': string_type,
-    'is_subscribe_block': boolean_type,
-    'is_subscribe_transfer': boolean_type,
-    'is_subscribe_transaction': boolean_type,
-    'transaction_addresses': {
-        'required': True,
-        'type': 'list',
-        'schema': string_type
-    },
-    'transfer_triggers': {
-        'required': True,
-        'type': 'list',
-        'schema': {
-            'type': 'dict',
-            'schema': _transfer_triggers
-        }
-    },
-    'id': integer_type
-}
-
-delete_webhook = {
-    'status': integer_type,
-    'message': string_type
-}
-
-change_webhook = {
-    'project_id': integer_type,
-    'url': string_type,
-    'coin': string_type,
-    'is_subscribe_block': boolean_type,
-    'is_subscribe_transfer': boolean_type,
-    'is_subscribe_transaction': boolean_type,
-    'transaction_addresses': {
-        'required': True,
-        'type': 'list',
-        'schema': string_type
-    },
-    'transfer_triggers': {
-        'required': True,
-        'type': 'list',
-        'schema': {
-            'type': 'dict',
-            'schema': _transfer_triggers
-        }
-    },
-    'id': integer_type
-}
 
 _items = {
     'id': integer_type,
@@ -89,7 +10,7 @@ _items = {
     'data': {'type': 'dict'}
 }
 
-get_events = {
+get_hook_events = {
     'start_id': integer_type,
     'end_id': integer_type,
     'only_failed': boolean_type,

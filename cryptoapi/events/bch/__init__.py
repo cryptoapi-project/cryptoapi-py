@@ -7,6 +7,7 @@ class Bch(Testnet):
         self,
         ws_wrapper,
         config,
+        models,
         api_key,
         debug
     ):
@@ -16,10 +17,11 @@ class Bch(Testnet):
             api_key=api_key,
             debug=debug
         )
-
+        self._models = models
         self.testnet = Testnet(
             ws_wrapper,
             config,
+            models,
             debug,
             api_key
         )
