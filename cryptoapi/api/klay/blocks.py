@@ -19,12 +19,12 @@ class Blocks:
             'block_number_or_hash': block_number_or_hash
         }
         validate_data(
-            self._models.klay.requests.get_block,
+            self._models.api.klay.requests.get_block,
             params
         )
 
         validators.update({
-            200: self._models.klay.responses.get_block
+            200: self._models.api.klay.responses.get_block
         })
 
         return self._http.get(
@@ -44,12 +44,12 @@ class Blocks:
             params.update({'limit': limit})
 
         validate_data(
-            self._models.klay.requests.get_blocks,
+            self._models.api.klay.requests.get_blocks,
             params
         )
 
         validators.update({
-            200: self._models.klay.responses.get_blocks
+            200: self._models.api.klay.responses.get_blocks
         })
 
         params.update(api_key)
