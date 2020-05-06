@@ -9,11 +9,11 @@ from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
 
-# testnet example
-block = client.api.bch.testnet.blocks.get_block(<BLOCK_NUMBER>)
-
 # mainnet example
 block = client.api.bch.blocks.get_block(<BLOCK_NUMBER>)
+
+# testnet example
+block = client.api.bch.testnet.blocks.get_block(<BLOCK_NUMBER>)
 
 ```
 
@@ -24,11 +24,11 @@ from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
 
-# testnet example
-block = client.api.btc.testnet.blocks.get_block(<BLOCK_NUMBER>)
-
 # mainnet example
 block = client.api.btc.blocks.get_block(<BLOCK_NUMBER>)
+
+# testnet example
+block = client.api.btc.testnet.blocks.get_block(<BLOCK_NUMBER>)
 
 ```
 
@@ -39,11 +39,11 @@ from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
 
-# testnet example
-block = client.api.eth.testnet.blocks.get_block(<BLOCK_NUMBER>)
-
 # mainnet example
 block = client.api.eth.blocks.get_block(<BLOCK_NUMBER>)
+
+# testnet example
+block = client.api.eth.testnet.blocks.get_block(<BLOCK_NUMBER>)
 
 ```
 

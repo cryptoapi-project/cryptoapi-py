@@ -8,12 +8,12 @@ Basic examples of using events for supported networks.
 ```python
 from cryptoapi import Client
 
-# mainnet
+# mainnet example
 client_bch_events = Client(<YOUR_API_KEY>).events.bch
 client_bch_events.connect()
 subscription_id = client_bch_events.on_block(<callback_function>)
 
-# testnet
+# testnet example
 client_bch_testnet_events = Client(<YOUR_API_KEY>).events.bch.testnet
 client_bch_testnet_events.connect()
 testnet_subscription_id = client_bch_testnet_events.on_block(<callback_function>)
@@ -28,12 +28,12 @@ client_bch_testnet_events.unsubscribe(testnet_subscription_id)
 ```python
 from cryptoapi import Client
 
-# mainnet
+# mainnet example
 client_btc_events = Client(<YOUR_API_KEY>).events.btc
 client_btc_events.connect()
 subscription_id = client_btc_events.on_block(<callback_function>)
 
-# testnet
+# testnet example
 client_btc_testnet_events = Client(<YOUR_API_KEY>).events.btc.testnet
 client_btc_testnet_events.connect()
 testnet_subscription_id = client_btc_testnet_events.on_block(<callback_function>)
@@ -50,12 +50,12 @@ Available events for bch/btc networks: `on_block, on_address_transactions, on_ad
 ```python
 from cryptoapi import Client
 
-# mainnet
+# mainnet example
 client_eth_events = Client(<YOUR_API_KEY>).events.eth
 client_eth_events.connect()
 subscription_id = client_eth_events.on_block(<callback_function>)
 
-# testnet
+# testnet example
 client_eth_testnet_events = Client(<YOUR_API_KEY>).events.eth.testnet
 client_eth_testnet_events.connect()
 testnet_subscription_id = client_eth_testnet_events.on_block(<callback_function>)
@@ -70,12 +70,12 @@ client_eth_testnet_events.unsubscribe(testnet_subscription_id)
 ```python
 from cryptoapi import Client
 
-# mainnet
+# mainnet example
 client_klay_events = Client(<YOUR_API_KEY>).events.klay
 client_klay_events.connect()
 subscription_id = client_klay_events.on_block(<callback_function>)
 
-# testnet
+# testnet example
 client_klay_testnet_events = Client(<YOUR_API_KEY>).events.klay.testnet
 client_klay_testnet_events.connect()
 testnet_subscription_id = client_klay_testnet_events.on_block(<callback_function>)
@@ -90,12 +90,12 @@ client_klay_testnet_events.unsubscribe(testnet_subscription_id)
 ```python
 from cryptoapi import Client
 
-# mainnet
+# mainnet example
 client_ltc_events = Client(<YOUR_API_KEY>).events.ltc
 client_ltc_events.connect()
 subscription_id = client_ltc_events.on_block(<callback_function>)
 
-# testnet
+# testnet example
 client_ltc_testnet_events = Client(<YOUR_API_KEY>).events.ltc
 client_ltc_testnet_events.connect()
 testnet_subscription_id = client_ltc_testnet_events.on_block(<callback_function>)
