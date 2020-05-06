@@ -10,36 +10,42 @@ class Events:
             self,
             ws_wrapper,
             config,
+            models,
             api_key,
             debug
     ):
         self.eth = Eth(
             ws_wrapper,
             config,
+            models,
             api_key,
             debug
         )
         self.klay = Klay(
             ws_wrapper,
             config,
+            models,
             api_key,
             debug
         )
         self.btc = Btc(
             ws_wrapper,
             config,
+            models,
             api_key,
             debug
         )
         self.bch = Bch(
             ws_wrapper,
             config,
+            models,
             api_key,
             debug
         )
         self.ltc = Ltc(
             ws_wrapper,
             config,
+            models,
             api_key,
             debug
         )

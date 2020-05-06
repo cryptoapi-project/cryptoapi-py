@@ -1,6 +1,6 @@
 # Python library for cryptoapi
 
-Cryptoapi-py library can be used to use cryptoapi methods and events with python
+Cryptoapi-py library can be used to use cryptoapi methods and events subscriptions with python
 
 ## Installation
 
@@ -22,7 +22,7 @@ Cryptoapi-py library can be used to use cryptoapi methods and events with python
 from cryptoapi import Client
 
 client = Client(<YOUR_API_KEY>)
-outputs_by_addresses_and_status = client.api.btc.testnet.addresses.get_outputs_by_addresses([<ADDRESSES>], <STATUS>)
+network_information = client.api.btc.testnet.common.get_network_information()
 
 ```
 
