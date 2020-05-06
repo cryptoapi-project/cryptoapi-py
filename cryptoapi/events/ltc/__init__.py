@@ -1,7 +1,7 @@
 from .testnet import Testnet
 
 
-class Klay(Testnet):
+class Ltc(Testnet):
 
     def __init__(
         self,
@@ -10,7 +10,7 @@ class Klay(Testnet):
         api_key,
         debug
     ):
-        coin_prefix = 'klay'
+        coin_prefix = 'ltc'
         self._ws = ws_wrapper(
             url=config.events.WS_BASE_URL + coin_prefix,
             api_key=api_key,

@@ -17,7 +17,7 @@ class Api:
         config,
         models,
         api_key,
-        debug=False
+        debug
     ):
         self._config = config
         self._http = http_wrapper(

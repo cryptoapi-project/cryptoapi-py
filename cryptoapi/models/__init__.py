@@ -1,11 +1,5 @@
 from .model import Model
-from .rates import Rates
-from .eth import Eth
-from .btc import Btc
-from .bch import Bch
-from .ltc import Ltc
-from .klay import Klay
-from .whooks import Whooks
+from .api import Api
 
 from cryptoapi.utils.models import CustomValidator, string_type, integer_type, string_type_not_required
 
@@ -48,11 +42,4 @@ class Models:
     def __init__(self):
         self.get_coins = Model(get_coins, True)
         self.error = Model(error)
-
-        self.rates = Rates(Model)
-        self.eth = Eth(Model)
-        self.btc = Btc(Model)
-        self.bch = Bch(Model)
-        self.ltc = Ltc(Model)
-        self.klay = Klay(Model)
-        self.whooks = Whooks(Model)
+        self.api = Api(Model)
