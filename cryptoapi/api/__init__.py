@@ -4,6 +4,7 @@ from .rates import Rates
 from .eth import Eth
 from .btc import Btc
 from .bch import Bch
+from .ltc import Ltc
 from .klay import Klay
 from .whooks import Whooks
 
@@ -48,6 +49,13 @@ class Api:
             api_key
         )
         self.bch = Bch(
+            http_wrapper,
+            self._models,
+            self._config,
+            debug,
+            api_key
+        )
+        self.ltc = Ltc(
             http_wrapper,
             self._models,
             self._config,
