@@ -15,6 +15,7 @@ get_network_information = {
 def get_estimate_fee(value):
     return isinstance(value, float)
 
+
 # BTC.Blocks
 
 get_block = {

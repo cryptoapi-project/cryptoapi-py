@@ -14,14 +14,15 @@ class CommonTestCase(unittest.TestCase):
             network_info
         )
 
-    # def test_estimate_gas(self):
-    #     estimate_gas = self.client.estimate_gas(
-    #         _from=_from,
-    #         to=to,
-    #         data=data,
-    #         value=value
-    #     )
-    #     self.assertNotIn(
-    #         'errors',
-    #         estimate_gas
-    #     )
+    @unittest.skip("TODO: fix test")
+    def test_estimate_gas(self):
+        estimate_gas = self.client.estimate_gas(
+            _from=_from,
+            to=to,
+            data=data,
+            value=value
+        )
+        self.assertNotIn(
+            'errors',
+            estimate_gas
+        )

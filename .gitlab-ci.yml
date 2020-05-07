@@ -1,0 +1,44 @@
+image: 'python:3.7'
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - pip install -r requirements_dev.txt
+
+stages:
+  - static analysis
+  - tests
+
+flake8:
+  stage: static analysis
+  script:
+    - nox -s flake8
+  only:
+    - web
+    - trigger
+    - merge requests
+  tags:
+    - pp-new-develop
+
+
+isort:
+  stage: static analysis
+  script:
+    - nox -s isort
+  only:
+    - web
+    - trigger
+    - merge requests
+  tags:
+    - pp-new-develop
+
+
+tests:
+  stage: tests
+  script:
+    - nox -s tests
+  only:
+    - web
+    - trigger
+    - merge requests
+  tags:
+    - pp-new-develop
