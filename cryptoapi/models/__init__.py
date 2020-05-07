@@ -37,9 +37,41 @@ error = {
 }
 
 
+# events schemes
+
+
+def is_integer(value):
+    return isinstance(value, int)
+
+
+def is_string(value):
+    return isinstance(value, str)
+
+
 class Models:
 
     def __init__(self):
         self.get_coins = Model(get_coins, True)
         self.error = Model(error)
         self.api = Api(Model)
+
+        # events schemes
+        self.is_integer = Model(
+            CustomValidator(
+                is_integer,
+                'Field must be integer'
+            )
+        )
+        self.is_string = Model(
+            CustomValidator(
+                is_string,
+                'Field must be string'
+            )
+        )
+        self.is_strings_list = Model(
+            CustomValidator(
+                is_string,
+                'Field must be list of strings'
+            ),
+            True
+        )

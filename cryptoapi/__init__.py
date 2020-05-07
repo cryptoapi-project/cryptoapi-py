@@ -21,6 +21,7 @@ class Client:
         self.events = Events(
             WS,
             self.config,
+            self.models,
             api_key,
             debug
         )
