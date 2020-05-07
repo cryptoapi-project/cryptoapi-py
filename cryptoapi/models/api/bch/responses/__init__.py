@@ -5,10 +5,14 @@ from .schemes import get_network_information, get_estimate_fee, get_block, get_b
 
 class Responses:
 
-    def __init__(self, model_wrapper):
-
+    def __init__(self, model_wrapper, utils):
         self.get_network_information = model_wrapper(get_network_information)
-        self.get_estimate_fee = model_wrapper(get_estimate_fee)
+        self.get_estimate_fee = model_wrapper(
+            utils.custom_validator(
+                get_estimate_fee,
+                'Fee value must be a float'
+            )
+        )
         self.get_block = model_wrapper(get_block)
         self.get_blocks = model_wrapper(get_blocks)
         self.get_transaction_by_hash = model_wrapper(get_transaction_by_hash)

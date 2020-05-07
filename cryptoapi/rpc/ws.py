@@ -50,7 +50,9 @@ class WS:
             )
         else:
             message_id, message_object = message['params']
-            ws.subscribers[message_id][1](message_object)
+            _, callback, validator = ws.subscribers[message_id]
+            # TODO: validator in action
+            callback(message_object)
 
     def _on_open(ws):
         ws._connected = True
@@ -168,7 +170,7 @@ class WS:
             # Release lock
             self.__lock.release()
 
-    def on_event(self, params, callback, subscription_id=None):
+    def on_event(self, params, callback, validator, subscription_id=None):
         if not callable(callback):
             raise Exception('Callback must be callable object')
 
@@ -187,7 +189,7 @@ class WS:
         if message['result'] is None:
             raise Exception(message['error']['message'])
 
-        self.subscribers[subscription_id] = [params, callback]
+        self.subscribers[subscription_id] = [params, callback, validator]
         return subscription_id
 
     def unsubscribe(self, subscription_id):

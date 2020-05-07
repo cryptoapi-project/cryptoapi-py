@@ -8,6 +8,7 @@ class Bch(Testnet):
         http_wrapper,
         models,
         config,
+        utils,
         debug,
         api_key
     ):
@@ -18,6 +19,7 @@ class Bch(Testnet):
         )
         self._api_key = api_key
         self._models = models
+        self._utils = utils
 
         self._init_modules()
 
@@ -26,6 +28,7 @@ class Bch(Testnet):
             coin_url,
             models,
             config,
+            utils,
             debug,
             api_key
         )

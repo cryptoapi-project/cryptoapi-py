@@ -1,4 +1,4 @@
-from cryptoapi.utils.models import string_type, integer_type, boolean_type
+from cryptoapi.utils.types import string_type, integer_type, boolean_type
 
 
 _items = {
