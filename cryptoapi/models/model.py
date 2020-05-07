@@ -1,11 +1,10 @@
 from cerberus import Validator
-from cryptoapi.utils.models import CustomValidator
 
 
 class Model:
 
-    def __init__(self, schema, item=False):
-        if not isinstance(schema, (dict, CustomValidator)):
+    def __init__(self, schema, item=False, custom_validator=object):
+        if not isinstance(schema, (dict, custom_validator)):
             raise Exception('Validator schema must be a dict or CustomValidator types object')
         if isinstance(schema, dict):
             schema = Validator(schema)

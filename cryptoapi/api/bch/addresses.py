@@ -1,19 +1,18 @@
-from cryptoapi.utils.api import api_method_preprocessing, validate_data
-
-
 class Addresses:
     def __init__(
         self,
         http,
         models,
+        utils,
         api_key
     ):
         self._http = http
         self._api_key = api_key
         self._models = models
+        self._utils = utils
 
     def get_outputs_by_addresses(self, addresses, status, skip=None, limit=None):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
             'addresses': addresses,
@@ -26,7 +25,7 @@ class Addresses:
         if limit is not None:
             params.update({'limit': limit})
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.bch.requests.get_outputs_by_addresses,
             params
         )
@@ -46,13 +45,13 @@ class Addresses:
         )
 
     def get_utxo_coin_addresses_info(self, addresses):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
             'addresses': addresses
         }
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.bch.requests.get_utxo_coin_addresses_info,
             params
         )
@@ -70,7 +69,7 @@ class Addresses:
         )
 
     def get_utxo_coin_addresses_history(self, addresses, skip=None, limit=None):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
             'addresses': addresses
@@ -82,7 +81,7 @@ class Addresses:
         if limit is not None:
             params.update({'limit': limit})
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.bch.requests.get_utxo_coin_addresses_history,
             params
         )

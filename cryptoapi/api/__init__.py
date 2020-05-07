@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-from cryptoapi.utils.api import api_method_preprocessing
 from .rates import Rates
 from .eth import Eth
 from .btc import Btc
@@ -16,6 +14,7 @@ class Api:
         http_wrapper,
         config,
         models,
+        utils,
         api_key,
         debug
     ):
@@ -26,11 +25,13 @@ class Api:
         )
         self._api_key = api_key
         self._models = models
+        self._utils = utils
 
         self.rates = Rates(
             http_wrapper,
             self._models,
             self._config,
+            self._utils,
             debug,
             api_key
         )
@@ -38,6 +39,7 @@ class Api:
             http_wrapper,
             self._models,
             self._config,
+            self._utils,
             debug,
             api_key
         )
@@ -45,6 +47,7 @@ class Api:
             http_wrapper,
             self._models,
             self._config,
+            self._utils,
             debug,
             api_key
         )
@@ -52,6 +55,7 @@ class Api:
             http_wrapper,
             self._models,
             self._config,
+            self._utils,
             debug,
             api_key
         )
@@ -59,6 +63,7 @@ class Api:
             http_wrapper,
             self._models,
             self._config,
+            self._utils,
             debug,
             api_key
         )
@@ -66,6 +71,7 @@ class Api:
             http_wrapper,
             self._models,
             self._config,
+            self._utils,
             debug,
             api_key
         )
@@ -73,12 +79,13 @@ class Api:
             http_wrapper,
             self._models,
             self._config,
+            self._utils,
             debug,
             api_key
         )
 
     def get_coins(self):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self.utils.api_method_preprocessing(self)
         validators.update({
             200: self._models.get_coins
         })

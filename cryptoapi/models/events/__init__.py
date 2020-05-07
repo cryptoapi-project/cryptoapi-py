@@ -1,20 +1,66 @@
-from .schemes import 
+from .notifications import Notifications
+
+
+def _is_integer(value):
+    return isinstance(value, int)
+
+
+def _is_string(value):
+    return isinstance(value, str)
+
 
 class Events:
 
-    def __init__(self, model_wrapper):
-        self.eth_block_notification = model_wrapper(eth_block_notification)
-        self.klay_block_notification = model_wrapper(klay_block_notification)
-        self.address_subscription = model_wrapper(address_subscription)
-        self.balance_notification = model_wrapper(balance_notification)
-        self.eth_transaction_notification = model_wrapper(eth_transaction_notification)
-        self.klay_transaction_notification = model_wrapper(klay_transaction_notification)
-        self.token_subscription = model_wrapper(token_subscription)
-        self.transfer_notification = model_wrapper(transfer_notification)
-        self.token_balance_notification = model_wrapper(token_balance_notification)
-        self.eth_contract_log_subscription = model_wrapper(eth_contract_log_subscription)
-        self.eth_contract_log_notification = model_wrapper(eth_contract_log_notification)
-        self.transaction_confirmation_subscription = model_wrapper(transaction_confirmation_subscription)
-        self.transaction_confirmation_notification = model_wrapper(transaction_confirmation_notification)
-        self.utxo_block_notification = model_wrapper(utxo_block_notification)
-        self.utxo_transaction_notification = model_wrapper(utxo_transaction_notification)
+    def __init__(self, model_wrapper, utils):
+
+        self.address = model_wrapper(
+            utils.custom_validator(
+                _is_string,
+                'address must be a string'
+            )
+        )
+        self.confirmations = model_wrapper(
+            utils.custom_validator(
+                _is_integer,
+                'confirmations must be a integer'
+            )
+        )
+        self.token = model_wrapper(
+            utils.custom_validator(
+                _is_string,
+                'token must be a string'
+            )
+        )
+        self._from = model_wrapper(
+            utils.custom_validator(
+                _is_string,
+                'from must be a string'
+            )
+        )
+        self.to = model_wrapper(
+            utils.custom_validator(
+                _is_string,
+                'to must be a string'
+            )
+        )
+        self.topics = model_wrapper(
+            utils.custom_validator(
+                _is_string,
+                'topics must be a list of strings'
+            ),
+            True
+        )
+        self.hash = model_wrapper(
+            utils.custom_validator(
+                _is_string,
+                'hash must be a string'
+            )
+        )
+        self.subscription_id = model_wrapper(
+            utils.custom_validator(
+                _is_integer,
+                'subscription_id must be a integer'
+            )
+        )
+
+        self.notifications = Notifications(model_wrapper)

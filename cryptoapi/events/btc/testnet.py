@@ -1,6 +1,3 @@
-from cryptoapi.utils.api import validate_data
-
-
 class Testnet:
 
     def __init__(
@@ -8,6 +5,7 @@ class Testnet:
         ws_wrapper,
         config,
         models,
+        utils,
         api_key,
         debug
     ):
@@ -18,6 +16,7 @@ class Testnet:
             debug=debug
         )
         self._models = models
+        self._utils = utils
 
     @property
     def connected(self):
@@ -30,51 +29,59 @@ class Testnet:
         self._ws.disconnect()
 
     def on_block(self, callback, confirmations=0):
+        self._utils.validate_data(
+            self._models.events.confirmations,
+            confirmations
+        )
         return self._ws.on_event(
             ['new_block', confirmations],
-            callback
+            callback,
+            self._models.events.notifications.utxo_transaction_notification
         )
 
     def on_address_transactions(self, address, callback, confirmations=0):
-        validate_data(
-            self._models.is_integer,
-            confirmations
-        )
-        validate_data(
-            self._models.is_string,
+        self._utils.validate_data(
+            self._models.events.address,
             address
+        )
+        self._utils.validate_data(
+            self._models.events.confirmations,
+            confirmations
         )
         return self._ws.on_event(
             ['new_transaction', address, confirmations],
-            callback
+            callback,
+            self._models.events.notifications.utxo_transaction_notification
         )
 
     def on_address_balance(self, address, callback, confirmations=0):
-        validate_data(
-            self._models.is_integer,
-            confirmations
-        )
-        validate_data(
-            self._models.is_string,
+        self._utils.validate_data(
+            self._models.events.address,
             address
+        )
+        self._utils.validate_data(
+            self._models.events.confirmations,
+            confirmations
         )
         return self._ws.on_event(
             ['new_balance', address, confirmations],
-            callback
+            callback,
+            self._models.events.notifications.balance_notification
         )
 
     def on_transaction_confirmations(self, _hash, callback, confirmations=0):
-        validate_data(
-            self._models.is_integer,
-            confirmations
-        )
-        validate_data(
-            self._models.is_string,
+        self._utils.validate_data(
+            self._models.events.hash,
             _hash
+        )
+        self._utils.validate_data(
+            self._models.events.confirmations,
+            confirmations
         )
         return self._ws.on_event(
             ['new_confirmation', _hash, confirmations],
-            callback
+            callback,
+            self._models.events.notifications.transaction_confirmation_notification
         )
 
     def on_connected(self, callback):
@@ -88,8 +95,8 @@ class Testnet:
         self._ws.on_disconnected_callbacks.append(callback)
 
     def unsubscribe(self, subscription_id):
-        validate_data(
-            self._models.is_integer,
+        self._utils.validate_data(
+            self._models.events.subscription_id,
             subscription_id
         )
         return self._ws.unsubscribe(subscription_id)

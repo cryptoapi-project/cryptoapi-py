@@ -19,22 +19,3 @@ boolean_nullable_type_not_required = {'type': 'boolean', 'required': False, 'nul
 integer_type_not_required = {'type': 'integer', 'required': False}
 boolean_type_not_required = {'type': 'boolean', 'required': False}
 string_int_type = {'type': ['string', 'integer']}
-
-
-class CustomValidator:
-
-    def __init__(self, func, error_text):
-        self._func = func
-        self._error_text = error_text
-        self._errors = None
-
-    @property
-    def errors(self):
-        return self._errors
-
-    def validate(self, data):
-        if not self._func(data):
-            self._errors = self._error_text
-            return False
-        self._errors = None
-        return True

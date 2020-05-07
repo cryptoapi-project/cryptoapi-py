@@ -1,4 +1,4 @@
-from cryptoapi.utils.models import CustomValidator, hex_type, string_type, integer_type, utc_type, boolean_type,\
+from cryptoapi.utils.types import hex_type, string_type, integer_type, utc_type, boolean_type,\
     string_nullable_type, integer_nullable_type
 
 # LTC.Common
@@ -12,13 +12,8 @@ get_network_information = {
 }
 
 
-def _estimate_fee_validation(value):
+def get_estimate_fee(value):
     return isinstance(value, float)
-
-get_estimate_fee = CustomValidator(
-    _estimate_fee_validation,
-    'Fee value must be a float'
-)
 
 # LTC.Blocks
 

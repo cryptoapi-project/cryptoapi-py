@@ -1,4 +1,4 @@
-from cryptoapi.utils.models import string_type, integer_type, string_nullable_type_not_required,\
+from cryptoapi.utils.types import string_type, integer_type, string_nullable_type_not_required,\
     integer_nullable_type_not_required, boolean_nullable_type_not_required
 
 eth_block_notification = {
@@ -8,7 +8,7 @@ eth_block_notification = {
     'uncles': {
         'type': 'list',
         'schema': {
-            'type': 'string_type'
+            'type': string_type
         }
     },
     'number': integer_type,
@@ -144,7 +144,7 @@ eth_contract_log_subscription = {
         'required': False,
         'nullable': True,
         'schema': {
-            'type': 'string_type'
+            'type': string_type
         }
     }
 }
@@ -155,7 +155,7 @@ eth_contract_log_notification = {
     'topics': {
         'type': 'list',
         'schema': {
-            'type': 'string_type'
+            'type': string_type
         }
     },
     'log_index': integer_type,

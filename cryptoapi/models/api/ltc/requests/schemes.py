@@ -1,4 +1,4 @@
-from cryptoapi.utils.models import string_type_not_required, integer_type_not_required, required_string_type, string_int_type
+from cryptoapi.utils.types import string_type_not_required, integer_type_not_required, required_string_type, string_int_type
 
 # LTC.Blocks
 

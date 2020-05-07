@@ -11,7 +11,7 @@ from .schemes import get_network_info, estimate_gas, get_block, \
 
 class Responses:
 
-    def __init__(self, model_wrapper):
+    def __init__(self, model_wrapper, utils):
         self.get_network_info = model_wrapper(get_network_info)
         self.estimate_gas = model_wrapper(estimate_gas)
         self.get_block = model_wrapper(get_block)
@@ -33,5 +33,10 @@ class Responses:
         self.get_token_contract = model_wrapper(get_token_contract)
         self.subscribe_to_addresses_notifications = model_wrapper(subscribe_to_addresses_notifications)
         self.get_contracts_logs = model_wrapper(get_contracts_logs, True)
-        self.contract_call = model_wrapper(contract_call)
+        self.contract_call = model_wrapper(
+            utils.custom_validator(
+                contract_call,
+                'Contract call result must be a string'
+            )
+        )
         self.get_contract_general_information = model_wrapper(get_contract_general_information)
