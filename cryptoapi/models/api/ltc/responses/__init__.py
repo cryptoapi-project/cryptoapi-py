@@ -1,6 +1,6 @@
 from .schemes import get_network_information, get_estimate_fee, get_block, get_blocks, get_transaction_by_hash,\
-    get_transactions, send_transaction, decode_transaction, get_outputs_by_addresses, get_utxo_coin_addresses_info,\
-    get_utxo_coin_addresses_history, subscribe_to_addresses_notifications
+    get_transactions, send_transaction, decode_transaction, get_outputs_by_addresses,\
+    get_utxo_coin_addresses_info, get_utxo_coin_addresses_history, subscribe_to_addresses_notifications
 
 
 class Responses:

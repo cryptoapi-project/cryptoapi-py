@@ -26,3 +26,35 @@ from .api.ltc.addresses import AddressesTestCase as LtcAddressesTestCase
 from .api.ltc.blocks import BlocksTestCase as LtcBlocksTestCase
 from .api.ltc.common import CommonTestCase as LtcCommonTestCase
 from .api.ltc.transactions import TransactionsTestCase as LtcTransactionsTestCase
+
+
+__all__ = [
+    BtcAddressesTestCase,
+    BtcBlocksTestCase,
+    BtcCommonTestCase,
+    BtcTransactionsTestCase,
+
+    BchAddressesTestCase,
+    BchBlocksTestCase,
+    BchCommonTestCase,
+    BchTransactionsTestCase,
+
+    EthAddressesTestCase,
+    EthBlocksTestCase,
+    EthCommonTestCase,
+    EthContractsTestCase,
+    EthTokensTestCase,
+    EthTransactionsTestCase,
+
+    KlayAddressesTestCase,
+    KlayBlocksTestCase,
+    KlayCommonTestCase,
+    KlayContractsTestCase,
+    KlayTokensTestCase,
+    KlayTransactionsTestCase,
+
+    LtcAddressesTestCase,
+    LtcBlocksTestCase,
+    LtcCommonTestCase,
+    LtcTransactionsTestCase
+]

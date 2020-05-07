@@ -24,15 +24,15 @@ class Utils:
 
     @staticmethod
     def api_method_preprocessing(api):
-            if not api._api_key:
-                raise Exception('API-KEY for this Client is not set')
+        if not api._api_key:
+            raise Exception('API-KEY for this Client is not set')
 
-            validators = {
-                401: api._models.error,
-                422: api._models.error
-            }
+        validators = {
+            401: api._models.error,
+            422: api._models.error
+        }
 
-            return {'token': api._api_key}, validators
+        return {'token': api._api_key}, validators
 
     @staticmethod
     def validate_data(validator, data):
