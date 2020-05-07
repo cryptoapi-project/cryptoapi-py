@@ -1,5 +1,6 @@
 from .model import Model
 from .api import Api
+from .events import Events
 
 from cryptoapi.utils.models import CustomValidator, string_type, integer_type, string_type_not_required
 
@@ -54,6 +55,7 @@ class Models:
         self.get_coins = Model(get_coins, True)
         self.error = Model(error)
         self.api = Api(Model)
+        self.events = Events(Model)
 
         # events schemes
         self.is_integer = Model(
