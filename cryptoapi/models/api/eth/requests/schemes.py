@@ -1,4 +1,4 @@
-from cryptoapi.utils.models import hex_type_not_required_eth, string_type_not_required, integer_type_not_required,\
+from cryptoapi.utils.types import hex_type_not_required_eth, string_type_not_required, integer_type_not_required,\
     required_string_type, boolean_type_not_required
 
 

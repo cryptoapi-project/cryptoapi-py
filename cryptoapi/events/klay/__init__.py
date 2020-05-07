@@ -8,6 +8,7 @@ class Klay(Testnet):
         ws_wrapper,
         config,
         models,
+        utils,
         api_key,
         debug
     ):
@@ -18,11 +19,13 @@ class Klay(Testnet):
             debug=debug
         )
         self._models = models
+        self._utils = utils
 
         self.testnet = Testnet(
             ws_wrapper,
             config,
             models,
+            utils,
             debug,
             api_key
         )

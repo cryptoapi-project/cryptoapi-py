@@ -1,7 +1,10 @@
 from .model import Model
 from .api import Api
+from .events import Events
 
-from cryptoapi.utils.models import CustomValidator, string_type, integer_type, string_type_not_required
+from functools import partial
+
+from cryptoapi.utils.types import string_type, integer_type, string_type_not_required
 
 
 # get_coins = {
@@ -12,13 +15,8 @@ from cryptoapi.utils.models import CustomValidator, string_type, integer_type, s
 # }
 
 
-def get_coins_validation(value):
+def get_coins(value):
     return isinstance(value, str)
-
-get_coins = CustomValidator(
-    get_coins_validation,
-    'Get coins result must be a list of strings'
-)
 
 
 error = {
@@ -37,41 +35,17 @@ error = {
 }
 
 
-# events schemes
-
-
-def is_integer(value):
-    return isinstance(value, int)
-
-
-def is_string(value):
-    return isinstance(value, str)
-
-
 class Models:
 
-    def __init__(self):
-        self.get_coins = Model(get_coins, True)
-        self.error = Model(error)
-        self.api = Api(Model)
-
-        # events schemes
-        self.is_integer = Model(
-            CustomValidator(
-                is_integer,
-                'Field must be integer'
-            )
-        )
-        self.is_string = Model(
-            CustomValidator(
-                is_string,
-                'Field must be string'
-            )
-        )
-        self.is_strings_list = Model(
-            CustomValidator(
-                is_string,
-                'Field must be list of strings'
+    def __init__(self, utils):
+        self._model = partial(Model, custom_validator=utils.custom_validator)
+        self.get_coins = self._model(
+            utils.custom_validator(
+                get_coins,
+                'Get coins result must be a list of strings'
             ),
             True
         )
+        self.error = self._model(error)
+        self.api = Api(self._model, utils)
+        self.events = Events(self._model, utils)

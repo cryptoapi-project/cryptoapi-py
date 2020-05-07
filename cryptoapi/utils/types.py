@@ -13,25 +13,9 @@ boolean_type = {'type': 'boolean'}
 hex_type_not_required = {'type': 'string', 'required': False, 'regex': regex_is_hex}
 hex_type_not_required_eth = {'type': 'string', 'required': False, 'regex': regex_is_hex_eth}
 string_type_not_required = {'type': 'string', 'required': False}
+string_nullable_type_not_required = {'type': 'string', 'required': False, 'nullable': True}
+integer_nullable_type_not_required = {'type': 'integer', 'required': False, 'nullable': True}
+boolean_nullable_type_not_required = {'type': 'boolean', 'required': False, 'nullable': True}
 integer_type_not_required = {'type': 'integer', 'required': False}
 boolean_type_not_required = {'type': 'boolean', 'required': False}
 string_int_type = {'type': ['string', 'integer']}
-
-
-class CustomValidator:
-
-    def __init__(self, func, error_text):
-        self._func = func
-        self._error_text = error_text
-        self._errors = None
-
-    @property
-    def errors(self):
-        return self._errors
-
-    def validate(self, data):
-        if not self._func(data):
-            self._errors = self._error_text
-            return False
-        self._errors = None
-        return True

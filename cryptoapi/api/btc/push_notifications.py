@@ -1,19 +1,18 @@
-from cryptoapi.utils.api import api_method_preprocessing, validate_data
-
-
 class PushNotifications:
     def __init__(
         self,
         http,
         models,
+        utils,
         api_key
     ):
         self._http = http
         self._api_key = api_key
         self._models = models
+        self._utils = utils
 
     def subscribe_to_addresses_notifications(self, addresses, firebase_token):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
             'addresses': addresses
@@ -23,11 +22,11 @@ class PushNotifications:
             'firebase_token': firebase_token
         }
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.btc.requests.subscribe_to_addresses_notifications_params,
             params
         )
-        validate_data(
+        self._utils.validate_data(
             self._models.api.btc.requests.subscribe_to_addresses_notifications_body,
             data
         )
@@ -46,14 +45,14 @@ class PushNotifications:
         )
 
     def unsubscribe_from_addresses_notifications(self, addresses, firebase_token):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
             'addresses': addresses,
             'firebase_token': firebase_token
         }
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.btc.requests.unsubscribe_from_addresses_notifications,
             params
         )

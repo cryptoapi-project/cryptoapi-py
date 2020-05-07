@@ -8,6 +8,7 @@ class Ltc(Testnet):
         http_wrapper,
         models,
         config,
+        utils,
         debug,
         api_key
     ):
@@ -18,12 +19,14 @@ class Ltc(Testnet):
         )
         self._api_key = api_key
         self._models = models
+        self._utils = utils
 
         self.testnet = Testnet(
             http_wrapper,
             coin_url,
             models,
             config,
+            utils,
             debug,
             api_key
         )

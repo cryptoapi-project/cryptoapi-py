@@ -1,19 +1,18 @@
-from cryptoapi.utils.api import api_method_preprocessing, validate_data
-
-
 class Transactions:
     def __init__(
         self,
         http,
         models,
+        utils,
         api_key
     ):
         self._http = http
         self._api_key = api_key
         self._models = models
+        self._utils = utils
 
     def get_transactions(self, _from=None, to=None, skip=None, limit=None, block_number=None):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
         }
@@ -33,7 +32,7 @@ class Transactions:
         if block_number is not None:
             params.update({'block_number': block_number})
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.klay.requests.get_transactions,
             params
         )
@@ -51,13 +50,13 @@ class Transactions:
         )
 
     def get_transaction_information(self, _hash):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
             'hash': _hash
         }
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.klay.requests.get_transaction_information,
             params
         )
@@ -73,13 +72,13 @@ class Transactions:
         )
 
     def get_transaction_receipt(self, _hash):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
             'hash': _hash
         }
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.klay.requests.get_transaction_receipt,
             params
         )
@@ -95,13 +94,13 @@ class Transactions:
         )
 
     def send_transaction(self, tx):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         data = {
             'tx': tx
         }
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.klay.requests.send_transaction,
             data
         )
@@ -118,13 +117,13 @@ class Transactions:
         )
 
     def decode_transaction(self, tx):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         data = {
             'tx': tx
         }
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.klay.requests.decode_transaction,
             data
         )

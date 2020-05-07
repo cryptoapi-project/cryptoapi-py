@@ -11,6 +11,7 @@ class Events:
             ws_wrapper,
             config,
             models,
+            utils,
             api_key,
             debug
     ):
@@ -18,6 +19,7 @@ class Events:
             ws_wrapper,
             config,
             models,
+            utils,
             api_key,
             debug
         )
@@ -25,6 +27,7 @@ class Events:
             ws_wrapper,
             config,
             models,
+            utils,
             api_key,
             debug
         )
@@ -32,6 +35,7 @@ class Events:
             ws_wrapper,
             config,
             models,
+            utils,
             api_key,
             debug
         )
@@ -39,6 +43,7 @@ class Events:
             ws_wrapper,
             config,
             models,
+            utils,
             api_key,
             debug
         )
@@ -46,6 +51,7 @@ class Events:
             ws_wrapper,
             config,
             models,
+            utils,
             api_key,
             debug
         )

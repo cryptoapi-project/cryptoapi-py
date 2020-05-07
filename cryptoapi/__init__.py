@@ -1,20 +1,22 @@
-# -*- coding: utf-8 -*-
 from .models import Models
 from .api import Api
 from .events import Events
 from .rpc import Http, WS
 from .configs import Config
+from .utils import Utils
 
 
 class Client:
 
     def __init__(self, api_key, debug=False):
         self.config = Config()
-        self.models = Models()
+        self.utils = Utils()
+        self.models = Models(self.utils)
         self.api = Api(
             Http,
             self.config,
             self.models,
+            self.utils,
             api_key,
             debug
         )
@@ -22,6 +24,7 @@ class Client:
             WS,
             self.config,
             self.models,
+            self.utils,
             api_key,
             debug
         )

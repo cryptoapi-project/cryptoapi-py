@@ -1,6 +1,3 @@
-from cryptoapi.utils.api import api_method_preprocessing, validate_data
-
-
 class Whooks:
 
     def __init__(
@@ -8,6 +5,7 @@ class Whooks:
         http_wrapper,
         models,
         config,
+        utils,
         debug,
         api_key
     ):
@@ -17,10 +15,11 @@ class Whooks:
         )
         self._api_key = api_key
         self._models = models
+        self._utils = utils
 
     def get_hook_events(self, hook_id, start_id=None, end_id=None,
                         only_failed=None, skip=None, limit=None, _type=None):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
             'hook_id': hook_id
@@ -44,7 +43,7 @@ class Whooks:
         if _type is not None:
             params.update({'type': _type})
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.whooks.requests.get_hook_events,
             params
         )

@@ -13,6 +13,7 @@ class Testnet:
         coin_url,
         models,
         config,
+        utils,
         debug,
         api_key
     ):
@@ -22,6 +23,7 @@ class Testnet:
         )
         self._api_key = api_key
         self._models = models
+        self._utils = utils
 
         self._init_modules()
 
@@ -29,29 +31,34 @@ class Testnet:
         self.addresses = Addresses(
             self._http,
             self._models,
+            self._utils,
             self._api_key
         )
 
         self.blocks = Blocks(
             self._http,
             self._models,
+            self._utils,
             self._api_key
         )
 
         self.common = Common(
             self._http,
             self._models,
+            self._utils,
             self._api_key
         )
 
         self.push_notifications = PushNotifications(
             self._http,
             self._models,
+            self._utils,
             self._api_key
         )
 
         self.transactions = Transactions(
             self._http,
             self._models,
+            self._utils,
             self._api_key
         )

@@ -1,19 +1,18 @@
-from cryptoapi.utils.api import api_method_preprocessing, validate_data
-
-
 class Tokens:
     def __init__(
         self,
         http,
         models,
+        utils,
         api_key
     ):
         self._http = http
         self._api_key = api_key
         self._models = models
+        self._utils = utils
 
     def get_tokens(self, query=None, skip=None, limit=None, types=None):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
         }
@@ -30,7 +29,7 @@ class Tokens:
         if types is not None:
             params.update({'types': ','.join(types)})
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.klay.requests.get_tokens,
             params
         )
@@ -48,7 +47,7 @@ class Tokens:
         )
 
     def get_token_transfers_by_token_address(self, token, skip=None, limit=None, addresses=None):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
             'token': token
@@ -63,7 +62,7 @@ class Tokens:
         if addresses is not None:
             params.update({'addresses': ','.join(addresses)})
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.klay.requests.get_token_transfers_by_token_address,
             params
         )
@@ -81,13 +80,13 @@ class Tokens:
         )
 
     def get_token_contract(self, address):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
             'address': address
         }
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.klay.requests.get_token_contract,
             params
         )

@@ -1,20 +1,19 @@
-from cryptoapi.utils.api import api_method_preprocessing, validate_data
-
-
 class Contracts:
     def __init__(
         self,
         http,
         models,
+        utils,
         api_key
     ):
         self._http = http
         self._api_key = api_key
         self._models = models
+        self._utils = utils
 
     def get_contracts_logs(self, cursor=None, reversed_fetch=None, from_block=None,
                            to_block=None, addresses=None, topics=None):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {}
         if cursor is not None:
@@ -35,7 +34,7 @@ class Contracts:
         if topics is not None:
             params.update({'topics': ','.join(topics)})
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.klay.requests.get_contracts_logs,
             params
         )
@@ -53,7 +52,7 @@ class Contracts:
         )
 
     def contract_call(self, address, sender, amount, bytecode):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
             'address': address
@@ -65,11 +64,11 @@ class Contracts:
             'bytecode': bytecode
         }
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.klay.requests.contract_call_params,
             params
         )
-        validate_data(
+        self._utils.validate_data(
             self._models.api.klay.requests.contract_call_body,
             data
         )
@@ -86,13 +85,13 @@ class Contracts:
         )
 
     def get_contract_general_information(self, address):
-        api_key, validators = api_method_preprocessing(self)
+        api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
             'address': address
         }
 
-        validate_data(
+        self._utils.validate_data(
             self._models.api.klay.requests.get_contract_general_information,
             params
         )
