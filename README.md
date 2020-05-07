@@ -33,3 +33,8 @@ To see `Events` usage examples and information: look <b>[section](docs/Events.md
 To run `unit tests`:
 
     $ python3 -m unittest
+
+### License
+
+A copy of the license is available in the repository's
+[LICENSE](LICENSE.txt) file.
