@@ -23,7 +23,19 @@ flake8:
 isort:
   stage: static analysis
   script:
-    - nox -s isort
+    - nox -s isort -- check
+  only:
+    - web
+    - trigger
+    - merge requests
+  tags:
+    - pp-new-develop
+
+
+yapf:
+  stage: static analysis
+  script:
+    - nox -s yapf -- check
   only:
     - web
     - trigger
