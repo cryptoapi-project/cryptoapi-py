@@ -14,7 +14,6 @@ flake8:
     - nox -s flake8
   only:
     - web
-    - develop
     - trigger
     - merge requests
   tags:
@@ -27,7 +26,6 @@ isort:
     - nox -s isort
   only:
     - web
-    - develop
     - trigger
     - merge requests
   tags:
@@ -40,7 +38,6 @@ tests:
     - nox -s tests
   only:
     - web
-    - develop
     - trigger
     - merge requests
   tags:
