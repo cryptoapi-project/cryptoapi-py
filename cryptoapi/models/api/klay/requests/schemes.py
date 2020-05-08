@@ -1,6 +1,9 @@
-from cryptoapi.utils.types import string_type_not_required, integer_type_not_required, required_string_type,\
-    boolean_type_not_required
-
+from cryptoapi.utils.types import (
+    boolean_type_not_required,
+    integer_type_not_required,
+    required_string_type,
+    string_type_not_required
+)
 
 # KLAY.Common
 estimate_gas = {
@@ -13,7 +16,8 @@ estimate_gas = {
 # KLAY.Blocks
 get_block = {
     'block_number_or_hash': {
-        'type': ['string', 'integer'],
+        'type': ['string',
+                 'integer'],
         'required': True
     },
 }

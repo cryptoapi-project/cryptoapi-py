@@ -1,11 +1,10 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 VERSION = "0.1.0"
 packages = find_packages(exclude=["tests"])
 
 readme = open("README.md").read()
-long_description = readme[readme.find("Cryptoapi-py library can be used"): readme.rfind("To see `Api's`")]
-
+long_description = readme[readme.find("Cryptoapi-py library can be used"):readme.rfind("To see `Api's`")]
 
 setup(
     name='cryptoapi-py',
@@ -18,7 +17,9 @@ setup(
     author="PixelPlex inc",
     author_email="dev@pixelplex.io",
     url="https://apikey.io/",
-    keywords=["blockchain", "api", "rpc"],
+    keywords=["blockchain",
+              "api",
+              "rpc"],
     packages=packages,
     classifiers=[
         "License :: OSI Approved :: MIT License",

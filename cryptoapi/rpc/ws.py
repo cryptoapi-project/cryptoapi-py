@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 import json
 import logging
-import websocket
 import threading
+
+import websocket
 
 log = logging.getLogger(__name__)
 
 
 class WS:
+
     def __init__(self, url, api_key, debug):
         self.__lock = threading.Lock()
 
@@ -18,12 +20,7 @@ class WS:
         self._thread = None
         self._request_id = 0
 
-        self._ws = websocket.WebSocketApp(
-            url='{}?token={}'.format(
-                self.url,
-                self.api_key
-            )
-        )
+        self._ws = websocket.WebSocketApp(url='{}?token={}'.format(self.url, self.api_key))
         self._connected = False
 
         self.subscribers = {}
@@ -40,14 +37,10 @@ class WS:
         message = json.loads(message)
         if 'result' in message:
             subscription_id = message['id']
-            ws.message_status.update(
-                {
-                    subscription_id: {
-                        'error': message['error'],
-                        'result': message['result']
-                    }
-                }
-            )
+            ws.message_status.update({subscription_id: {
+                'error': message['error'],
+                'result': message['result']
+            }})
         else:
             message_id, message_object = message['params']
             _, callback, validator = ws.subscribers[message_id]
@@ -68,11 +61,7 @@ class WS:
 
     def _resubscribe(self):
         for subscription_id, subscription_info in self.pending_subscribers.items():
-            self.on_event(
-                subscription_info[0],
-                subscription_info[1],
-                subscription_id
-            )
+            self.on_event(subscription_info[0], subscription_info[1], subscription_id)
         if self.pending_subscribers:
             self._request_id = max(self.pending_subscribers)
 
@@ -159,12 +148,7 @@ class WS:
                 'jsonrpc': '2.0',
                 'id': _id
             }
-            self._ws.send(
-                json.dumps(
-                    payload,
-                    ensure_ascii=False
-                ).encode("utf8")
-            )
+            self._ws.send(json.dumps(payload, ensure_ascii=False).encode("utf8"))
 
         finally:
             # Release lock
@@ -176,11 +160,7 @@ class WS:
 
         if subscription_id is None:
             subscription_id = self.get_request_id()
-        self._send_message(
-            'subscribe',
-            params,
-            subscription_id
-        )
+        self._send_message('subscribe', params, subscription_id)
 
         while subscription_id not in self.message_status:
             continue
@@ -197,11 +177,7 @@ class WS:
         if subscription_info is None:
             return False
 
-        self._send_message(
-            'unsubscribe',
-            subscription_info[0],
-            subscription_id
-        )
+        self._send_message('unsubscribe', subscription_info[0], subscription_id)
 
         while subscription_id not in self.message_status:
             continue

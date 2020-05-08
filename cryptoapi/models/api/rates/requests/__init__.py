@@ -1,4 +1,4 @@
-from .schemes import get_coins_rates, get_coins_history
+from .schemes import get_coins_history, get_coins_rates
 
 
 class Requests:

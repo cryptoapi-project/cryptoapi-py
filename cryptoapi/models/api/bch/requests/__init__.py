@@ -1,7 +1,17 @@
-from .schemes import get_block, get_blocks, get_transaction_by_hash, get_transactions, send_transaction, \
-    decode_transaction, get_outputs_by_addresses, get_utxo_coin_addresses_info, get_utxo_coin_addresses_history, \
-    subscribe_to_addresses_notifications_params, subscribe_to_addresses_notifications_body, \
+from .schemes import (
+    decode_transaction,
+    get_block,
+    get_blocks,
+    get_outputs_by_addresses,
+    get_transaction_by_hash,
+    get_transactions,
+    get_utxo_coin_addresses_history,
+    get_utxo_coin_addresses_info,
+    send_transaction,
+    subscribe_to_addresses_notifications_body,
+    subscribe_to_addresses_notifications_params,
     unsubscribe_from_addresses_notifications
+)
 
 
 class Requests:
@@ -17,6 +27,7 @@ class Requests:
         self.get_utxo_coin_addresses_info = model_wrapper(get_utxo_coin_addresses_info)
         self.get_utxo_coin_addresses_history = model_wrapper(get_utxo_coin_addresses_history)
         self.subscribe_to_addresses_notifications_params = model_wrapper(
-            subscribe_to_addresses_notifications_params)
+            subscribe_to_addresses_notifications_params
+        )
         self.subscribe_to_addresses_notifications_body = model_wrapper(subscribe_to_addresses_notifications_body)
         self.unsubscribe_from_addresses_notifications = model_wrapper(unsubscribe_from_addresses_notifications)

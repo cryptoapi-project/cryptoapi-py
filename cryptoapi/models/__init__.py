@@ -1,11 +1,10 @@
-from .model import Model
-from .api import Api
-from .events import Events
-
 from functools import partial
 
-from cryptoapi.utils.types import string_type, integer_type, string_type_not_required
+from cryptoapi.utils.types import integer_type, string_type, string_type_not_required
 
+from .api import Api
+from .events import Events
+from .model import Model
 
 # get_coins = {
 #     'coins': {
@@ -40,10 +39,8 @@ class Models:
     def __init__(self, utils):
         self._model = partial(Model, custom_validator=utils.custom_validator)
         self.get_coins = self._model(
-            utils.custom_validator(
-                get_coins,
-                'Get coins result must be a list of strings'
-            ),
+            utils.custom_validator(get_coins,
+                                   'Get coins result must be a list of strings'),
             True
         )
         self.error = self._model(error)

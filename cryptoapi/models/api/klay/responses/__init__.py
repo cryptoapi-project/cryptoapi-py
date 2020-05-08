@@ -1,12 +1,28 @@
-from .schemes import get_network_info, estimate_gas, get_block, \
-    get_blocks, get_transactions_by_addresses, \
-    get_balances_by_addresses, get_transaction_intersections_by_addresses, get_general_information_by_addresses, \
-    get_token_transfers_by_addresses, get_tokens_balances_by_holders, \
-    get_token_balance_by_holders_and_token, get_transactions, \
-    get_transaction_information, get_transaction_receipt, send_transaction, \
-    decode_transaction, get_tokens, get_token_transfers_by_token_address, get_token_contract, \
-    subscribe_to_addresses_notifications, get_contracts_logs, \
-    contract_call, get_contract_general_information
+from .schemes import (
+    contract_call,
+    decode_transaction,
+    estimate_gas,
+    get_balances_by_addresses,
+    get_block,
+    get_blocks,
+    get_contract_general_information,
+    get_contracts_logs,
+    get_general_information_by_addresses,
+    get_network_info,
+    get_token_balance_by_holders_and_token,
+    get_token_contract,
+    get_token_transfers_by_addresses,
+    get_token_transfers_by_token_address,
+    get_tokens,
+    get_tokens_balances_by_holders,
+    get_transaction_information,
+    get_transaction_intersections_by_addresses,
+    get_transaction_receipt,
+    get_transactions,
+    get_transactions_by_addresses,
+    send_transaction,
+    subscribe_to_addresses_notifications
+)
 
 
 class Responses:
@@ -34,9 +50,7 @@ class Responses:
         self.subscribe_to_addresses_notifications = model_wrapper(subscribe_to_addresses_notifications)
         self.get_contracts_logs = model_wrapper(get_contracts_logs, True)
         self.contract_call = model_wrapper(
-            utils.custom_validator(
-                contract_call,
-                'Contract call result must be a string'
-            )
+            utils.custom_validator(contract_call,
+                                   'Contract call result must be a string')
         )
         self.get_contract_general_information = model_wrapper(get_contract_general_information)

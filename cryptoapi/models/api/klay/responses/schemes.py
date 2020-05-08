@@ -1,5 +1,11 @@
-from cryptoapi.utils.types import hex_type_eth, string_type, integer_type, utc_type, boolean_type,\
-    string_nullable_type
+from cryptoapi.utils.types import (
+    boolean_type,
+    hex_type_eth,
+    integer_type,
+    string_nullable_type,
+    string_type,
+    utc_type
+)
 
 # KLAY.Common
 
@@ -40,9 +46,7 @@ _block_item = {
     'count_transactions': integer_type
 }
 
-
 get_block = _block_item.copy()
-
 
 get_blocks = {
     'skip': integer_type,
@@ -270,12 +274,10 @@ _receipt = {
 }
 
 get_transaction_information = _transactions_item.copy()
-get_transaction_information.update({
-    'receipt': {
-        'type': 'dict',
-        'schema': _receipt
-    }
-})
+get_transaction_information.update({'receipt': {
+    'type': 'dict',
+    'schema': _receipt
+}})
 
 get_transaction_receipt = _receipt.copy()
 get_transaction_receipt.update({
@@ -286,7 +288,6 @@ get_transaction_receipt.update({
     'to': hex_type_eth,
     'transaction_index': integer_type
 })
-
 
 send_transaction = {
     'hash': hex_type_eth,
@@ -348,7 +349,9 @@ get_tokens = {
     'skip': integer_type,
     'limit': integer_type,
     'count': integer_type,
-    'types': {'type': 'list'},
+    'types': {
+        'type': 'list'
+    },
     'items': {
         'type': 'list',
         'schema': {
@@ -356,7 +359,6 @@ get_tokens = {
             'schema': _get_tokens_items
         }
     }
-
 }
 _token_transfers = {
     'type': string_type,
