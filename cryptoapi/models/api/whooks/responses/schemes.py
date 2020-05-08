@@ -1,5 +1,4 @@
-from cryptoapi.utils.types import string_type, integer_type, boolean_type
-
+from cryptoapi.utils.types import boolean_type, integer_type, string_type
 
 _items = {
     'id': integer_type,
@@ -7,7 +6,9 @@ _items = {
     'hook_id': integer_type,
     'status': integer_type,
     'log_id': integer_type,
-    'data': {'type': 'dict'}
+    'data': {
+        'type': 'dict'
+    }
 }
 
 get_hook_events = {

@@ -1,5 +1,6 @@
-import nox
 import os
+
+import nox
 
 python_version = os.environ.get('PYTHON_VERSION', False)
 
@@ -8,21 +9,29 @@ python_version = os.environ.get('PYTHON_VERSION', False)
 def tests(session):
     """Run tests."""
     if python_version:
-        session.run('pip', 'install', '-r', 'requirements_dev.txt')
-    session.run('python', '-m', 'unittest', '-v')
+        session.run('pip', 'install', '--requirement', 'requirements_dev.txt')
+    session.run('python', '-m', 'unittest', '--verbose')
 
 
 @nox.session(python=python_version, name='flake8')
 def flake8(session):
     """Run flake8 linter."""
     if python_version:
-        session.run('pip', 'install', '-r', 'requirements_dev.txt')
-    session.run('flake8', '--max-line-length=115', 'cryptoapi', 'tests', 'noxfile.py', 'setup.py')
+        session.run('pip', 'install', '--requirement', 'requirements_dev.txt')
+    session.run('flake8', 'cryptoapi', 'tests', 'noxfile.py', 'setup.py')
 
 
 @nox.session(python=python_version, name='isort')
 def isort(session):
     """Run isort import sorter."""
     if python_version:
-        session.run('pip', 'install', '-r', 'requirements_dev.txt')
+        session.run('pip', 'install', '--requirement', 'requirements_dev.txt')
     session.run('isort', '-c', '-rc', 'cryptoapi', 'tests', 'noxfile.py', 'setup.py')
+
+
+@nox.session(python=python_version, name='yapf')
+def yapf(session):
+    """Run yapf code formatter."""
+    if python_version:
+        session.run('pip', 'install', '--requirement', 'requirements_dev.txt')
+    session.run('yapf', '-d', '-r', 'cryptoapi', 'tests', 'noxfile.py', 'setup.py')

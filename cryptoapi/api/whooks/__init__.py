@@ -1,24 +1,21 @@
 class Whooks:
 
-    def __init__(
-        self,
-        http_wrapper,
-        models,
-        config,
-        utils,
-        debug,
-        api_key
-    ):
-        self._http = http_wrapper(
-            url=config.api.BASE_WEB_HOOKS_URL,
-            debug=debug
-        )
+    def __init__(self, http_wrapper, models, config, utils, debug, api_key):
+        self._http = http_wrapper(url=config.api.BASE_WEB_HOOKS_URL, debug=debug)
         self._api_key = api_key
         self._models = models
         self._utils = utils
 
-    def get_hook_events(self, hook_id, start_id=None, end_id=None,
-                        only_failed=None, skip=None, limit=None, _type=None):
+    def get_hook_events(
+        self,
+        hook_id,
+        start_id=None,
+        end_id=None,
+        only_failed=None,
+        skip=None,
+        limit=None,
+        _type=None
+    ):
         api_key, validators = self._utils.api_method_preprocessing(self)
 
         params = {
@@ -43,14 +40,9 @@ class Whooks:
         if _type is not None:
             params.update({'type': _type})
 
-        self._utils.validate_data(
-            self._models.api.whooks.requests.get_hook_events,
-            params
-        )
+        self._utils.validate_data(self._models.api.whooks.requests.get_hook_events, params)
 
-        validators.update({
-            200: self._models.api.whooks.responses.get_hook_events
-        })
+        validators.update({200: self._models.api.whooks.responses.get_hook_events})
 
         params.update(api_key)
 

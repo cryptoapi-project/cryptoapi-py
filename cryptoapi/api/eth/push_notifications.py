@@ -1,11 +1,6 @@
 class PushNotifications:
-    def __init__(
-        self,
-        http,
-        models,
-        utils,
-        api_key
-    ):
+
+    def __init__(self, http, models, utils, api_key):
         self._http = http
         self._api_key = api_key
         self._models = models
@@ -26,19 +21,12 @@ class PushNotifications:
             self._models.api.eth.requests.subscribe_to_addresses_notifications_params,
             params
         )
-        self._utils.validate_data(
-            self._models.api.eth.requests.subscribe_to_addresses_notifications_body,
-            data
-        )
+        self._utils.validate_data(self._models.api.eth.requests.subscribe_to_addresses_notifications_body, data)
 
-        validators.update({
-            200: self._models.api.eth.responses.subscribe_to_addresses_notifications
-        })
+        validators.update({200: self._models.api.eth.responses.subscribe_to_addresses_notifications})
 
         return self._http.post(
-            url='/push-notifications/addresses/{}/balance'.format(
-                ','.join(params.pop('addresses'))
-            ),
+            url='/push-notifications/addresses/{}/balance'.format(','.join(params.pop('addresses'))),
             data=data,
             params=api_key,
             validators=validators
@@ -52,17 +40,12 @@ class PushNotifications:
             'firebase_token': firebase_token
         }
 
-        self._utils.validate_data(
-            self._models.api.eth.requests.unsubscribe_from_addresses_notifications,
-            params
-        )
+        self._utils.validate_data(self._models.api.eth.requests.unsubscribe_from_addresses_notifications, params)
 
         params.update(api_key)
 
         return self._http.delete(
-            url='/push-notifications/addresses/{}/balance'.format(
-                ','.join(params.pop('addresses'))
-            ),
+            url='/push-notifications/addresses/{}/balance'.format(','.join(params.pop('addresses'))),
             params=params,
             validators=validators
         )

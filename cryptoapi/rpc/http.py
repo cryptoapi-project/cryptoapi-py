@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
-from requests import get, post, delete
 import urllib
+
+from requests import delete, get, post
 
 log = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ class Http:
             if not (url.scheme.endswith("h")):
                 self.proxy_rdns = False
             else:
-                self.proxy_type = self.proxy_type[0: len(self.proxy_type) - 1]
+                self.proxy_type = self.proxy_type[0:len(self.proxy_type) - 1]
         else:
             self.proxy_host = options.pop("proxy_host", None)
             self.proxy_port = options.pop("proxy_port", 80)
@@ -50,9 +51,7 @@ class Http:
             self.proxy_user = options.pop("proxy_user", None)
             self.proxy_pass = options.pop("proxy_pass", None)
             self.proxy_rdns = False
-        log.info(
-            "Using proxy %s:%d %s" % (self.proxy_host, self.proxy_port, self.proxy_type)
-        )
+        log.info("Using proxy %s:%d %s" % (self.proxy_host, self.proxy_port, self.proxy_type))
 
     def _get_proxy_url(self):
         if not self.proxy_host:
@@ -60,27 +59,25 @@ class Http:
         auth = ""
         if self.proxy_user:
             auth = "%s:%s@" % (self.proxy_user, self.proxy_pass)
-        url = (
-            self.proxy_type
-            + "://"
-            + auth
-            + ("%s:%d" % (self.proxy_host, self.proxy_port))
-        )
+        url = (self.proxy_type + "://" + auth + ("%s:%d" % (self.proxy_host, self.proxy_port)))
         return url
 
     def proxies(self):
         proxy_url = self._get_proxy_url()
         if proxy_url is None:
             return None
-        return {"http": proxy_url, "https": proxy_url}
+        return {
+            "http": proxy_url,
+            "https": proxy_url
+        }
 
-    def _make_request(self, method, url, data=None, params=None, validators={}):
-        response = method(
-            url=self.url + url,
-            data=data,
-            params=params,
-            proxies=self.proxies()
-        )
+    def _make_request(self,
+                      method,
+                      url,
+                      data=None,
+                      params=None,
+                      validators={}):
+        response = method(url=self.url + url, data=data, params=params, proxies=self.proxies())
         status_code = response.status_code
         try:
             json_response = response.json()
@@ -95,26 +92,10 @@ class Http:
         return json_response
 
     def get(self, url, params=None, validators=[]):
-        return self._make_request(
-            method=get,
-            url=url,
-            params=params,
-            validators=validators
-        )
+        return self._make_request(method=get, url=url, params=params, validators=validators)
 
     def post(self, url, data=None, params=None, validators=[]):
-        return self._make_request(
-            method=post,
-            url=url,
-            data=data,
-            params=params,
-            validators=validators
-        )
+        return self._make_request(method=post, url=url, data=data, params=params, validators=validators)
 
     def delete(self, url, params=None, validators=[]):
-        return self._make_request(
-            method=delete,
-            url=url,
-            params=params,
-            validators=validators
-        )
+        return self._make_request(method=delete, url=url, params=params, validators=validators)

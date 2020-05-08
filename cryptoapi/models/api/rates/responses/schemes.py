@@ -21,7 +21,6 @@ get_coins_rates = {
     'rate': _rate_schema
 }
 
-
 _rates_item = {
     'created_at': utc_type,
     'rate': _rate_schema

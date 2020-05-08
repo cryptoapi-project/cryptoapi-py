@@ -1,11 +1,6 @@
 class Addresses:
-    def __init__(
-        self,
-        http,
-        models,
-        utils,
-        api_key
-    ):
+
+    def __init__(self, http, models, utils, api_key):
         self._http = http
         self._api_key = api_key
         self._models = models
@@ -27,21 +22,14 @@ class Addresses:
         if positive is not None:
             params.update({'positive': positive})
 
-        self._utils.validate_data(
-            self._models.api.klay.requests.get_transactions_by_addresses,
-            params
-        )
+        self._utils.validate_data(self._models.api.klay.requests.get_transactions_by_addresses, params)
 
         params.update(api_key)
 
-        validators.update({
-            200: self._models.api.klay.responses.get_transactions_by_addresses
-        })
+        validators.update({200: self._models.api.klay.responses.get_transactions_by_addresses})
 
         return self._http.get(
-            url='/addresses/{}/transfers'.format(
-                ','.join(params.pop('addresses'))
-            ),
+            url='/addresses/{}/transfers'.format(','.join(params.pop('addresses'))),
             params=params,
             validators=validators
         )
@@ -66,14 +54,10 @@ class Addresses:
 
         params.update(api_key)
 
-        validators.update({
-            200: self._models.api.klay.responses.get_transaction_intersections_by_addresses
-        })
+        validators.update({200: self._models.api.klay.responses.get_transaction_intersections_by_addresses})
 
         return self._http.get(
-            url='/addresses/{}/transactions'.format(
-                ','.join(params.pop('addresses'))
-            ),
+            url='/addresses/{}/transactions'.format(','.join(params.pop('addresses'))),
             params=params,
             validators=validators
         )
@@ -85,19 +69,12 @@ class Addresses:
             'addresses': addresses
         }
 
-        self._utils.validate_data(
-            self._models.api.klay.requests.get_balances_by_addresses,
-            params
-        )
+        self._utils.validate_data(self._models.api.klay.requests.get_balances_by_addresses, params)
 
-        validators.update({
-            200: self._models.api.klay.responses.get_balances_by_addresses
-        })
+        validators.update({200: self._models.api.klay.responses.get_balances_by_addresses})
 
         return self._http.get(
-            url='/addresses/{}/balance'.format(
-                ','.join(params.pop('addresses'))
-            ),
+            url='/addresses/{}/balance'.format(','.join(params.pop('addresses'))),
             params=api_key,
             validators=validators
         )
@@ -109,19 +86,12 @@ class Addresses:
             'addresses': addresses
         }
 
-        self._utils.validate_data(
-            self._models.api.klay.requests.get_general_information_by_addresses,
-            params
-        )
+        self._utils.validate_data(self._models.api.klay.requests.get_general_information_by_addresses, params)
 
-        validators.update({
-            200: self._models.api.klay.responses.get_general_information_by_addresses
-        })
+        validators.update({200: self._models.api.klay.responses.get_general_information_by_addresses})
 
         return self._http.get(
-            url='/addresses/{}'.format(
-                ','.join(params.pop('addresses'))
-            ),
+            url='/addresses/{}'.format(','.join(params.pop('addresses'))),
             params=api_key,
             validators=validators
         )
@@ -140,23 +110,16 @@ class Addresses:
         if limit is not None:
             params.update({'limit': limit})
 
-        self._utils.validate_data(
-            self._models.api.klay.requests.get_token_transfers_by_addresses,
-            params
-        )
+        self._utils.validate_data(self._models.api.klay.requests.get_token_transfers_by_addresses, params)
         token = params.pop('token')
         addresses = ','.join(params.pop('addresses'))
         params.update(api_key)
 
-        validators.update({
-            200: self._models.api.klay.responses.get_token_transfers_by_addresses
-        })
+        validators.update({200: self._models.api.klay.responses.get_token_transfers_by_addresses})
 
         return self._http.get(
-            url='/addresses/{}/transfers/tokens/{}'.format(
-                addresses,
-                token
-            ),
+            url='/addresses/{}/transfers/tokens/{}'.format(addresses,
+                                                           token),
             params=params,
             validators=validators
         )
@@ -174,21 +137,14 @@ class Addresses:
         if limit is not None:
             params.update({'limit': limit})
 
-        self._utils.validate_data(
-            self._models.api.klay.requests.get_tokens_balances_by_holders,
-            params
-        )
+        self._utils.validate_data(self._models.api.klay.requests.get_tokens_balances_by_holders, params)
 
         params.update(api_key)
 
-        validators.update({
-            200: self._models.api.klay.responses.get_tokens_balances_by_holders
-        })
+        validators.update({200: self._models.api.klay.responses.get_tokens_balances_by_holders})
 
         return self._http.get(
-            url='/addresses/{}/balance/tokens'.format(
-                ','.join(params.pop('addresses'))
-            ),
+            url='/addresses/{}/balance/tokens'.format(','.join(params.pop('addresses'))),
             params=params,
             validators=validators
         )
@@ -207,23 +163,16 @@ class Addresses:
         if limit is not None:
             params.update({'limit': limit})
 
-        self._utils.validate_data(
-            self._models.api.klay.requests.get_token_balance_by_holders_and_token,
-            params
-        )
+        self._utils.validate_data(self._models.api.klay.requests.get_token_balance_by_holders_and_token, params)
         token = params.pop('token')
         addresses = ','.join(params.pop('addresses'))
         params.update(api_key)
 
-        validators.update({
-            200: self._models.api.klay.responses.get_token_balance_by_holders_and_token
-        })
+        validators.update({200: self._models.api.klay.responses.get_token_balance_by_holders_and_token})
 
         return self._http.get(
-            url='/addresses/{}/balance/tokens/{}'.format(
-                addresses,
-                token
-            ),
+            url='/addresses/{}/balance/tokens/{}'.format(addresses,
+                                                         token),
             params=params,
             validators=validators
         )

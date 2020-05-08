@@ -1,8 +1,20 @@
-from .schemes import eth_block_notification, klay_block_notification, address_subscription, balance_notification,\
-    eth_transaction_notification, klay_transaction_notification, token_subscription, transfer_notification,\
-    token_balance_notification, eth_contract_log_subscription, eth_contract_log_notification,\
-    transaction_confirmation_subscription, transaction_confirmation_notification, utxo_block_notification,\
+from .schemes import (
+    address_subscription,
+    balance_notification,
+    eth_block_notification,
+    eth_contract_log_notification,
+    eth_contract_log_subscription,
+    eth_transaction_notification,
+    klay_block_notification,
+    klay_transaction_notification,
+    token_balance_notification,
+    token_subscription,
+    transaction_confirmation_notification,
+    transaction_confirmation_subscription,
+    transfer_notification,
+    utxo_block_notification,
     utxo_transaction_notification
+)
 
 
 class Notifications:
