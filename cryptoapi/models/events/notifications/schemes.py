@@ -1,5 +1,10 @@
-from cryptoapi.utils.types import string_type, integer_type, string_nullable_type_not_required,\
-    integer_nullable_type_not_required, boolean_nullable_type_not_required
+from cryptoapi.utils.types import (
+    boolean_nullable_type_not_required,
+    integer_nullable_type_not_required,
+    integer_type,
+    string_nullable_type_not_required,
+    string_type
+)
 
 eth_block_notification = {
     'size': integer_type,
@@ -164,7 +169,6 @@ eth_contract_log_notification = {
     'block_hash': string_type,
     'block_number': integer_type,
 }
-
 
 transaction_confirmation_subscription = {
     'hash': string_type,

@@ -1,12 +1,30 @@
-from .schemes import estimate_gas, get_block, get_blocks, get_transactions_by_addresses, \
-    get_balances_by_addresses, get_transaction_intersections_by_addresses, get_general_information_by_addresses, \
-    get_token_transfers_by_addresses, get_tokens_balances_by_holders, \
-    get_token_balance_by_holders_and_token, get_transactions, \
-    get_transaction_information, get_transaction_receipt, send_transaction, \
-    decode_transaction, get_tokens, get_token_transfers_by_token_address, get_token_contract, \
-    subscribe_to_addresses_notifications_params, subscribe_to_addresses_notifications_body, \
-    unsubscribe_from_addresses_notifications, get_contracts_logs, contract_call_params, contract_call_body, \
-    get_contract_general_information
+from .schemes import (
+    contract_call_body,
+    contract_call_params,
+    decode_transaction,
+    estimate_gas,
+    get_balances_by_addresses,
+    get_block,
+    get_blocks,
+    get_contract_general_information,
+    get_contracts_logs,
+    get_general_information_by_addresses,
+    get_token_balance_by_holders_and_token,
+    get_token_contract,
+    get_token_transfers_by_addresses,
+    get_token_transfers_by_token_address,
+    get_tokens,
+    get_tokens_balances_by_holders,
+    get_transaction_information,
+    get_transaction_intersections_by_addresses,
+    get_transaction_receipt,
+    get_transactions,
+    get_transactions_by_addresses,
+    send_transaction,
+    subscribe_to_addresses_notifications_body,
+    subscribe_to_addresses_notifications_params,
+    unsubscribe_from_addresses_notifications
+)
 
 
 class Requests:
@@ -31,7 +49,8 @@ class Requests:
         self.get_token_transfers_by_token_address = model_wrapper(get_token_transfers_by_token_address)
         self.get_token_contract = model_wrapper(get_token_contract)
         self.subscribe_to_addresses_notifications_params = model_wrapper(
-            subscribe_to_addresses_notifications_params)
+            subscribe_to_addresses_notifications_params
+        )
         self.subscribe_to_addresses_notifications_body = model_wrapper(subscribe_to_addresses_notifications_body)
         self.unsubscribe_from_addresses_notifications = model_wrapper(unsubscribe_from_addresses_notifications)
         self.get_contracts_logs = model_wrapper(get_contracts_logs)

@@ -32,7 +32,9 @@ class Utils:
             422: api._models.error
         }
 
-        return {'token': api._api_key}, validators
+        return {
+            'token': api._api_key
+        }, validators
 
     @staticmethod
     def validate_data(validator, data):

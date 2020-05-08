@@ -1,5 +1,12 @@
-from cryptoapi.utils.types import hex_type, string_type, integer_type, utc_type, boolean_type,\
-    string_nullable_type, integer_nullable_type
+from cryptoapi.utils.types import (
+    boolean_type,
+    hex_type,
+    integer_nullable_type,
+    integer_type,
+    string_nullable_type,
+    string_type,
+    utc_type
+)
 
 # BTC.Common
 
@@ -50,7 +57,13 @@ get_blocks = {
     'skip': integer_type,
     'limit': integer_type,
     'count': integer_type,
-    'items': {'type': 'list', 'schema': {'type': 'dict', 'schema': _blocks_items}}
+    'items': {
+        'type': 'list',
+        'schema': {
+            'type': 'dict',
+            'schema': _blocks_items
+        }
+    }
 }
 
 # BTC.Transactions
@@ -187,7 +200,6 @@ get_utxo_coin_addresses_info = {
     }
 }
 
-
 _inputs_items = {
     'address': string_nullable_type,
     'previous_transaction_hash': hex_type,
@@ -203,7 +215,6 @@ _outputs_items = {
     'script': string_type,
     'legacy_address': string_nullable_type
 }
-
 
 _utxo_coin_addresses_history_items = {
     'block_height': integer_type,

@@ -1,12 +1,15 @@
-from cryptoapi.utils.types import string_type_not_required, integer_type_not_required, required_string_type,\
-    string_int_type
+from cryptoapi.utils.types import (
+    integer_type_not_required,
+    required_string_type,
+    string_int_type,
+    string_type_not_required
+)
 
 # BTC.Blocks
 
 get_block = {
     'block_height_or_hash': string_int_type
 }
-
 
 get_blocks = {
     'skip': integer_type_not_required,
