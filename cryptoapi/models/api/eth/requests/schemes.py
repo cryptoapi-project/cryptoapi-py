@@ -1,10 +1,10 @@
 from cryptoapi.utils.types import (
     boolean_type_not_required,
     hex_type_not_required_eth,
+    integer_type,
     integer_type_not_required,
     required_string_type,
-    string_type_not_required,
-    integer_type
+    string_type_not_required
 )
 
 # ETH.Common

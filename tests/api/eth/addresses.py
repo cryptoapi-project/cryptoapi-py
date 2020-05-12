@@ -2,7 +2,6 @@ import unittest
 
 from cryptoapi import Client
 
-
 from ..config import client_api_key, eth_address, eth_addresses, eth_token, mainnet
 
 

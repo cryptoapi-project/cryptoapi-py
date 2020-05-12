@@ -2,7 +2,7 @@ import unittest
 
 from cryptoapi import Client
 
-from ..config import client_api_key, bch_block_number, bch_trx_hash, bch_trx_hex, mainnet
+from ..config import bch_block_number, bch_trx_hash, bch_trx_hex, client_api_key, mainnet
 
 
 class TransactionsTestCase(unittest.TestCase):

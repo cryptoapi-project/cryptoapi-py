@@ -43,7 +43,13 @@ def mainnet_tests(session):
     """Run mainnet tests."""
     if python_version:
         session.run('pip', 'install', '--requirement', 'requirements_dev.txt')
-    session.run('python', '-m', 'unittest', '--verbose', env={'MAINNET': 'true'})
+    session.run(
+        'python',
+        '-m',
+        'unittest',
+        '--verbose',
+        env={'MAINNET': 'true'}
+    )
 
 
 @nox.session(python=python_version, name='testnet-tests')

@@ -2,7 +2,7 @@ import unittest
 
 from cryptoapi import Client
 
-from ..config import client_api_key, btc_address, btc_status, mainnet
+from ..config import btc_address, btc_status, client_api_key, mainnet
 
 
 class AddressesTestCase(unittest.TestCase):

@@ -1,9 +1,9 @@
 from cryptoapi.utils.types import (
     boolean_type_not_required,
+    integer_type,
     integer_type_not_required,
     required_string_type,
-    string_type_not_required,
-    integer_type
+    string_type_not_required
 )
 
 # KLAY.Common

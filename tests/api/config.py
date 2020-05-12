@@ -65,7 +65,6 @@ if not mainnet:
         '4f7cdccce020ea02'
     klay_trx_hash = '0x879c7099922be963176af976022a858e02fd0b4f1923b9f5bf48c9099b305d07'
 
-
 # btc
 if mainnet:
     btc_address = '2N9Rcb3Vz5g8Do51usJ8ywJ4oCZJ2RBs469'

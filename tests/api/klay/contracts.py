@@ -2,7 +2,7 @@ import unittest
 
 from cryptoapi import Client
 
-from ..config import client_api_key, klay_contract, klay_sender, klay_amount, klay_bytecode
+from ..config import client_api_key, klay_amount, klay_bytecode, klay_contract, klay_sender
 
 
 class ContractsTestCase(unittest.TestCase):

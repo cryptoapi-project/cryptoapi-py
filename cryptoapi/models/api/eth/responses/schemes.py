@@ -1,11 +1,11 @@
 from cryptoapi.utils.types import (
     boolean_type,
+    float_integer_type,
     hex_type_eth,
     integer_type,
     string_nullable_type,
     string_type,
-    utc_type,
-    float_integer_type
+    utc_type
 )
 
 # ETH.Common

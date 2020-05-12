@@ -2,7 +2,7 @@ import unittest
 
 from cryptoapi import Client
 
-from ..config import client_api_key, bch_address, bch_status, mainnet
+from ..config import bch_address, bch_status, client_api_key, mainnet
 
 
 class AddressesTestCase(unittest.TestCase):

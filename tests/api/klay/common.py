@@ -2,7 +2,7 @@ import unittest
 
 from cryptoapi import Client
 
-from ..config import client_api_key, klay_from, klay_data, klay_to, klay_value
+from ..config import client_api_key, klay_data, klay_from, klay_to, klay_value
 
 
 class CommonTestCase(unittest.TestCase):
