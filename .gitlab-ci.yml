@@ -44,10 +44,22 @@ yapf:
     - pp-new-develop
 
 
-tests:
+mainnet:
   stage: tests
   script:
-    - nox -s tests
+    - nox -s mainnet-tests
+  only:
+    - web
+    - trigger
+    - merge requests
+  tags:
+    - pp-new-develop
+
+
+testnet:
+  stage: tests
+  script:
+    - nox -s testnet-tests
   only:
     - web
     - trigger
