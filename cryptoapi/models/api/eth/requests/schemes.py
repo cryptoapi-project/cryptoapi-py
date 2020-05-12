@@ -3,7 +3,8 @@ from cryptoapi.utils.types import (
     hex_type_not_required_eth,
     integer_type_not_required,
     required_string_type,
-    string_type_not_required
+    string_type_not_required,
+    integer_type
 )
 
 # ETH.Common
@@ -191,7 +192,7 @@ contract_call_params = {
 
 contract_call_body = {
     'sender': required_string_type,
-    'amount': required_string_type,
+    'amount': integer_type,
     'bytecode': required_string_type
 }
 

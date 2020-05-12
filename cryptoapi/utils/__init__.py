@@ -29,7 +29,8 @@ class Utils:
 
         validators = {
             401: api._models.error,
-            422: api._models.error
+            422: api._models.error,
+            500: api._models.error
         }
 
         return {

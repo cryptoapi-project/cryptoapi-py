@@ -1,14 +1,14 @@
 from cryptoapi.utils.types import (
     integer_type_not_required,
     required_string_type,
-    string_int_type,
+    string_integer_type,
     string_type_not_required
 )
 
 # BTC.Blocks
 
 get_block = {
-    'block_height_or_hash': string_int_type
+    'block_height_or_hash': string_integer_type
 }
 
 get_blocks = {
@@ -23,7 +23,7 @@ get_transaction_by_hash = {
 }
 
 get_transactions = {
-    'block_height_or_hash': string_int_type,
+    'block_height_or_hash': string_integer_type,
     'skip': integer_type_not_required,
     'limit': integer_type_not_required,
     'from': string_type_not_required,

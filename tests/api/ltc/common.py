@@ -2,7 +2,7 @@ import unittest
 
 from cryptoapi import Client
 
-from .config import client_api_key
+from ..config import client_api_key
 
 
 class CommonTestCase(unittest.TestCase):

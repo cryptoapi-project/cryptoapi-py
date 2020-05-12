@@ -2,7 +2,8 @@ from cryptoapi.utils.types import (
     boolean_type_not_required,
     integer_type_not_required,
     required_string_type,
-    string_type_not_required
+    string_type_not_required,
+    integer_type
 )
 
 # KLAY.Common
@@ -186,7 +187,7 @@ contract_call_params = {
 
 contract_call_body = {
     'sender': required_string_type,
-    'amount': required_string_type,
+    'amount': integer_type,
     'bytecode': required_string_type
 }
 

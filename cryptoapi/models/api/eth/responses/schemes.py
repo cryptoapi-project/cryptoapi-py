@@ -4,7 +4,8 @@ from cryptoapi.utils.types import (
     integer_type,
     string_nullable_type,
     string_type,
-    utc_type
+    utc_type,
+    float_integer_type
 )
 
 # ETH.Common
@@ -14,7 +15,7 @@ get_network_info = {
     'count_transactions': string_type,
     'gas_price': string_type,
     'hashrate': integer_type,
-    'difficulty': integer_type
+    'difficulty': float_integer_type
 }
 
 estimate_gas = {

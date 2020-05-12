@@ -82,7 +82,9 @@ class Http:
         try:
             json_response = response.json()
         except Exception:
-            raise Exception('{}: Web Server error'.format(status_code))
+            if status_code >= 400:
+                raise Exception('{}: Web Server error'.format(status_code))
+            json_response = response.text
 
         if status_code in validators:
             validator = validators[status_code]
