@@ -38,9 +38,17 @@ def flake8(session):
     session.run('flake8', *files)
 
 
-@nox.session(python=python_version, name='tests')
-def tests(session):
-    """Run tests."""
+@nox.session(python=python_version, name='mainnet-tests')
+def mainnet_tests(session):
+    """Run mainnet tests."""
+    if python_version:
+        session.run('pip', 'install', '--requirement', 'requirements_dev.txt')
+    session.run('python', '-m', 'unittest', '--verbose', env={'MAINNET': 'true'})
+
+
+@nox.session(python=python_version, name='testnet-tests')
+def testnet_tests(session):
+    """Run testnet tests."""
     if python_version:
         session.run('pip', 'install', '--requirement', 'requirements_dev.txt')
     session.run('python', '-m', 'unittest', '--verbose')
