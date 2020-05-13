@@ -8,8 +8,8 @@ client_api_key = '51228473d659eb21da3696f25e36d2d364225a9c80d52988ac2a711f1eb3d5
 if mainnet:
     eth_address = '0x31B98D14007bDEe637298086988A0bBd31184523'
     eth_addresses = [eth_address, '0x3FdF73b0D6b61959d5C5ce5f456508AB6BFD7Bb9']
-    eth_token = '0x1AA950bD468997A28927434cB4F030AE0f19c8a7'
-    eth_block_number = 100000
+    eth_token = '0x4fa1bd7d17f4e6096b669e98e29deafb9a93b668'
+    eth_block_number = 10057000
     eth_limit = 2
     eth_contract = '0x3561178a9c214dd5b8d8c9e1eed31210f068633b'
     eth_sender = '0x3561178a9c214dd5b8d8c9e1eed31210f068633b'
@@ -23,7 +23,7 @@ if mainnet:
         'e0868f959bfa8545d964b800801ca04ef1f13c58af9a9ac4be66b838a238b24db798d585' +\
         'd882865637fdc35bdc49c4a04b7d1dfc3d9672080347a0d3559628f5f757bd6f6a005d1c' +\
         '4f7cdccce020ea02'
-    eth_trx_hash = '0x305f0bbe3a008f2e078895c709c8fc436a6216afa3340cc764daa0f5bed7aa2a'
+    eth_trx_hash = '0xb9af05a2af978353de43636b210bfd46e601183f2064d4c7303b16fd70c5b9c8'
 else:
     eth_address = '0x31B98D14007bDEe637298086988A0bBd31184523'
     eth_addresses = [eth_address, '0x3FdF73b0D6b61959d5C5ce5f456508AB6BFD7Bb9']
@@ -67,12 +67,12 @@ if not mainnet:
 
 # btc
 if mainnet:
-    btc_address = '2N9Rcb3Vz5g8Do51usJ8ywJ4oCZJ2RBs469'
+    btc_address = '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa'
     btc_status = 'unspent'
 
     btc_block_number = 100
 
-    btc_trx_hash = 'e845c15f1d415c901fb8abd04018d6b6abcb0ef3a3855b7b24cda9866902e7d1'
+    btc_trx_hash = '2d05f0c9c3e1c226e63b5fac240137687544cf631cd616fd34fd188fc9020866'
     btc_trx_hex = '01000000014368d74c6a7b118610b325389613acff68a324eb86caf61e1494d1ff' +\
         '6bcb07e9010000006a4730440220463a47bd9ba114ba919b7bb6fc4f9e97754fb1e8eb78' +\
         'c5d4803cb3208fea7c8c0220271174def0bf6499b09b48fa87ad6f3ae8e3f16217228ed5' +\
@@ -95,10 +95,10 @@ else:
 
 # bch
 if mainnet:
-    bch_address = 'qqpz7r5k72e07j0syq26f0h8srvdqeqjg50wg9fp3z'
+    bch_address = 'qqrxa0h9jqnc7v4wmj9ysetsp3y7w9l36u8gnnjulq'
     bch_status = 'unspent'
     bch_block_number = 100
-    bch_trx_hash = '4821aac1650f6bc28daea22d70358021b9021567f07015562ab861cc14bfd393'
+    bch_trx_hash = '00597d1dd51cd254585976cf362ca89b39181c3fc0dbc5fecaca7b419def43d7'
     bch_trx_hex = '01000000014368d74c6a7b118610b325389613acff68a324eb86caf61e1494d1ff' +\
         '6bcb07e9010000006a4730440220463a47bd9ba114ba919b7bb6fc4f9e97754fb1e8eb78' +\
         'c5d4803cb3208fea7c8c0220271174def0bf6499b09b48fa87ad6f3ae8e3f16217228ed5' +\

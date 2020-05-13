@@ -5,7 +5,8 @@ from cryptoapi.utils.types import (
     integer_type,
     string_nullable_type,
     string_type,
-    utc_type
+    utc_type,
+    integer_nullable_type_not_required
 )
 
 # BTC.Common
@@ -206,7 +207,8 @@ _inputs_items = {
     'output_index': integer_type,
     'sequence_number': integer_type,
     'script': string_nullable_type,
-    'legacy_address': string_nullable_type
+    'legacy_address': string_nullable_type,
+    'satoshis': integer_nullable_type_not_required
 }
 
 _outputs_items = {
