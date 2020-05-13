@@ -6,6 +6,7 @@ from .api.btc.addresses import AddressesTestCase as BtcAddressesTestCase
 from .api.btc.blocks import BlocksTestCase as BtcBlocksTestCase
 from .api.btc.common import CommonTestCase as BtcCommonTestCase
 from .api.btc.transactions import TransactionsTestCase as BtcTransactionsTestCase
+from .api.common import CommonTestCase
 from .api.config import mainnet
 from .api.eth.addresses import AddressesTestCase as EthAddressesTestCase
 from .api.eth.blocks import BlocksTestCase as EthBlocksTestCase
@@ -13,8 +14,15 @@ from .api.eth.common import CommonTestCase as EthCommonTestCase
 from .api.eth.contracts import ContractsTestCase as EthContractsTestCase
 from .api.eth.tokens import TokensTestCase as EthTokensTestCase
 from .api.eth.transactions import TransactionsTestCase as EthTransactionsTestCase
+from .api.ltc.addresses import AddressesTestCase as LtcAddressesTestCase
+from .api.ltc.blocks import BlocksTestCase as LtcBlocksTestCase
+from .api.ltc.common import CommonTestCase as LtcCommonTestCase
+from .api.ltc.transactions import TransactionsTestCase as LtcTransactionsTestCase
+from .api.rates import RatesTestCase
 
 imported_tests = [
+    CommonTestCase,
+    RatesTestCase,
     BtcAddressesTestCase,
     BtcBlocksTestCase,
     BtcCommonTestCase,
@@ -28,7 +36,11 @@ imported_tests = [
     EthCommonTestCase,
     EthContractsTestCase,
     EthTokensTestCase,
-    EthTransactionsTestCase
+    EthTransactionsTestCase,
+    LtcAddressesTestCase,
+    LtcBlocksTestCase,
+    LtcCommonTestCase,
+    LtcTransactionsTestCase
 ]
 
 if not mainnet:
@@ -38,11 +50,6 @@ if not mainnet:
     from .api.klay.contracts import ContractsTestCase as KlayContractsTestCase
     from .api.klay.tokens import TokensTestCase as KlayTokensTestCase
     from .api.klay.transactions import TransactionsTestCase as KlayTransactionsTestCase
-    from .api.ltc.addresses import AddressesTestCase as LtcAddressesTestCase
-    from .api.ltc.blocks import BlocksTestCase as LtcBlocksTestCase
-    from .api.ltc.common import CommonTestCase as LtcCommonTestCase
-    from .api.ltc.transactions import TransactionsTestCase as LtcTransactionsTestCase
-
     imported_tests.extend([
         KlayAddressesTestCase,
         KlayBlocksTestCase,
@@ -50,10 +57,6 @@ if not mainnet:
         KlayContractsTestCase,
         KlayTokensTestCase,
         KlayTransactionsTestCase,
-        LtcAddressesTestCase,
-        LtcBlocksTestCase,
-        LtcCommonTestCase,
-        LtcTransactionsTestCase
     ])
 
 __all__ = imported_tests

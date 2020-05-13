@@ -2,13 +2,17 @@ import unittest
 
 from cryptoapi import Client
 
-from ..config import client_api_key
+from ..config import client_api_key, mainnet
 
 
 class CommonTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.client = Client(client_api_key).api.ltc.testnet.common
+        self.client = Client(client_api_key)
+        if mainnet:
+            self.client = self.client.api.ltc.common
+        else:
+            self.client = self.client.api.ltc.testnet.common
 
     def test_get_estimate_fee(self):
         estimate_fee = self.client.get_estimate_fee()

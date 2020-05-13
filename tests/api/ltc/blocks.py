@@ -2,7 +2,7 @@ import unittest
 
 from cryptoapi import Client
 
-from ..config import client_api_key, ltc_block_number
+from ..config import client_api_key, ltc_block_number, mainnet
 
 
 class BlocksTestCase(unittest.TestCase):
@@ -10,7 +10,11 @@ class BlocksTestCase(unittest.TestCase):
     def setUp(self):
         self.block_number = ltc_block_number
 
-        self.client = Client(client_api_key).api.ltc.testnet.blocks
+        self.client = Client(client_api_key)
+        if mainnet:
+            self.client = self.client.api.ltc.blocks
+        else:
+            self.client = self.client.api.ltc.testnet.blocks
 
     def test_get_block(self):
         block_by_number = self.client.get_block(self.block_number)

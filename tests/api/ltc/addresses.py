@@ -2,7 +2,7 @@ import unittest
 
 from cryptoapi import Client
 
-from ..config import client_api_key, ltc_address, ltc_status
+from ..config import client_api_key, ltc_address, ltc_status, mainnet
 
 
 class AddressesTestCase(unittest.TestCase):
@@ -11,7 +11,11 @@ class AddressesTestCase(unittest.TestCase):
         self.address = ltc_address
         self.status = ltc_status
 
-        self.client = Client(client_api_key).api.ltc.testnet.addresses
+        self.client = Client(client_api_key)
+        if mainnet:
+            self.client = self.client.api.ltc.addresses
+        else:
+            self.client = self.client.api.ltc.testnet.addresses
 
     def test_get_outputs_by_addresses(self):
         outputs = self.client.get_outputs_by_addresses([self.address], self.status)

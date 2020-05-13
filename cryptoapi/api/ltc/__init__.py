@@ -10,4 +10,6 @@ class Ltc(Testnet):
         self._models = models
         self._utils = utils
 
+        self._init_modules()
+
         self.testnet = Testnet(http_wrapper, coin_url, models, config, utils, debug, api_key)

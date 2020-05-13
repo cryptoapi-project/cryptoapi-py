@@ -2,7 +2,7 @@ import unittest
 
 from cryptoapi import Client
 
-from ..config import client_api_key, ltc_block_number, ltc_trx_hash, ltc_trx_hex
+from ..config import client_api_key, ltc_block_number, ltc_trx_hash, ltc_trx_hex, mainnet
 
 
 class TransactionsTestCase(unittest.TestCase):
@@ -12,7 +12,11 @@ class TransactionsTestCase(unittest.TestCase):
         self.trx_hash = ltc_trx_hash
         self.trx_hex = ltc_trx_hex
 
-        self.client = Client(client_api_key).api.ltc.testnet.transactions
+        self.client = Client(client_api_key)
+        if mainnet:
+            self.client = self.client.api.ltc.transactions
+        else:
+            self.client = self.client.api.ltc.testnet.transactions
 
     def test_get_transactions(self):
         trx = self.client.get_transactions(self.block_number)

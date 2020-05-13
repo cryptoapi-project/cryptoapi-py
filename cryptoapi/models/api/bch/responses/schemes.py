@@ -2,11 +2,11 @@ from cryptoapi.utils.types import (
     boolean_type,
     hex_type,
     integer_nullable_type,
+    integer_nullable_type_not_required,
     integer_type,
     string_nullable_type,
     string_type,
-    utc_type,
-    integer_nullable_type_not_required
+    utc_type
 )
 
 # BTC.Common

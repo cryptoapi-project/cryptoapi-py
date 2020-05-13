@@ -26,5 +26,5 @@ class AddressesTestCase(unittest.TestCase):
         self.assertNotIn('errors', utxo_coin_addresses_info)
 
     def test_get_utxo_coin_addresses_history(self):
-        utxo_coin_addresses_history = self.client.get_utxo_coin_addresses_history([self.address])
+        utxo_coin_addresses_history = self.client.get_utxo_coin_addresses_history([self.address], limit=1)
         self.assertNotIn('errors', utxo_coin_addresses_history)
