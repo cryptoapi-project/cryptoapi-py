@@ -1,9 +1,9 @@
 class Contracts:
 
-    def __init__(self, http, models, utils, api_key):
+    def __init__(self, http, validators, utils, api_key):
         self._http = http
         self._api_key = api_key
-        self._models = models
+        self._validators = validators
         self._utils = utils
 
     def get_contracts_logs(
@@ -36,9 +36,9 @@ class Contracts:
         if topics is not None:
             params.update({'topics': ','.join(topics)})
 
-        self._utils.validate_data(self._models.api.klay.requests.get_contracts_logs, params)
+        self._utils.validate_data(self._validators.api.klay.requests.get_contracts_logs, params)
 
-        validators.update({200: self._models.api.klay.responses.get_contracts_logs})
+        validators.update({200: self._validators.api.klay.responses.get_contracts_logs})
 
         params.update(api_key)
 
@@ -57,10 +57,10 @@ class Contracts:
             'bytecode': bytecode
         }
 
-        self._utils.validate_data(self._models.api.klay.requests.contract_call_params, params)
-        self._utils.validate_data(self._models.api.klay.requests.contract_call_body, data)
+        self._utils.validate_data(self._validators.api.klay.requests.contract_call_params, params)
+        self._utils.validate_data(self._validators.api.klay.requests.contract_call_body, data)
 
-        validators.update({200: self._models.api.klay.responses.contract_call})
+        validators.update({200: self._validators.api.klay.responses.contract_call})
 
         return self._http.post(
             url='/contracts/{}/call'.format(params.pop('address')),
@@ -76,9 +76,9 @@ class Contracts:
             'address': address
         }
 
-        self._utils.validate_data(self._models.api.klay.requests.get_contract_general_information, params)
+        self._utils.validate_data(self._validators.api.klay.requests.get_contract_general_information, params)
 
-        validators.update({200: self._models.api.klay.responses.get_contract_general_information})
+        validators.update({200: self._validators.api.klay.responses.get_contract_general_information})
 
         return self._http.get(
             url='/contracts/{}'.format(params.pop('address')),

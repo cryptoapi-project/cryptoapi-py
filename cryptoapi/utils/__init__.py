@@ -28,9 +28,9 @@ class Utils:
             raise Exception('API-KEY for this Client is not set')
 
         validators = {
-            401: api._models.error,
-            422: api._models.error,
-            500: api._models.error
+            401: api._validators.error,
+            422: api._validators.error,
+            500: api._validators.error
         }
 
         return {

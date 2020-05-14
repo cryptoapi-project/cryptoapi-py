@@ -1,9 +1,9 @@
 class Blocks:
 
-    def __init__(self, http, models, utils, api_key):
+    def __init__(self, http, validators, utils, api_key):
         self._http = http
         self._api_key = api_key
-        self._models = models
+        self._validators = validators
         self._utils = utils
 
     def get_block(self, block_height_or_hash):
@@ -12,9 +12,9 @@ class Blocks:
         params = {
             'block_height_or_hash': block_height_or_hash
         }
-        self._utils.validate_data(self._models.api.bch.requests.get_block, params)
+        self._utils.validate_data(self._validators.api.bch.requests.get_block, params)
 
-        validators.update({200: self._models.api.bch.responses.get_block})
+        validators.update({200: self._validators.api.bch.responses.get_block})
 
         return self._http.get(
             url='/blocks/{}'.format(params['block_height_or_hash']),
@@ -32,9 +32,9 @@ class Blocks:
         if limit is not None:
             params.update({'limit': limit})
 
-        self._utils.validate_data(self._models.api.bch.requests.get_blocks, params)
+        self._utils.validate_data(self._validators.api.bch.requests.get_blocks, params)
 
-        validators.update({200: self._models.api.bch.responses.get_blocks})
+        validators.update({200: self._validators.api.bch.responses.get_blocks})
 
         params.update(api_key)
 

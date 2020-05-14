@@ -1,9 +1,9 @@
 class Whooks:
 
-    def __init__(self, http_wrapper, models, config, utils, debug, api_key):
+    def __init__(self, http_wrapper, validators, config, utils, debug, api_key):
         self._http = http_wrapper(url=config.api.BASE_WEB_HOOKS_URL, debug=debug)
         self._api_key = api_key
-        self._models = models
+        self._validators = validators
         self._utils = utils
 
     def get_hook_events(
@@ -40,9 +40,9 @@ class Whooks:
         if _type is not None:
             params.update({'type': _type})
 
-        self._utils.validate_data(self._models.api.whooks.requests.get_hook_events, params)
+        self._utils.validate_data(self._validators.api.whooks.requests.get_hook_events, params)
 
-        validators.update({200: self._models.api.whooks.responses.get_hook_events})
+        validators.update({200: self._validators.api.whooks.responses.get_hook_events})
 
         params.update(api_key)
 
