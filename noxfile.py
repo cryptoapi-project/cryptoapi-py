@@ -2,13 +2,15 @@ import nox
 
 python_version = '3'
 files = ['cryptoapi', 'tests', 'noxfile.py', 'setup.py']
+install_requires = ['pip', 'install', '-r', 'requirements_dev.txt', '--no-cache-dir']
+run_tests = ['python', '-m', 'unittest', '-v']
 
 
 @nox.session(python=python_version, name='isort')
 def isort(session):
     """Run isort import sorter."""
     if python_version:
-        session.run('pip', 'install', '--requirement', 'requirements_dev.txt')
+        session.run(*install_requires)
     command = ['isort', '-rc', '-y']
     if session.posargs:
         command[-1] = '-c'
@@ -20,7 +22,7 @@ def isort(session):
 def yapf(session):
     """Run yapf code formatter."""
     if python_version:
-        session.run('pip', 'install', '--requirement', 'requirements_dev.txt')
+        session.run(*install_requires)
     command = ['yapf', '-r', '-i']
     if session.posargs:
         command[-1] = '-d'
@@ -32,7 +34,7 @@ def yapf(session):
 def flake8(session):
     """Run flake8 linter."""
     if python_version:
-        session.run('pip', 'install', '--requirement', 'requirements_dev.txt')
+        session.run(*install_requires)
     session.run('flake8', *files)
 
 
@@ -40,19 +42,13 @@ def flake8(session):
 def mainnet_tests(session):
     """Run mainnet tests."""
     if python_version:
-        session.run('pip', 'install', '--requirement', 'requirements_dev.txt')
-    session.run(
-        'python',
-        '-m',
-        'unittest',
-        '--verbose',
-        env={'MAINNET': 'true'}
-    )
+        session.run(*install_requires)
+    session.run(*run_tests, env={'MAINNET': 'true'})
 
 
 @nox.session(python=python_version, name='testnet-tests')
 def testnet_tests(session):
     """Run testnet tests."""
     if python_version:
-        session.run('pip', 'install', '--requirement', 'requirements_dev.txt')
-    session.run('python', '-m', 'unittest', '--verbose')
+        session.run(*install_requires)
+    session.run(*run_tests)
