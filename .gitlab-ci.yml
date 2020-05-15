@@ -3,7 +3,6 @@ image: 'python:3.7'
 stages:
   - static analysis
   - tests
-  - package
 
 .analyzers:
   stage: static analysis
@@ -49,7 +48,7 @@ mainnet:
   artifacts:
     paths:
       - reports
-    expire_in: 10 mins
+    expire_in: 3 hours
     when: always
 
 testnet:
@@ -59,21 +58,5 @@ testnet:
   artifacts:
     paths:
       - reports
-    expire_in: 10 mins
-    when: always
-
-pack-zip:
-  stage: package
-  script: 
-    - tar -zcvf reports.tar.gz reports/
-  artifacts:
-    paths:
-      - reports.tar.gz
     expire_in: 3 hours
-  when: always
-  only:
-    - web
-    - trigger
-    - merge requests
-  tags:
-    - pp-new-develop
+    when: always
