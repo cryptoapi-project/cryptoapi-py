@@ -7,7 +7,7 @@ stages:
 .analyzers:
   stage: static analysis
   before_script:
-    - pip3 install -r requirements_dev.txt
+    - pip3 install -r requirements_dev.txt --no-cache-dir
   only:
     - web
     - trigger
