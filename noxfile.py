@@ -1,8 +1,6 @@
-import os
-
 import nox
 
-python_version = '3'#os.environ.get('PYTHON_VERSION', False)
+python_version = '3'
 files = ['cryptoapi', 'tests', 'noxfile.py', 'setup.py']
 
 

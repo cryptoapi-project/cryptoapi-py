@@ -1,8 +1,4 @@
-image: "python:3.7"
-
-before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  - pip3 install -r requirements_dev.txt
+image: 'python:3.7'
 
 stages:
   - static analysis
