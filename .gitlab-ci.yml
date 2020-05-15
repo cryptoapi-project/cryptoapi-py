@@ -3,6 +3,7 @@ image: 'python:3.7'
 stages:
   - static analysis
   - tests
+  - package
 
 .analyzers:
   stage: static analysis
@@ -50,3 +51,10 @@ testnet:
   extends: .tests
   script:
     - nox -s testnet-tests
+
+pack-zip:
+  stage: package
+  script: zip reports.zip reports
+  artifacts:
+    paths:
+      - reports.zip

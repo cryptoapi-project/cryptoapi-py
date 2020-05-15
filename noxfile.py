@@ -5,7 +5,7 @@ import nox
 python_version = os.environ.get('PYTHON_VERSION', False)
 files = ['cryptoapi', 'tests', 'noxfile.py', 'setup.py']
 install_requires = ['pip', 'install', '-r', 'requirements_dev.txt', '--no-cache-dir']
-run_tests = ['python', '-m', 'unittest', '-v']
+run_tests = ['python', 'test_runner.py']
 
 
 @nox.session(python=python_version, name='isort')
