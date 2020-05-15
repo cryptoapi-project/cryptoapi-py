@@ -9,8 +9,8 @@ stages:
 
 .analyzers:
   stage: static analysis
-  environment:
-    - PYTHON_VERSION='3'
+  variables:
+    PYTHON_VERSION: 3
   only:
     - web
     - trigger
@@ -20,8 +20,8 @@ stages:
 
 .tests:
   stage: tests
-  environment:
-    - PYTHON_VERSION='3'
+  variables:
+    PYTHON_VERSION: 3
   only:
     - web
     - trigger
