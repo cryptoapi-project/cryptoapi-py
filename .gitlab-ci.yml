@@ -19,6 +19,11 @@ stages:
   stage: tests
   variables:
     PYTHON_VERSION: 3
+  artifacts:
+    paths:
+      - reports
+    expire_in: 3 hours
+    when: always
   only:
     - web
     - trigger
@@ -45,18 +50,8 @@ mainnet:
   extends: .tests
   script:
     - nox -s mainnet-tests
-  artifacts:
-    paths:
-      - reports
-    expire_in: 3 hours
-    when: always
-
+  
 testnet:
   extends: .tests
   script:
     - nox -s testnet-tests
-  artifacts:
-    paths:
-      - reports
-    expire_in: 3 hours
-    when: always
