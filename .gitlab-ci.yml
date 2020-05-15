@@ -64,10 +64,11 @@ testnet:
 
 pack-zip:
   stage: package
-  script: zip reports.zip reports
+  script: 
+    - tar -zcvf reports.tar.gz reports/
   artifacts:
     paths:
-      - reports.zip
+      - reports.tar.gz
     expire_in: 3 hours
   when: always
   only:
