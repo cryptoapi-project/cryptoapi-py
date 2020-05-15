@@ -59,7 +59,7 @@ mainnet:
 testnet:
   stage: tests
   script:
-    - nox -s testnet-tests
+    - python3 -m unittest -v
   only:
     - web
     - trigger
