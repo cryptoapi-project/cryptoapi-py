@@ -1,16 +1,13 @@
 image: 'python:3.7'
 
-before_script:
-  - pip3 install -r requirements_dev.txt
-
 stages:
   - static analysis
   - tests
 
 .analyzers:
   stage: static analysis
-  variables:
-    PYTHON_VERSION: 3
+  before_script:
+    - pip3 install -r requirements_dev.txt
   only:
     - web
     - trigger
@@ -43,7 +40,6 @@ yapf:
   extends: .analyzers
   script:
     - nox -s yapf -- check
-
 
 mainnet:
   extends: .tests
