@@ -7,7 +7,7 @@ stages:
   - static analysis
   - tests
 
-static-analysis-service:
+.analyzers:
   stage: static analysis
   environment:
     - PYTHON_VERSION=3
@@ -18,7 +18,7 @@ static-analysis-service:
   tags:
     - pp-new-develop
 
-tests-service:
+.tests:
   stage: tests
   environment:
     - PYTHON_VERSION=3
@@ -30,27 +30,27 @@ tests-service:
     - pp-new-develop
 
 flake8:
-  extends: static-analysis-service
+  extends: .analyzers
   script:
     - nox -s flake8
 
 isort:
-  extends: static-analysis-service
+  extends: .analyzers
   script:
     - nox -s isort -- check
 
 yapf:
-  extends: static-analysis-service
+  extends: .analyzers
   script:
     - nox -s yapf -- check
 
 
 mainnet:
-  extends: tests-service
+  extends: .tests
   script:
     - nox -s mainnet-tests
 
 testnet:
-  extends: tests-service
+  extends: .tests
   script:
     - nox -s testnet-tests
