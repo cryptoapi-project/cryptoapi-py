@@ -49,7 +49,8 @@ mainnet:
   artifacts:
     paths:
       - reports
-    expire_in: 10 minutes
+    expire_in: 10 mins
+    when: always
 
 testnet:
   extends: .tests
@@ -58,7 +59,8 @@ testnet:
   artifacts:
     paths:
       - reports
-    expire_in: 10 minutes
+    expire_in: 10 mins
+    when: always
 
 pack-zip:
   stage: package
@@ -67,6 +69,7 @@ pack-zip:
     paths:
       - reports.zip
     expire_in: 3 hours
+  when: always
   only:
     - web
     - trigger
