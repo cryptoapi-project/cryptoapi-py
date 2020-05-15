@@ -7,61 +7,50 @@ stages:
   - static analysis
   - tests
 
-flake8:
+static-analysis-service:
   stage: static analysis
+  environment:
+    - PYTHON_VERSION=3
+  only:
+    - web
+    - trigger
+    - merge requests
+  tags:
+    - pp-new-develop
+
+tests-service:
+  stage: tests
+  environment:
+    - PYTHON_VERSION=3
+  only:
+    - web
+    - trigger
+    - merge requests
+  tags:
+    - pp-new-develop
+
+flake8:
+  extends: static-analysis-service
   script:
     - nox -s flake8
-  only:
-    - web
-    - trigger
-    - merge requests
-  tags:
-    - pp-new-develop
-
 
 isort:
-  stage: static analysis
+  extends: static-analysis-service
   script:
     - nox -s isort -- check
-  only:
-    - web
-    - trigger
-    - merge requests
-  tags:
-    - pp-new-develop
-
 
 yapf:
-  stage: static analysis
+  extends: static-analysis-service
   script:
     - nox -s yapf -- check
-  only:
-    - web
-    - trigger
-    - merge requests
-  tags:
-    - pp-new-develop
 
 
 mainnet:
-  stage: tests
+  extends: tests-service
   script:
     - nox -s mainnet-tests
-  only:
-    - web
-    - trigger
-    - merge requests
-  tags:
-    - pp-new-develop
-
 
 testnet:
-  stage: tests
+  extends: tests-service
   script:
     - nox -s testnet-tests
-  only:
-    - web
-    - trigger
-    - merge requests
-  tags:
-    - pp-new-develop

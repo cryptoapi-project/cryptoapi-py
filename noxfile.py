@@ -1,6 +1,8 @@
+import os
+
 import nox
 
-python_version = '3'
+python_version = os.environ.get('PYTHON_VERSION', False)
 files = ['cryptoapi', 'tests', 'noxfile.py', 'setup.py']
 install_requires = ['pip', 'install', '-r', 'requirements_dev.txt', '--no-cache-dir']
 run_tests = ['python', '-m', 'unittest', '-v']
