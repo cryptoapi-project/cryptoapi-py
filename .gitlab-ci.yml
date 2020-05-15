@@ -1,8 +1,7 @@
 image: 'python:3.7'
 
 before_script:
-  - python --version
-  - python3 --version
+  - pip3 install -r requirements_dev.txt
 
 stages:
   - static analysis
