@@ -46,11 +46,19 @@ mainnet:
   extends: .tests
   script:
     - nox -s mainnet-tests
+  artifacts:
+    paths:
+      - reports
+    expire_in: 10 minutes
 
 testnet:
   extends: .tests
   script:
     - nox -s testnet-tests
+  artifacts:
+    paths:
+      - reports
+    expire_in: 10 minutes
 
 pack-zip:
   stage: package
@@ -58,3 +66,10 @@ pack-zip:
   artifacts:
     paths:
       - reports.zip
+    expire_in: 3 hours
+  only:
+    - web
+    - trigger
+    - merge requests
+  tags:
+    - pp-new-develop
