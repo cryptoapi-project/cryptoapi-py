@@ -1,7 +1,8 @@
 class Tokens:
 
-    def __init__(self, http, validators, utils, api_key):
+    def __init__(self, http, coin_url, validators, utils, api_key):
         self._http = http
+        self._coin_url = coin_url
         self._api_key = api_key
         self._validators = validators
         self._utils = utils
@@ -29,7 +30,7 @@ class Tokens:
 
         validators.update({200: self._validators.api.klay.responses.get_tokens})
 
-        return self._http.get(url='/tokens/search', params=params, validators=validators)
+        return self._http.get(url='{}/tokens/search'.format(self._coin_url), params=params, validators=validators)
 
     def get_token_transfers_by_token_address(self, token, skip=None, limit=None, addresses=None):
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -53,7 +54,12 @@ class Tokens:
 
         validators.update({200: self._validators.api.klay.responses.get_token_transfers_by_token_address})
 
-        return self._http.get(url='/tokens/{}/transfers'.format(token), params=params, validators=validators)
+        return self._http.get(
+            url='{}/tokens/{}/transfers'.format(self._coin_url,
+                                                token),
+            params=params,
+            validators=validators
+        )
 
     def get_token_contract(self, address):
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -67,7 +73,8 @@ class Tokens:
         validators.update({200: self._validators.api.klay.responses.get_token_contract})
 
         return self._http.get(
-            url='/tokens/{}'.format(params.pop('address')),
+            url='{}/tokens/{}'.format(self._coin_url,
+                                      params.pop('address')),
             params=api_key,
             validators=validators
         )

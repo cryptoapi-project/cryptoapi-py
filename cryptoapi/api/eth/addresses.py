@@ -1,7 +1,8 @@
 class Addresses:
 
-    def __init__(self, http, validators, utils, api_key):
+    def __init__(self, http, coin_url, validators, utils, api_key):
         self._http = http
+        self._coin_url = coin_url
         self._api_key = api_key
         self._validators = validators
         self._utils = utils
@@ -29,7 +30,8 @@ class Addresses:
         validators.update({200: self._validators.api.eth.responses.get_transactions_by_addresses})
 
         return self._http.get(
-            url='/addresses/{}/transfers'.format(','.join(params.pop('addresses'))),
+            url='{}/addresses/{}/transfers'.format(self._coin_url,
+                                                   ','.join(params.pop('addresses'))),
             params=params,
             validators=validators
         )
@@ -57,7 +59,8 @@ class Addresses:
         validators.update({200: self._validators.api.eth.responses.get_transaction_intersections_by_addresses})
 
         return self._http.get(
-            url='/addresses/{}/transactions'.format(','.join(params.pop('addresses'))),
+            url='{}/addresses/{}/transactions'.format(self._coin_url,
+                                                      ','.join(params.pop('addresses'))),
             params=params,
             validators=validators
         )
@@ -74,7 +77,8 @@ class Addresses:
         validators.update({200: self._validators.api.eth.responses.get_balances_by_addresses})
 
         return self._http.get(
-            url='/addresses/{}/balance'.format(','.join(params.pop('addresses'))),
+            url='{}/addresses/{}/balance'.format(self._coin_url,
+                                                 ','.join(params.pop('addresses'))),
             params=api_key,
             validators=validators
         )
@@ -91,7 +95,8 @@ class Addresses:
         validators.update({200: self._validators.api.eth.responses.get_general_information_by_addresses})
 
         return self._http.get(
-            url='/addresses/{}'.format(','.join(params.pop('addresses'))),
+            url='{}/addresses/{}'.format(self._coin_url,
+                                         ','.join(params.pop('addresses'))),
             params=api_key,
             validators=validators
         )
@@ -118,8 +123,9 @@ class Addresses:
         validators.update({200: self._validators.api.eth.responses.get_token_transfers_by_addresses})
 
         return self._http.get(
-            url='/addresses/{}/transfers/tokens/{}'.format(addresses,
-                                                           token),
+            url='{}/addresses/{}/transfers/tokens/{}'.format(self._coin_url,
+                                                             addresses,
+                                                             token),
             params=params,
             validators=validators
         )
@@ -144,7 +150,8 @@ class Addresses:
         validators.update({200: self._validators.api.eth.responses.get_tokens_balances_by_holders})
 
         return self._http.get(
-            url='/addresses/{}/balance/tokens'.format(','.join(params.pop('addresses'))),
+            url='{}/addresses/{}/balance/tokens'.format(self._coin_url,
+                                                        ','.join(params.pop('addresses'))),
             params=params,
             validators=validators
         )
@@ -171,8 +178,9 @@ class Addresses:
         validators.update({200: self._validators.api.eth.responses.get_token_balance_by_holders_and_token})
 
         return self._http.get(
-            url='/addresses/{}/balance/tokens/{}'.format(addresses,
-                                                         token),
+            url='{}/addresses/{}/balance/tokens/{}'.format(self._coin_url,
+                                                           addresses,
+                                                           token),
             params=params,
             validators=validators
         )

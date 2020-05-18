@@ -1,7 +1,7 @@
 class Whooks:
 
-    def __init__(self, http_wrapper, validators, config, utils, debug, api_key):
-        self._http = http_wrapper(url=config.api.BASE_WEB_HOOKS_URL, debug=debug)
+    def __init__(self, http, validators, utils, debug, api_key):
+        self._http = http
         self._api_key = api_key
         self._validators = validators
         self._utils = utils

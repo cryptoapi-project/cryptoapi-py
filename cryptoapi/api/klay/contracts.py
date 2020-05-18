@@ -1,7 +1,8 @@
 class Contracts:
 
-    def __init__(self, http, validators, utils, api_key):
+    def __init__(self, http, coin_url, validators, utils, api_key):
         self._http = http
+        self._coin_url = coin_url
         self._api_key = api_key
         self._validators = validators
         self._utils = utils
@@ -42,7 +43,7 @@ class Contracts:
 
         params.update(api_key)
 
-        return self._http.get(url='/contracts/logs', params=params, validators=validators)
+        return self._http.get(url='{}/contracts/logs'.format(self._coin_url), params=params, validators=validators)
 
     def contract_call(self, address, sender, amount, bytecode):
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -63,7 +64,8 @@ class Contracts:
         validators.update({200: self._validators.api.klay.responses.contract_call})
 
         return self._http.post(
-            url='/contracts/{}/call'.format(params.pop('address')),
+            url='{}/contracts/{}/call'.format(self._coin_url,
+                                              params.pop('address')),
             data=data,
             params=api_key,
             validators=validators
@@ -81,7 +83,8 @@ class Contracts:
         validators.update({200: self._validators.api.klay.responses.get_contract_general_information})
 
         return self._http.get(
-            url='/contracts/{}'.format(params.pop('address')),
+            url='{}/contracts/{}'.format(self._coin_url,
+                                         params.pop('address')),
             params=api_key,
             validators=validators
         )

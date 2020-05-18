@@ -1,7 +1,8 @@
 class Blocks:
 
-    def __init__(self, http, validators, utils, api_key):
+    def __init__(self, http, coin_url, validators, utils, api_key):
         self._http = http
+        self._coin_url = coin_url
         self._api_key = api_key
         self._validators = validators
         self._utils = utils
@@ -17,7 +18,8 @@ class Blocks:
         validators.update({200: self._validators.api.klay.responses.get_block})
 
         return self._http.get(
-            url='/blocks/{}'.format(params['block_number_or_hash']),
+            url='{}/blocks/{}'.format(self._coin_url,
+                                      params['block_number_or_hash']),
             params=api_key,
             validators=validators
         )
@@ -38,4 +40,4 @@ class Blocks:
 
         params.update(api_key)
 
-        return self._http.get(url='/blocks', params=params, validators=validators)
+        return self._http.get(url='{}/blocks'.format(self._coin_url), params=params, validators=validators)

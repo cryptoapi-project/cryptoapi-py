@@ -1,7 +1,7 @@
 class Testnet:
 
-    def __init__(self, http_wrapper, validators, config, utils, debug, api_key):
-        self._http = http_wrapper(url=config.api.BASE_TESTNET_HTTP_URL + '/rates', debug=debug)
+    def __init__(self, http, validators, utils, debug, api_key):
+        self._http = http
         self._api_key = api_key
         self._validators = validators
         self._utils = utils
@@ -16,7 +16,11 @@ class Testnet:
 
         validators.update({200: self._validators.api.rates.responses.get_coins_rates})
 
-        return self._http.get(url='/{}/'.format(','.join(params['coins'])), params=api_key, validators=validators)
+        return self._http.get(
+            url='/rates/{}/'.format(','.join(params['coins'])),
+            params=api_key,
+            validators=validators
+        )
 
     def get_coins_history(self, coins):
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -29,7 +33,7 @@ class Testnet:
         validators.update({200: self._validators.api.rates.responses.get_coins_history})
 
         return self._http.get(
-            url='/{}/history'.format(','.join((params['coins']))),
+            url='/rates/{}/history'.format(','.join((params['coins']))),
             params=api_key,
             validators=validators
         )

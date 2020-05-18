@@ -1,7 +1,8 @@
 class Common:
 
-    def __init__(self, http, validators, utils, api_key):
+    def __init__(self, http, coin_url, validators, utils, api_key):
         self._http = http
+        self._coin_url = coin_url
         self._api_key = api_key
         self._validators = validators
         self._utils = utils
@@ -11,7 +12,7 @@ class Common:
 
         validators.update({200: self._validators.api.eth.responses.get_network_info})
 
-        return self._http.get(url='/network', params=api_key, validators=validators)
+        return self._http.get(url='{}/network'.format(self._coin_url), params=api_key, validators=validators)
 
     def estimate_gas(self, _from, to, data, value):
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -27,4 +28,9 @@ class Common:
 
         validators.update({200: self._validators.api.eth.responses.estimate_gas})
 
-        return self._http.post(url='/estimate-gas', data=data, params=api_key, validators=validators)
+        return self._http.post(
+            url='{}/estimate-gas'.format(self._coin_url),
+            data=data,
+            params=api_key,
+            validators=validators
+        )

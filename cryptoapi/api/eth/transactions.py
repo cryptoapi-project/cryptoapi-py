@@ -1,7 +1,8 @@
 class Transactions:
 
-    def __init__(self, http, validators, utils, api_key):
+    def __init__(self, http, coin_url, validators, utils, api_key):
         self._http = http
+        self._coin_url = coin_url
         self._api_key = api_key
         self._validators = validators
         self._utils = utils
@@ -32,7 +33,7 @@ class Transactions:
 
         validators.update({200: self._validators.api.eth.responses.get_transactions})
 
-        return self._http.get(url='/transactions', params=params, validators=validators)
+        return self._http.get(url='{}/transactions'.format(self._coin_url), params=params, validators=validators)
 
     def get_transaction_information(self, _hash):
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -45,7 +46,12 @@ class Transactions:
 
         validators.update({200: self._validators.api.eth.responses.get_transaction_information})
 
-        return self._http.get(url='/transactions/{}'.format(params['hash']), params=api_key, validators=validators)
+        return self._http.get(
+            url='{}/transactions/{}'.format(self._coin_url,
+                                            params['hash']),
+            params=api_key,
+            validators=validators
+        )
 
     def get_transaction_receipt(self, _hash):
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -59,7 +65,8 @@ class Transactions:
         validators.update({200: self._validators.api.eth.responses.get_transaction_receipt})
 
         return self._http.get(
-            url='/transactions/{}/receipt'.format(params['hash']),
+            url='{}/transactions/{}/receipt'.format(self._coin_url,
+                                                    params['hash']),
             params=api_key,
             validators=validators
         )
@@ -75,7 +82,12 @@ class Transactions:
 
         validators.update({200: self._validators.api.eth.responses.send_transaction})
 
-        return self._http.post(url='/transactions/raw/send', data=data, params=api_key, validators=validators)
+        return self._http.post(
+            url='{}/transactions/raw/send'.format(self._coin_url),
+            data=data,
+            params=api_key,
+            validators=validators
+        )
 
     def decode_transaction(self, tx):
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -88,4 +100,9 @@ class Transactions:
 
         validators.update({200: self._validators.api.eth.responses.decode_transaction})
 
-        return self._http.post(url='/transactions/raw/decode', data=data, params=api_key, validators=validators)
+        return self._http.post(
+            url='{}/transactions/raw/decode'.format(self._coin_url),
+            data=data,
+            params=api_key,
+            validators=validators
+        )

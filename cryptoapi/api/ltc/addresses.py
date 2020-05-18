@@ -1,7 +1,8 @@
 class Addresses:
 
-    def __init__(self, http, validators, utils, api_key):
+    def __init__(self, http, coin_url, validators, utils, api_key):
         self._http = http
+        self._coin_url = coin_url
         self._api_key = api_key
         self._validators = validators
         self._utils = utils
@@ -27,7 +28,8 @@ class Addresses:
         validators.update({200: self._validators.api.ltc.responses.get_outputs_by_addresses})
 
         return self._http.get(
-            url='/addresses/{}/outputs'.format(','.join(params.pop('addresses'))),
+            url='{}/addresses/{}/outputs'.format(self._coin_url,
+                                                 ','.join(params.pop('addresses'))),
             params=params,
             validators=validators
         )
@@ -44,7 +46,8 @@ class Addresses:
         validators.update({200: self._validators.api.ltc.responses.get_utxo_coin_addresses_info})
 
         return self._http.get(
-            url='/addresses/{}'.format(','.join(params.pop('addresses'))),
+            url='{}/addresses/{}'.format(self._coin_url,
+                                         ','.join(params.pop('addresses'))),
             params=api_key,
             validators=validators
         )
@@ -69,7 +72,8 @@ class Addresses:
         validators.update({200: self._validators.api.ltc.responses.get_utxo_coin_addresses_history})
 
         return self._http.get(
-            url='/addresses/{}/transactions'.format(','.join(params.pop('addresses'))),
+            url='{}/addresses/{}/transactions'.format(self._coin_url,
+                                                      ','.join(params.pop('addresses'))),
             params=params,
             validators=validators
         )

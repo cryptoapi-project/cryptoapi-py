@@ -1,8 +1,7 @@
 class Testnet:
 
-    def __init__(self, http_wrapper, config, validators, utils, api_key, debug):
-        self._config = config
-        self._http = http_wrapper(self._config.api.BASE_TESTNET_HTTP_URL, debug)
+    def __init__(self, http, validators, utils, api_key, debug):
+        self._http = http
         self._api_key = api_key
         self._validators = validators
         self._utils = utils

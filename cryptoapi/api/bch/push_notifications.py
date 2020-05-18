@@ -1,7 +1,8 @@
 class PushNotifications:
 
-    def __init__(self, http, validators, utils, api_key):
+    def __init__(self, http, coin_url, validators, utils, api_key):
         self._http = http
+        self._coin_url = coin_url
         self._api_key = api_key
         self._validators = validators
         self._utils = utils
@@ -29,7 +30,10 @@ class PushNotifications:
         validators.update({200: self._validators.api.bch.responses.subscribe_to_addresses_notifications})
 
         return self._http.post(
-            url='/push-notifications/addresses/{}/balance'.format(','.join(params.pop('addresses'))),
+            url='{}/push-notifications/addresses/{}/balance'.format(
+                self._coin_url,
+                ','.join(params.pop('addresses'))
+            ),
             data=data,
             params=api_key,
             validators=validators
@@ -51,7 +55,10 @@ class PushNotifications:
         params.update(api_key)
 
         return self._http.delete(
-            url='/push-notifications/addresses/{}/balance'.format(','.join(params.pop('addresses'))),
+            url='{}/push-notifications/addresses/{}/balance'.format(
+                self._coin_url,
+                ','.join(params.pop('addresses'))
+            ),
             params=params,
             validators=validators
         )
