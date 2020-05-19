@@ -1,6 +1,6 @@
 from typing import Any, Dict, List
 
-from cerberus import Validator as CerberusValidator    # type: ignore
+from cerberus import Validator as CerberusValidator  # type: ignore
 
 
 class Validator:
