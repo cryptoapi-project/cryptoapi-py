@@ -1,3 +1,4 @@
+# type: ignore
 from .api.bch.addresses import AddressesTestCase as BchAddressesTestCase
 from .api.bch.blocks import BlocksTestCase as BchBlocksTestCase
 from .api.bch.common import CommonTestCase as BchCommonTestCase
