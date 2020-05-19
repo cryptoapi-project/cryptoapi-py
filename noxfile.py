@@ -3,7 +3,7 @@ import os
 import nox  # type: ignore
 
 python_version = os.environ.get('PYTHON_VERSION', False)
-files = ['cryptoapi', 'tests', 'noxfile.py', 'setup.py']
+files = ['cryptoapi', 'tests', 'noxfile.py', 'setup.py', 'test_runner.py']
 install_requires = ['pip', 'install', '-r', 'requirements_dev.txt', '--no-cache-dir']
 run_tests = ['python', 'test_runner.py']
 
