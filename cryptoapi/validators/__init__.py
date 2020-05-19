@@ -1,4 +1,5 @@
 from functools import partial
+from typing import Any
 
 from cryptoapi.utils.types import integer_type, string_type, string_type_not_required
 
@@ -14,7 +15,7 @@ from .validator import Validator
 # }
 
 
-def get_coins(value):
+def get_coins(value: str) -> bool:
     return isinstance(value, str)
 
 
@@ -36,13 +37,13 @@ error = {
 
 class Validators:
 
-    def __init__(self, utils):
-        self._validator = partial(Validator, custom_validator=utils.custom_validator)
-        self.get_coins = self._validator(
+    def __init__(self, utils: Any) -> None:
+        self._validator: Any = partial(Validator, custom_validator=utils.custom_validator)
+        self.get_coins: Validator = self._validator(
             utils.custom_validator(get_coins,
                                    'Get coins result must be a list of strings'),
             True
         )
-        self.error = self._validator(error)
-        self.api = Api(self._validator, utils)
-        self.events = Events(self._validator, utils)
+        self.error: Validator = self._validator(error)
+        self.api: Api = Api(self._validator, utils)
+        self.events: Events = Events(self._validator, utils)
