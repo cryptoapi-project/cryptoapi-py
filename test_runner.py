@@ -1,6 +1,6 @@
 import os
 
-import HtmlTestRunner
+import HtmlTestRunner  # type: ignore
 import unittest
 
 unittest.main(

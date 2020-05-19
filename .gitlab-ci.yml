@@ -46,6 +46,11 @@ yapf:
   script:
     - nox -s yapf -- check
 
+mypy:
+  extends: .analyzers
+  script:
+    - nox -s mypy -- check
+
 mainnet:
   extends: .tests
   script:

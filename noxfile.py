@@ -1,6 +1,6 @@
 import os
 
-import nox
+import nox  # type: ignore
 
 python_version = os.environ.get('PYTHON_VERSION', False)
 files = ['cryptoapi', 'tests', 'noxfile.py', 'setup.py']
@@ -38,6 +38,14 @@ def flake8(session):
     if python_version:
         session.run(*install_requires)
     session.run('flake8', *files)
+
+
+@nox.session(python=python_version, name='mypy')
+def mypy(session):
+    """Run mypy static typifier."""
+    if python_version:
+        session.run(*install_requires)
+    session.run('mypy', *files)
 
 
 @nox.session(python=python_version, name='mainnet-tests')

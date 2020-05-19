@@ -1,4 +1,4 @@
-from setuptools import find_packages, setup
+from setuptools import find_packages, setup  # type: ignore
 
 VERSION = "0.1.0"
 packages = find_packages(exclude=["tests"])
