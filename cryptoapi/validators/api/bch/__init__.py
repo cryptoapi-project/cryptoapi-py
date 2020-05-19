@@ -1,9 +1,11 @@
+from typing import Any, Callable
+
 from .requests import Requests
 from .responses import Responses
 
 
 class Bch:
 
-    def __init__(self, validator, utils):
-        self.requests = Requests(validator)
-        self.responses = Responses(validator, utils)
+    def __init__(self, validator: Callable, utils: Any) -> None:
+        self.requests: Requests = Requests(validator)
+        self.responses: Responses = Responses(validator, utils)

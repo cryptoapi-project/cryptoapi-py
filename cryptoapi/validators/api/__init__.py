@@ -1,3 +1,5 @@
+from typing import Any, Callable
+
 from .bch import Bch
 from .btc import Btc
 from .eth import Eth
@@ -9,11 +11,11 @@ from .whooks import Whooks
 
 class Api:
 
-    def __init__(self, validator, utils):
-        self.rates = Rates(validator)
-        self.eth = Eth(validator, utils)
-        self.btc = Btc(validator, utils)
-        self.bch = Bch(validator, utils)
-        self.ltc = Ltc(validator, utils)
-        self.klay = Klay(validator, utils)
-        self.whooks = Whooks(validator)
+    def __init__(self, validator: Callable, utils: Any) -> None:
+        self.rates: Rates = Rates(validator)
+        self.eth: Eth = Eth(validator, utils)
+        self.btc: Btc = Btc(validator, utils)
+        self.bch: Bch = Bch(validator, utils)
+        self.ltc: Ltc = Ltc(validator, utils)
+        self.klay: Klay = Klay(validator, utils)
+        self.whooks: Whooks = Whooks(validator)
