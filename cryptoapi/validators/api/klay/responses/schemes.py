@@ -431,7 +431,7 @@ get_contracts_logs = {
 }
 
 
-def contract_call(value):
+def contract_call(value: str) -> bool:
     return isinstance(value, str)
 
 

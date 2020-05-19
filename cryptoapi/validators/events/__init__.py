@@ -15,21 +15,14 @@ class Events:
 
     def __init__(self, validator: Callable, utils: Any) -> None:
 
-        self.address: Callable = validator(utils.custom_validator(_is_string, 'address must be a string'))
-        self.confirmations: Callable = validator(
-            utils.custom_validator(_is_integer,
-                                   'confirmations must be a integer')
-        )
-        self.token: Callable = validator(utils.custom_validator(_is_string, 'token must be a string'))
-        self._from: Callable = validator(utils.custom_validator(_is_string, 'from must be a string'))
-        self.to: Callable = validator(utils.custom_validator(_is_string, 'to must be a string'))
-        self.topics: Callable = validator(
-            utils.custom_validator(_is_string,
-                                   'topics must be a list of strings'),
-            True
-        )
-        self.hash: Callable = validator(utils.custom_validator(_is_string, 'hash must be a string'))
-        self.subscription_id: Callable = validator(
+        self.address: Any = validator(utils.custom_validator(_is_string, 'address must be a string'))
+        self.confirmations: Any = validator(utils.custom_validator(_is_integer, 'confirmations must be a integer'))
+        self.token: Any = validator(utils.custom_validator(_is_string, 'token must be a string'))
+        self._from: Any = validator(utils.custom_validator(_is_string, 'from must be a string'))
+        self.to: Any = validator(utils.custom_validator(_is_string, 'to must be a string'))
+        self.topics: Any = validator(utils.custom_validator(_is_string, 'topics must be a list of strings'), True)
+        self.hash: Any = validator(utils.custom_validator(_is_string, 'hash must be a string'))
+        self.subscription_id: Any = validator(
             utils.custom_validator(_is_integer,
                                    'subscription_id must be a integer')
         )

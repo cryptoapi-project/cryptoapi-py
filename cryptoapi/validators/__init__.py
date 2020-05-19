@@ -1,5 +1,5 @@
 from functools import partial
-from typing import Any, Callable
+from typing import Any
 
 from cryptoapi.utils.types import integer_type, string_type, string_type_not_required
 
@@ -38,7 +38,7 @@ error = {
 class Validators:
 
     def __init__(self, utils: Any) -> None:
-        self._validator: Callable = partial(Validator, custom_validator=utils.custom_validator)
+        self._validator: Any = partial(Validator, custom_validator=utils.custom_validator)
         self.get_coins: Validator = self._validator(
             utils.custom_validator(get_coins,
                                    'Get coins result must be a list of strings'),

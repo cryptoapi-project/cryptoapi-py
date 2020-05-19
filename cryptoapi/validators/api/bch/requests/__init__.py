@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Any, Callable
 
 from .schemes import (
     decode_transaction,
@@ -19,21 +19,17 @@ from .schemes import (
 class Requests:
 
     def __init__(self, validator: Callable) -> None:
-        self.get_block: Callable = validator(get_block)
-        self.get_blocks: Callable = validator(get_blocks)
-        self.get_transaction_by_hash: Callable = validator(get_transaction_by_hash)
-        self.get_transactions: Callable = validator(get_transactions)
-        self.send_transaction: Callable = validator(send_transaction)
-        self.decode_transaction: Callable = validator(decode_transaction)
-        self.get_outputs_by_addresses: Callable = validator(get_outputs_by_addresses)
-        self.get_utxo_coin_addresses_info: Callable = validator(get_utxo_coin_addresses_info)
-        self.get_utxo_coin_addresses_history: Callable = validator(get_utxo_coin_addresses_history)
-        self.subscribe_to_addresses_notifications_params: Callable = validator(
+        self.get_block: Any = validator(get_block)
+        self.get_blocks: Any = validator(get_blocks)
+        self.get_transaction_by_hash: Any = validator(get_transaction_by_hash)
+        self.get_transactions: Any = validator(get_transactions)
+        self.send_transaction: Any = validator(send_transaction)
+        self.decode_transaction: Any = validator(decode_transaction)
+        self.get_outputs_by_addresses: Any = validator(get_outputs_by_addresses)
+        self.get_utxo_coin_addresses_info: Any = validator(get_utxo_coin_addresses_info)
+        self.get_utxo_coin_addresses_history: Any = validator(get_utxo_coin_addresses_history)
+        self.subscribe_to_addresses_notifications_params: Any = validator(
             subscribe_to_addresses_notifications_params
         )
-        self.subscribe_to_addresses_notifications_body: Callable = validator(
-            subscribe_to_addresses_notifications_body
-        )
-        self.unsubscribe_from_addresses_notifications: Callable = validator(
-            unsubscribe_from_addresses_notifications
-        )
+        self.subscribe_to_addresses_notifications_body: Any = validator(subscribe_to_addresses_notifications_body)
+        self.unsubscribe_from_addresses_notifications: Any = validator(unsubscribe_from_addresses_notifications)
