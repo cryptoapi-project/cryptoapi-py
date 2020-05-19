@@ -49,7 +49,7 @@ yapf:
 mypy:
   extends: .analyzers
   script:
-    - nox -s mypy -- check
+    - nox -s mypy
 
 mainnet:
   extends: .tests
