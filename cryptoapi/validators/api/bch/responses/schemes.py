@@ -1,3 +1,5 @@
+from typing import Any, Dict
+
 from cryptoapi.utils.types import (
     boolean_type,
     hex_type,
@@ -20,7 +22,7 @@ get_network_information = {
 }
 
 
-def get_estimate_fee(value):
+def get_estimate_fee(value: float) -> bool:
     return isinstance(value, float)
 
 
@@ -114,7 +116,7 @@ get_transaction_by_hash = {
     }
 }
 
-_transactions_items = get_transaction_by_hash.copy()
+_transactions_items: Dict[str, Any] = get_transaction_by_hash.copy()
 
 _transactions_items['inputs']['schema']['schema'].update({'satoshis': integer_type})
 get_transactions = {
