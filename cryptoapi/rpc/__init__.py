@@ -1,4 +1,7 @@
 from .http import Http
 from .ws import WS
 
-__all__ = [Http, WS]
+__all__ = [
+    'Http',
+    'WS'
+]

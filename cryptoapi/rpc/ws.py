@@ -1,75 +1,74 @@
 # -*- coding: utf-8 -*-
 import json
 import logging
-import threading
-
-import websocket
+from threading import Lock, Thread
+from typing import Optional, Any, List, Dict, Union, Callable
+from websocket import WebSocketApp # type: ignore
 
 log = logging.getLogger(__name__)
 
 
 class WS:
 
-    def __init__(self, url, api_key, debug):
-        self.__lock = threading.Lock()
+    def __init__(self, url: str, api_key: str, debug: bool) -> None:
+        self.__lock: Lock = Lock()
 
-        self.url = url
-        self.api_key = api_key
-        self.debug = debug
-        self._ws = None
-        self._thread = None
-        self._request_id = 0
+        self.url: str = url
+        self.api_key: str = api_key
+        self.debug: bool = debug
+        self._thread: Optional[Thread] = None
+        self._request_id: int = 0
 
-        self._ws = websocket.WebSocketApp(url='{}?token={}'.format(self.url, self.api_key))
-        self._connected = False
+        self._ws: WebSocketApp = WebSocketApp(url='{}?token={}'.format(self.url, self.api_key))
+        self._connected: bool = False
 
-        self.subscribers = {}
-        self.pending_subscribers = {}
-        self.message_status = {}
+        self.subscribers: Dict[int, List[Any]] = {}
+        self.pending_subscribers: Dict[int, List[Any]] = {}
+        self.message_status: Dict[int, Dict[Any, Any]] = {}
 
-        self.on_connected_callbacks = []
-        self.on_disconnected_callbacks = []
-        self._callbacks_threads = []
-        self._joiner_thread = None
-        self._joiner_flag = False
+        self.on_connected_callbacks: List[Callable] = []
+        self.on_disconnected_callbacks: List[Callable] = []
+        self._callbacks_threads: List[Thread] = []
+        self._joiner_thread: Optional[Thread] = None
+        self._joiner_flag: bool = False
 
-    def _on_message(ws, message):
-        message = json.loads(message)
-        if 'result' in message:
-            subscription_id = message['id']
+    def _on_message(ws: WS, message: Any) -> None:
+        json_message: Dict[Any, Any] = json.loads(message)
+        if 'result' in json_message:
+            subscription_id: int = json_message['id']
             ws.message_status.update({subscription_id: {
-                'error': message['error'],
-                'result': message['result']
+                'error': json_message['error'],
+                'result': json_message['result']
             }})
         else:
-            message_id, message_object = message['params']
+            message_id, message_object = json_message['params']
             _, callback, validator = ws.subscribers[message_id]
             # TODO: validator in action
             callback(message_object)
 
-    def _on_open(ws):
+    def _on_open(ws: WS) -> None:
         ws._connected = True
 
-    def _on_close(ws):
+    def _on_close(ws: WS) -> None:
         ws._connected = False
         ws.pending_subscribers = ws.subscribers
         ws.subscribers = {}
 
-    def get_request_id(self):
+    def get_request_id(self) -> int:
         self._request_id += 1
         return self._request_id
 
-    def _resubscribe(self):
+    def _resubscribe(self) -> None:
         for subscription_id, subscription_info in self.pending_subscribers.items():
-            self.on_event(subscription_info[0], subscription_info[1], subscription_id)
+            self.on_event(subscription_info[0], subscription_info[1], subscription_info[2], subscription_id)
         if self.pending_subscribers:
             self._request_id = max(self.pending_subscribers)
 
         self.pending_subscribers = {}
 
-    def _on_connected(self):
+    def _on_connected(self) -> None:
         for callback in self.on_connected_callbacks:
-            thread = threading.Thread(
+            thread: Thread = Thread(
                 target=callback,
                 args=(),
                 kwargs={}
@@ -77,9 +76,9 @@ class WS:
             thread.start()
             self._callbacks_threads.append(thread)
 
-    def _on_disconnected(self):
+    def _on_disconnected(self) -> None:
         for callback in self.on_disconnected_callbacks:
-            thread = threading.Thread(
+            thread: Thread = Thread(
                 target=callback,
                 args=(),
                 kwargs={}
@@ -87,20 +86,20 @@ class WS:
             thread.start()
             self._callbacks_threads.append(thread)
 
-    def _joiner(self):
+    def _joiner(self) -> None:
         while self._joiner_flag:
             for thread in self._callbacks_threads:
                 if not thread.is_alive():
                     thread.join()
                     self._callbacks_threads.remove(thread)
 
-    def connect(self):
+    def connect(self) -> None:
         if not self._connected:
             self._request_id = 0
             self._ws.on_message = self._on_message
             self._ws.on_open = self._on_open
             self._ws.on_close = self._on_close
-            self._thread = threading.Thread(
+            self._thread = Thread(
                 target=self._ws.run_forever,
                 args=(),
                 kwargs={'ping_interval': 1}
@@ -108,7 +107,7 @@ class WS:
             self._thread.start()
 
             self._joiner_flag = True
-            self._joiner_thread = threading.Thread(
+            self._joiner_thread = Thread(
                 target=self._joiner,
                 args=(),
                 kwargs={}
@@ -121,19 +120,23 @@ class WS:
             self._on_connected()
             self._resubscribe()
 
-    def disconnect(self):
+    def disconnect(self) -> None:
         while self._connected:
             self._ws.close()
 
-        self._on_disconnected()
-        self._thread.join()
-        self._thread = None
+        if self._thread:
+            self._on_disconnected()
+            self._thread.join()
+            self._thread = None
 
-        self._joiner_flag = False
-        self._joiner_thread.join()
-        self._joiner_thread = None
+        if self._joiner_flag:
+            self._joiner_flag = False
 
-    def _send_message(self, method, params, _id):
+        if self._joiner_thread:
+            self._joiner_thread.join()
+            self._joiner_thread = None
+
+    def _send_message(self, method: Any, params: Any, _id: int) -> None:
         if not self._connected:
             self.connect()
 
@@ -142,7 +145,7 @@ class WS:
 
         self.__lock.acquire()
         try:
-            payload = {
+            payload: Dict[str, Any] = {
                 'method': method,
                 'params': params,
                 'jsonrpc': '2.0',
@@ -154,7 +157,7 @@ class WS:
             # Release lock
             self.__lock.release()
 
-    def on_event(self, params, callback, validator, subscription_id=None):
+    def on_event(self, params: Any, callback: Callable, validator: Callable, subscription_id: Optional[int] = None) -> int:
         if not callable(callback):
             raise Exception('Callback must be callable object')
 
@@ -165,15 +168,15 @@ class WS:
         while subscription_id not in self.message_status:
             continue
 
-        message = self.message_status.pop(subscription_id)
+        message: Dict[str, Any] = self.message_status.pop(subscription_id)
         if message['result'] is None:
             raise Exception(message['error']['message'])
 
         self.subscribers[subscription_id] = [params, callback, validator]
         return subscription_id
 
-    def unsubscribe(self, subscription_id):
-        subscription_info = self.subscribers.get(subscription_id, None)
+    def unsubscribe(self, subscription_id: int) -> bool:
+        subscription_info: Optional[List[Any]] = self.subscribers.get(subscription_id, None)
         if subscription_info is None:
             return False
 
@@ -182,7 +185,7 @@ class WS:
         while subscription_id not in self.message_status:
             continue
 
-        message = self.message_status.pop(subscription_id)
+        message: Dict[str, Any] = self.message_status.pop(subscription_id)
         if message['result'] is None:
             return False
 
