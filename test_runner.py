@@ -1,7 +1,7 @@
 import os
 import unittest
 
-import HtmlTestRunner    # type: ignore
+import HtmlTestRunner  # type: ignore
 
 unittest.main(
     module='tests',
