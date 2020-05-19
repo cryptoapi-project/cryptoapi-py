@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
-import urllib
+import urllib.parse
+from typing import Any, Callable, Dict, Optional
 
 from requests import delete, get, post
 
@@ -9,12 +10,12 @@ log = logging.getLogger(__name__)
 
 class Http:
 
-    def __init__(self, url, debug, **kwargs):
+    def __init__(self, url: str, debug: bool, **kwargs):
         self._setup_proxy(kwargs)
 
-        self.debug = debug
-        self.api_key = kwargs.get("api_key")
-        self.url = url
+        self.debug: bool = debug
+        self.api_key: Optional[str] = kwargs.get("api_key")
+        self.url: str = url
 
     # @property
     # def debug(self):
@@ -30,7 +31,7 @@ class Http:
     #             datefmt='%d-%b-%y %H:%M:%S'
     #         )
 
-    def _setup_proxy(self, options):
+    def _setup_proxy(self, options) -> None:
         proxy_url = options.pop("proxy", None)
         if proxy_url:
             url = urllib.parse.urlparse(proxy_url)
@@ -53,7 +54,7 @@ class Http:
             self.proxy_rdns = False
         log.info("Using proxy %s:%d %s" % (self.proxy_host, self.proxy_port, self.proxy_type))
 
-    def _get_proxy_url(self):
+    def _get_proxy_url(self) -> Optional[str]:
         if not self.proxy_host:
             return None
         auth = ""
@@ -62,7 +63,7 @@ class Http:
         url = (self.proxy_type + "://" + auth + ("%s:%d" % (self.proxy_host, self.proxy_port)))
         return url
 
-    def proxies(self):
+    def proxies(self) -> Optional[Dict[str, str]]:
         proxy_url = self._get_proxy_url()
         if proxy_url is None:
             return None
@@ -71,12 +72,16 @@ class Http:
             "https": proxy_url
         }
 
-    def _make_request(self,
-                      method,
-                      url,
-                      data=None,
-                      params=None,
-                      validators={}):
+    def _make_request(
+        self,
+        method: Callable,
+        url: str,
+        data: Optional[Any] = None,
+        params: Optional[Any] = None,
+        validators: Dict[int,
+                         Any] = {}
+    ) -> Dict[Any,
+              Any]:
         response = method(url=self.url + url, data=data, params=params, proxies=self.proxies())
         status_code = response.status_code
         try:
@@ -93,11 +98,29 @@ class Http:
 
         return json_response
 
-    def get(self, url, params=None, validators=[]):
+    def get(self,
+            url: str,
+            params: Optional[Any] = None,
+            validators: Dict[Any,
+                             Any] = {}) -> Dict[Any,
+                                                Any]:
         return self._make_request(method=get, url=url, params=params, validators=validators)
 
-    def post(self, url, data=None, params=None, validators=[]):
+    def post(
+        self,
+        url: str,
+        data: Optional[Any] = None,
+        params: Optional[Any] = None,
+        validators: Dict[Any,
+                         Any] = {}
+    ) -> Dict[Any,
+              Any]:
         return self._make_request(method=post, url=url, data=data, params=params, validators=validators)
 
-    def delete(self, url, params=None, validators=[]):
+    def delete(self,
+               url: str,
+               params: Optional[Any] = None,
+               validators: Dict[Any,
+                                Any] = {}) -> Dict[Any,
+                                                   Any]:
         return self._make_request(method=delete, url=url, params=params, validators=validators)
