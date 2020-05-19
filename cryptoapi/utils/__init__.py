@@ -1,10 +1,9 @@
-from typing import Any, Callable, Dict, Tuple, Union, Optional
+from typing import Any, Callable, Dict, Optional, Tuple
 
 api_method_preprocessing_validators_static_type = Dict[int, Dict[str, Any]]
-api_method_preprocessing_return_static_type = Tuple[
-    Dict[str, str],
-    api_method_preprocessing_validators_static_type
-]
+api_method_preprocessing_return_static_type = Tuple[Dict[str,
+                                                         str],
+                                                    api_method_preprocessing_validators_static_type]
 
 
 class CustomValidator:

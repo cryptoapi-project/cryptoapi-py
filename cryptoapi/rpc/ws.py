@@ -2,8 +2,9 @@
 import json
 import logging
 from threading import Lock, Thread
-from typing import Optional, Any, List, Dict, Union, Callable
-from websocket import WebSocketApp # type: ignore
+from typing import Any, Callable, Dict, List, Optional
+
+from websocket import WebSocketApp    # type: ignore
 
 log = logging.getLogger(__name__)
 
@@ -22,9 +23,13 @@ class WS:
         self._ws: WebSocketApp = WebSocketApp(url='{}?token={}'.format(self.url, self.api_key))
         self._connected: bool = False
 
-        self.subscribers: Dict[int, List[Any]] = {}
-        self.pending_subscribers: Dict[int, List[Any]] = {}
-        self.message_status: Dict[int, Dict[Any, Any]] = {}
+        self.subscribers: Dict[int,
+                               List[Any]] = {}
+        self.pending_subscribers: Dict[int,
+                                       List[Any]] = {}
+        self.message_status: Dict[int,
+                                  Dict[Any,
+                                       Any]] = {}
 
         self.on_connected_callbacks: List[Callable] = []
         self.on_disconnected_callbacks: List[Callable] = []
@@ -32,24 +37,26 @@ class WS:
         self._joiner_thread: Optional[Thread] = None
         self._joiner_flag: bool = False
 
-    def _on_message(ws: WS, message: Any) -> None:
+    def _on_message(ws: Any, message: Any) -> None:
         json_message: Dict[Any, Any] = json.loads(message)
         if 'result' in json_message:
             subscription_id: int = json_message['id']
-            ws.message_status.update({subscription_id: {
-                'error': json_message['error'],
-                'result': json_message['result']
-            }})
+            ws.message_status.update({
+                subscription_id: {
+                    'error': json_message['error'],
+                    'result': json_message['result']
+                }
+            })
         else:
             message_id, message_object = json_message['params']
             _, callback, validator = ws.subscribers[message_id]
             # TODO: validator in action
             callback(message_object)
 
-    def _on_open(ws: WS) -> None:
+    def _on_open(ws: Any) -> None:
         ws._connected = True
 
-    def _on_close(ws: WS) -> None:
+    def _on_close(ws: Any) -> None:
         ws._connected = False
         ws.pending_subscribers = ws.subscribers
         ws.subscribers = {}
@@ -145,19 +152,26 @@ class WS:
 
         self.__lock.acquire()
         try:
-            payload: Dict[str, Any] = {
-                'method': method,
-                'params': params,
-                'jsonrpc': '2.0',
-                'id': _id
-            }
+            payload: Dict[str,
+                          Any] = {
+                              'method': method,
+                              'params': params,
+                              'jsonrpc': '2.0',
+                              'id': _id
+                          }
             self._ws.send(json.dumps(payload, ensure_ascii=False).encode("utf8"))
 
         finally:
             # Release lock
             self.__lock.release()
 
-    def on_event(self, params: Any, callback: Callable, validator: Callable, subscription_id: Optional[int] = None) -> int:
+    def on_event(
+        self,
+        params: Any,
+        callback: Callable,
+        validator: Callable,
+        subscription_id: Optional[int] = None
+    ) -> int:
         if not callable(callback):
             raise Exception('Callback must be callable object')
 

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
 import urllib.parse
-from typing import Dict, List, Optional, Callable, Any
+from typing import Any, Callable, Dict, Optional
+
 from requests import delete, get, post
 
 log = logging.getLogger(__name__)
@@ -71,12 +72,16 @@ class Http:
             "https": proxy_url
         }
 
-    def _make_request(self,
-                      method: Callable,
-                      url: str,
-                      data: Optional[Any] = None,
-                      params: Optional[Any] =None,
-                      validators: Dict[int, Any] = {}) -> Dict[Any, Any]:
+    def _make_request(
+        self,
+        method: Callable,
+        url: str,
+        data: Optional[Any] = None,
+        params: Optional[Any] = None,
+        validators: Dict[int,
+                         Any] = {}
+    ) -> Dict[Any,
+              Any]:
         response = method(url=self.url + url, data=data, params=params, proxies=self.proxies())
         status_code = response.status_code
         try:
@@ -93,11 +98,29 @@ class Http:
 
         return json_response
 
-    def get(self, url: str, params: Optional[Any] = None, validators: Dict[Any, Any] = {}) -> Dict[Any, Any]:
+    def get(self,
+            url: str,
+            params: Optional[Any] = None,
+            validators: Dict[Any,
+                             Any] = {}) -> Dict[Any,
+                                                Any]:
         return self._make_request(method=get, url=url, params=params, validators=validators)
 
-    def post(self, url: str, data: Optional[Any] = None, params: Optional[Any] = None, validators: Dict[Any, Any] = {}) -> Dict[Any, Any]:
+    def post(
+        self,
+        url: str,
+        data: Optional[Any] = None,
+        params: Optional[Any] = None,
+        validators: Dict[Any,
+                         Any] = {}
+    ) -> Dict[Any,
+              Any]:
         return self._make_request(method=post, url=url, data=data, params=params, validators=validators)
 
-    def delete(self, url: str, params: Optional[Any] = None, validators: Dict[Any, Any] = {}) -> Dict[Any, Any]:
+    def delete(self,
+               url: str,
+               params: Optional[Any] = None,
+               validators: Dict[Any,
+                                Any] = {}) -> Dict[Any,
+                                                   Any]:
         return self._make_request(method=delete, url=url, params=params, validators=validators)
