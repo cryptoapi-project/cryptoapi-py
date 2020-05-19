@@ -6,14 +6,17 @@ stages:
 
 .analyzers:
   stage: static analysis
-  before_script:
-    - pip3 install -r requirements_dev.txt --no-cache-dir
   only:
     - web
     - trigger
     - merge requests
   tags:
     - pp-new-develop
+
+.analyzers-with-requirements:
+  extends: .analyzers
+  before_script:
+    - pip3 install -r requirements_dev.txt --no-cache-dir
 
 .tests:
   stage: tests
@@ -32,22 +35,24 @@ stages:
     - pp-new-develop
 
 flake8:
-  extends: .analyzers
+  extends: .analyzers-with-requirements
   script:
     - nox -s flake8
 
 isort:
-  extends: .analyzers
+  extends: .analyzers-with-requirements
   script:
     - nox -s isort -- check
 
 yapf:
-  extends: .analyzers
+  extends: .analyzers-with-requirements
   script:
     - nox -s yapf -- check
 
 mypy:
   extends: .analyzers
+  variables:
+    PYTHON_VERSION: 3
   script:
     - nox -s mypy
 
