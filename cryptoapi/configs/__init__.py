@@ -4,6 +4,6 @@ from .events import EventsConfig
 
 class Config:
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.api = ApiConfig()
         self.events = EventsConfig()
