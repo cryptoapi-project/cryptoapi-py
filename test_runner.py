@@ -1,7 +1,7 @@
 import os
-
-import HtmlTestRunner  # type: ignore
 import unittest
+
+import HtmlTestRunner    # type: ignore
 
 unittest.main(
     module='tests',
@@ -9,4 +9,5 @@ unittest.main(
         output='reports',
         report_name='mainnet' if 'MAINNET' in os.environ else 'testnet',
         combine_reports=True
-    ))
+    )
+)

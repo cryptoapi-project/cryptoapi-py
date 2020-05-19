@@ -1,6 +1,6 @@
 import os
 
-import nox  # type: ignore
+import nox    # type: ignore
 
 python_version = os.environ.get('PYTHON_VERSION', False)
 files = ['cryptoapi', 'tests', 'noxfile.py', 'setup.py', 'test_runner.py']
