@@ -4,3 +4,4 @@ nox
 isort
 yapf
 html-testRunner
+mypy

@@ -4,7 +4,7 @@ import logging
 from threading import Lock, Thread
 from typing import Any, Callable, Dict, List, Optional
 
-from websocket import WebSocketApp    # type: ignore
+from websocket import WebSocketApp  # type: ignore
 
 log = logging.getLogger(__name__)
 
