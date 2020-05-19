@@ -19,7 +19,7 @@ get_network_information = {
 }
 
 
-def get_estimate_fee(value):
+def get_estimate_fee(value: float) -> bool:
     return isinstance(value, float)
 
 

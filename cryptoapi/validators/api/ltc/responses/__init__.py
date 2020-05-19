@@ -1,3 +1,5 @@
+from typing import Any, Callable
+
 from .schemes import (
     decode_transaction,
     get_block,
@@ -16,16 +18,19 @@ from .schemes import (
 
 class Responses:
 
-    def __init__(self, validator, utils):
-        self.get_network_information = validator(get_network_information)
-        self.get_estimate_fee = validator(utils.custom_validator(get_estimate_fee, 'Fee value must be a float'))
-        self.get_block = validator(get_block)
-        self.get_blocks = validator(get_blocks)
-        self.get_transaction_by_hash = validator(get_transaction_by_hash)
-        self.get_transactions = validator(get_transactions)
-        self.send_transaction = validator(send_transaction)
-        self.decode_transaction = validator(decode_transaction)
-        self.get_outputs_by_addresses = validator(get_outputs_by_addresses, True)
-        self.get_utxo_coin_addresses_info = validator(get_utxo_coin_addresses_info, True)
-        self.get_utxo_coin_addresses_history = validator(get_utxo_coin_addresses_history)
-        self.subscribe_to_addresses_notifications = validator(subscribe_to_addresses_notifications)
+    def __init__(self, validator: Callable, utils: Any) -> None:
+        self.get_network_information: Any = validator(get_network_information)
+        self.get_estimate_fee: Any = validator(
+            utils.custom_validator(get_estimate_fee,
+                                   'Fee value must be a float')
+        )
+        self.get_block: Any = validator(get_block)
+        self.get_blocks: Any = validator(get_blocks)
+        self.get_transaction_by_hash: Any = validator(get_transaction_by_hash)
+        self.get_transactions: Any = validator(get_transactions)
+        self.send_transaction: Any = validator(send_transaction)
+        self.decode_transaction: Any = validator(decode_transaction)
+        self.get_outputs_by_addresses: Any = validator(get_outputs_by_addresses, True)
+        self.get_utxo_coin_addresses_info: Any = validator(get_utxo_coin_addresses_info, True)
+        self.get_utxo_coin_addresses_history: Any = validator(get_utxo_coin_addresses_history)
+        self.subscribe_to_addresses_notifications: Any = validator(subscribe_to_addresses_notifications)

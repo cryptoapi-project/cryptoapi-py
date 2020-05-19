@@ -1,3 +1,5 @@
+from typing import Any, Callable
+
 from .schemes import (
     address_subscription,
     balance_notification,
@@ -19,19 +21,19 @@ from .schemes import (
 
 class Notifications:
 
-    def __init__(self, validator):
-        self.eth_block_notification = validator(eth_block_notification)
-        self.klay_block_notification = validator(klay_block_notification)
-        self.address_subscription = validator(address_subscription)
-        self.balance_notification = validator(balance_notification)
-        self.eth_transaction_notification = validator(eth_transaction_notification)
-        self.klay_transaction_notification = validator(klay_transaction_notification)
-        self.token_subscription = validator(token_subscription)
-        self.transfer_notification = validator(transfer_notification)
-        self.token_balance_notification = validator(token_balance_notification)
-        self.eth_contract_log_subscription = validator(eth_contract_log_subscription)
-        self.eth_contract_log_notification = validator(eth_contract_log_notification)
-        self.transaction_confirmation_subscription = validator(transaction_confirmation_subscription)
-        self.transaction_confirmation_notification = validator(transaction_confirmation_notification)
-        self.utxo_block_notification = validator(utxo_block_notification)
-        self.utxo_transaction_notification = validator(utxo_transaction_notification)
+    def __init__(self, validator: Callable) -> None:
+        self.eth_block_notification: Any = validator(eth_block_notification)
+        self.klay_block_notification: Any = validator(klay_block_notification)
+        self.address_subscription: Any = validator(address_subscription)
+        self.balance_notification: Any = validator(balance_notification)
+        self.eth_transaction_notification: Any = validator(eth_transaction_notification)
+        self.klay_transaction_notification: Any = validator(klay_transaction_notification)
+        self.token_subscription: Any = validator(token_subscription)
+        self.transfer_notification: Any = validator(transfer_notification)
+        self.token_balance_notification: Any = validator(token_balance_notification)
+        self.eth_contract_log_subscription: Any = validator(eth_contract_log_subscription)
+        self.eth_contract_log_notification: Any = validator(eth_contract_log_notification)
+        self.transaction_confirmation_subscription: Any = validator(transaction_confirmation_subscription)
+        self.transaction_confirmation_notification: Any = validator(transaction_confirmation_notification)
+        self.utxo_block_notification: Any = validator(utxo_block_notification)
+        self.utxo_transaction_notification: Any = validator(utxo_transaction_notification)
