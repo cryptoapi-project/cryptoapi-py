@@ -9,7 +9,7 @@ from .transactions import Transactions
 
 class Testnet:
 
-    def __init__(self, http: Any, validators: Any, utils: Any, debug: bool, api_key: str):
+    def __init__(self, http: Any, validators: Any, utils: Any, debug: bool, api_key: str) -> None:
         self._http: Any = http
         self._coin_url: str = '/coins/bch'
         self._api_key: str = api_key
@@ -18,7 +18,7 @@ class Testnet:
 
         self._init_modules()
 
-    def _init_modules(self):
+    def _init_modules(self) -> None:
         self.addresses: Addresses = Addresses(
             self._http,
             self._coin_url,

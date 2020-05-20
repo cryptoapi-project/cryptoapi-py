@@ -3,14 +3,14 @@ from typing import Any, Dict, Union
 
 class Blocks:
 
-    def __init__(self, http: Any, coin_url: str, validators: Any, utils: Any, api_key: str):
+    def __init__(self, http: Any, coin_url: str, validators: Any, utils: Any, api_key: str) -> None:
         self._http: Any = http
         self._coin_url: str = coin_url
         self._api_key: str = api_key
         self._validators: Any = validators
         self._utils: Any = utils
 
-    def get_block(self, block_height_or_hash: Union[int, str]) -> Dict[Any, Any]:
+    def get_block(self, block_height_or_hash: Union[int, str]) -> Dict[str, Any]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -31,13 +31,12 @@ class Blocks:
             validators=validators
         )
 
-    def get_blocks(self, skip=None, limit=None) -> Dict[Any, Any]:
+    def get_blocks(self, skip: Optional[int] = None, limit: Optional[int] = None) -> Dict[str, Any]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     Any] = {}
+        params: Dict[str, Union[int, str]] = {}
         if skip is not None:
             params.update({'skip': skip})
 

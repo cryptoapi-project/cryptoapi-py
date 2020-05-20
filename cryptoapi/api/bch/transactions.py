@@ -1,9 +1,9 @@
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 
 
 class Transactions:
 
-    def __init__(self, http: Any, coin_url: str, validators: Any, utils: Any, api_key: str):
+    def __init__(self, http: Any, coin_url: str, validators: Any, utils: Any, api_key: str) -> None:
         self._http: Any = http
         self._coin_url: str = coin_url
         self._api_key: str = api_key
@@ -18,7 +18,7 @@ class Transactions:
         limit: Optional[int] = None,
         _from: Optional[str] = None,
         to: Optional[str] = None
-    ) -> Dict[Any,
+    ) -> Dict[str,
               Any]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
@@ -51,7 +51,7 @@ class Transactions:
 
         return self._http.get(url='{}/transactions'.format(self._coin_url), params=params, validators=validators)
 
-    def get_transaction_by_hash(self, _hash: str):
+    def get_transaction_by_hash(self, _hash: str) -> Dict[str, Any]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -72,7 +72,7 @@ class Transactions:
             validators=validators
         )
 
-    def send_transaction(self, _hash: str):
+    def send_transaction(self, _hash: str) -> Dict[str, Any]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -93,7 +93,7 @@ class Transactions:
             validators=validators
         )
 
-    def decode_transaction(self, _hash: str):
+    def decode_transaction(self, _hash: str) -> Dict[str, Any]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
