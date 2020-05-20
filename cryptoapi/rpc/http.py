@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 
 class Http:
 
-    def __init__(self, url: str, debug: bool, **kwargs: Dict[Any, Any] ) -> None:
+    def __init__(self, url: str, debug: bool, **kwargs: Dict[Any, Any]) -> None:
         self._setup_proxy(kwargs)
 
         self.debug: bool = debug
