@@ -1,22 +1,29 @@
+from typing import Any, Dict
+
+
 class PushNotifications:
 
-    def __init__(self, http, coin_url, validators, utils, api_key):
-        self._http = http
-        self._coin_url = coin_url
-        self._api_key = api_key
-        self._validators = validators
-        self._utils = utils
+    def __init__(self, http: Any, coin_url: str, validators: Any, utils: Any, api_key: str):
+        self._http: Any = http
+        self._coin_url: str = coin_url
+        self._api_key: str = api_key
+        self._validators: Any = validators
+        self._utils: Any = utils
 
-    def subscribe_to_addresses_notifications(self, addresses, firebase_token):
+    def subscribe_to_addresses_notifications(self, addresses: str, firebase_token: str) -> Dict[Any, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'addresses': addresses
-        }
+        params: Dict[str,
+                     str] = {
+                         'addresses': addresses
+                     }
 
-        data = {
-            'firebase_token': firebase_token
-        }
+        data: Dict[str,
+                   str] = {
+                       'firebase_token': firebase_token
+                   }
 
         self._utils.validate_data(
             self._validators.api.bch.requests.subscribe_to_addresses_notifications_params,
@@ -39,13 +46,16 @@ class PushNotifications:
             validators=validators
         )
 
-    def unsubscribe_from_addresses_notifications(self, addresses, firebase_token):
+    def unsubscribe_from_addresses_notifications(self, addresses: str, firebase_token: str) -> Dict[Any, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'addresses': addresses,
-            'firebase_token': firebase_token
-        }
+        params: Dict[str,
+                     str] = {
+                         'addresses': addresses,
+                         'firebase_token': firebase_token
+                     }
 
         self._utils.validate_data(
             self._validators.api.bch.requests.unsubscribe_from_addresses_notifications,

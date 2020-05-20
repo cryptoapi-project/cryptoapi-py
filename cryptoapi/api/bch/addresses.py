@@ -1,19 +1,30 @@
+from typing import Any, Dict
+
+
 class Addresses:
 
-    def __init__(self, http, coin_url, validators, utils, api_key):
-        self._http = http
-        self._coin_url = coin_url
-        self._api_key = api_key
-        self._validators = validators
-        self._utils = utils
+    def __init__(self, http: Any, coin_url: str, validators: Any, utils: Any, api_key: str):
+        self._http: Any = http
+        self._coin_url: str = coin_url
+        self._api_key: str = api_key
+        self._validators: Any = validators
+        self._utils: Any = utils
 
-    def get_outputs_by_addresses(self, addresses, status, skip=None, limit=None):
+    def get_outputs_by_addresses(self,
+                                 addresses: str,
+                                 status: str,
+                                 skip: int = None,
+                                 limit: int = None) -> Dict[Any,
+                                                            Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'addresses': addresses,
-            'status': status
-        }
+        params: Dict[str,
+                     str] = {
+                         'addresses': addresses,
+                         'status': status
+                     }
 
         if skip is not None:
             params.update({'skip': skip})
@@ -34,12 +45,15 @@ class Addresses:
             validators=validators
         )
 
-    def get_utxo_coin_addresses_info(self, addresses):
+    def get_utxo_coin_addresses_info(self, addresses: str) -> Dict[Any, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'addresses': addresses
-        }
+        params: Dict[str,
+                     str] = {
+                         'addresses': addresses
+                     }
 
         self._utils.validate_data(self._validators.api.bch.requests.get_utxo_coin_addresses_info, params)
 
@@ -52,12 +66,19 @@ class Addresses:
             validators=validators
         )
 
-    def get_utxo_coin_addresses_history(self, addresses, skip=None, limit=None):
+    def get_utxo_coin_addresses_history(self,
+                                        addresses: str,
+                                        skip: int = None,
+                                        limit: int = None) -> Dict[Any,
+                                                                   Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'addresses': addresses
-        }
+        params: Dict[str,
+                     str] = {
+                         'addresses': addresses
+                     }
 
         if skip is not None:
             params.update({'skip': skip})

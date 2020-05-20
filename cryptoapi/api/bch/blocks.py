@@ -1,18 +1,25 @@
+from typing import Any, Dict, Union
+
+
 class Blocks:
 
-    def __init__(self, http, coin_url, validators, utils, api_key):
-        self._http = http
-        self._coin_url = coin_url
-        self._api_key = api_key
-        self._validators = validators
-        self._utils = utils
+    def __init__(self, http: Any, coin_url: str, validators: Any, utils: Any, api_key: str):
+        self._http: Any = http
+        self._coin_url: str = coin_url
+        self._api_key: str = api_key
+        self._validators: Any = validators
+        self._utils: Any = utils
 
-    def get_block(self, block_height_or_hash):
+    def get_block(self, block_height_or_hash: Union[int, str]) -> Dict[Any, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'block_height_or_hash': block_height_or_hash
-        }
+        params: Dict[str,
+                     Union[int,
+                           str]] = {
+                               'block_height_or_hash': block_height_or_hash
+                           }
         self._utils.validate_data(self._validators.api.bch.requests.get_block, params)
 
         validators.update({200: self._validators.api.bch.responses.get_block})
@@ -24,10 +31,13 @@ class Blocks:
             validators=validators
         )
 
-    def get_blocks(self, skip=None, limit=None):
+    def get_blocks(self, skip=None, limit=None) -> Dict[Any, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {}
+        params: Dict[str,
+                     Any] = {}
         if skip is not None:
             params.update({'skip': skip})
 
