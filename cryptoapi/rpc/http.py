@@ -10,11 +10,10 @@ log = logging.getLogger(__name__)
 
 class Http:
 
-    def __init__(self, url: str, debug: bool, **kwargs):
+    def __init__(self, url: str, debug: bool, **kwargs: Dict[Any, Any] ) -> None:
         self._setup_proxy(kwargs)
 
         self.debug: bool = debug
-        self.api_key: Optional[str] = kwargs.get("api_key")
         self.url: str = url
 
     # @property
@@ -31,7 +30,7 @@ class Http:
     #             datefmt='%d-%b-%y %H:%M:%S'
     #         )
 
-    def _setup_proxy(self, options) -> None:
+    def _setup_proxy(self, options: Dict[Any, Any]) -> None:
         proxy_url = options.pop("proxy", None)
         if proxy_url:
             url = urllib.parse.urlparse(proxy_url)

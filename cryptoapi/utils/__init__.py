@@ -46,6 +46,6 @@ class Utils:
         }, validators
 
     @staticmethod
-    def validate_data(validator: CustomValidator, data: Any):
+    def validate_data(validator: CustomValidator, data: Any) -> None:
         if not validator.validate(data):
             raise Exception(validator.errors)
