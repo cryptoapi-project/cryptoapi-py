@@ -24,7 +24,7 @@ class Common:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        data: Dict[str,
+        post_data: Dict[str,
                    str] = {
                        'from': _from,
                        'to': to,
@@ -32,13 +32,13 @@ class Common:
                        'value': value
                    }
 
-        self._utils.validate_data(self._validators.api.klay.requests.estimate_gas, data)
+        self._utils.validate_data(self._validators.api.klay.requests.estimate_gas, post_data)
 
         validators.update({200: self._validators.api.klay.responses.estimate_gas})
 
         return self._http.post(
             url='{}/estimate-gas'.format(self._coin_url),
-            data=data,
+            data=post_data,
             params=api_key,
             validators=validators
         )

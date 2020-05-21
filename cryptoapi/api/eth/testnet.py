@@ -48,3 +48,7 @@ class Testnet:
             self._utils,
             self._api_key
         )
+
+        self.tokens: Tokens = Tokens(self._http, self._coin_url, self._validators, self._utils, self._api_key)
+
+        self.contracts: Contracts = Contracts(self._http, self._coin_url, self._validators, self._utils, self._api_key)
