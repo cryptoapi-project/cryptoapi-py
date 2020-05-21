@@ -1,4 +1,4 @@
-image: 'python:3.7'
+image: 'thekevjames/nox'
 
 stages:
   - static analysis
@@ -6,8 +6,6 @@ stages:
 
 .analyzers:
   stage: static analysis
-  before_script:
-    - pip3 install nox
   variables:
     PYTHON_VERSION: 3
   only:
@@ -19,8 +17,6 @@ stages:
 
 .tests:
   stage: tests
-  before_script:
-    - pip3 install nox
   variables:
     PYTHON_VERSION: 3
   artifacts:
