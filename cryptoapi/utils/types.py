@@ -72,11 +72,9 @@ boolean_type_not_required = {
     'required': False
 }
 string_integer_type = {
-    'type': ['string',
-             'integer']
+    'type': ['string', 'integer']
 }
 
 float_integer_type = {
-    'type': ['float',
-             'integer']
+    'type': ['float', 'integer']
 }

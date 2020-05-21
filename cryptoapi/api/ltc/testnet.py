@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from .addresses import Addresses
 from .blocks import Blocks
@@ -9,7 +9,7 @@ from .transactions import Transactions
 
 class Testnet:
 
-    def __init__(self, http: Any, validators: Any, utils: Any, debug: bool, api_key: str) -> None:
+    def __init__(self, http: Any, validators: Any, utils: Any, api_key: str) -> None:
         self._http: Any = http
         self._coin_url: str = '/coins/ltc'
         self._api_key: str = api_key
@@ -20,11 +20,7 @@ class Testnet:
 
     def _init_modules(self) -> None:
         self.addresses: Addresses = Addresses(
-            self._http,
-            self._coin_url,
-            self._validators,
-            self._utils,
-            self._api_key
+            self._http, self._coin_url, self._validators, self._utils, self._api_key
         )
 
         self.blocks: Blocks = Blocks(self._http, self._coin_url, self._validators, self._utils, self._api_key)
@@ -32,17 +28,9 @@ class Testnet:
         self.common: Common = Common(self._http, self._coin_url, self._validators, self._utils, self._api_key)
 
         self.push_notifications: PushNotifications = PushNotifications(
-            self._http,
-            self._coin_url,
-            self._validators,
-            self._utils,
-            self._api_key
+            self._http, self._coin_url, self._validators, self._utils, self._api_key
         )
 
         self.transactions: Transactions = Transactions(
-            self._http,
-            self._coin_url,
-            self._validators,
-            self._utils,
-            self._api_key
+            self._http, self._coin_url, self._validators, self._utils, self._api_key
         )

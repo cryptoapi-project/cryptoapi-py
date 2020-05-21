@@ -15,18 +15,15 @@ class Blocks:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     Union[int,
-                           str]] = {
-                               'block_number_or_hash': block_number_or_hash
-                           }
-        self._utils.validate_data(self._validators.api.eth.requests.get_block, params)
+        params: Dict[str, Union[int, str]] = {
+            'block_number_or_hash': block_number_or_hash
+        }
+        self._utils.validate_data(self._validators.eth.requests.get_block, params)
 
-        validators.update({200: self._validators.api.eth.responses.get_block})
+        validators.update({200: self._validators.eth.responses.get_block})
 
         return self._http.get(
-            url='{}/blocks/{}'.format(self._coin_url,
-                                      params['block_number_or_hash']),
+            url='{}/blocks/{}'.format(self._coin_url, params['block_number_or_hash']),
             params=api_key,
             validators=validators
         )
@@ -36,18 +33,16 @@ class Blocks:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     Union[str,
-                           int]] = {}
+        params: Dict[str, Union[str, int]] = {}
         if skip is not None:
             params.update({'skip': skip})
 
         if limit is not None:
             params.update({'limit': limit})
 
-        self._utils.validate_data(self._validators.api.eth.requests.get_blocks, params)
+        self._utils.validate_data(self._validators.eth.requests.get_blocks, params)
 
-        validators.update({200: self._validators.api.eth.responses.get_blocks})
+        validators.update({200: self._validators.eth.responses.get_blocks})
 
         params.update(api_key)
 

@@ -5,15 +5,7 @@ from .testnet import Testnet
 
 class Eth(Testnet):
 
-    def __init__(
-        self,
-        mainnet_http: Any,
-        testnet_http: Any,
-        validators: Any,
-        utils: Any,
-        debug: bool,
-        api_key: str
-    ) -> None:
+    def __init__(self, mainnet_http: Any, testnet_http: Any, validators: Any, utils: Any, api_key: str) -> None:
         self._http: Any = mainnet_http
         self._coin_url: str = '/coins/eth'
         self._api_key: str = api_key
@@ -22,4 +14,4 @@ class Eth(Testnet):
 
         self._init_modules()
 
-        self.testnet: Testnet = Testnet(testnet_http, validators, utils, debug, api_key)
+        self.testnet: Testnet = Testnet(testnet_http, validators, utils, api_key)

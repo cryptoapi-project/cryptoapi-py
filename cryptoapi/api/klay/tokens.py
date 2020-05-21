@@ -16,16 +16,12 @@ class Tokens:
         skip: Optional[int] = None,
         limit: Optional[int] = None,
         types: Optional[List[str]] = None
-    ) -> Dict[str,
-              Any]:
+    ) -> Dict[str, Any]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     Union[str,
-                           int,
-                           List[str]]] = {}
+        params: Dict[str, Union[str, int, List[str]]] = {}
 
         if query is not None:
             params.update({'query': query})
@@ -39,14 +35,14 @@ class Tokens:
         if types is not None:
             params.update({'types': types})
 
-        self._utils.validate_data(self._validators.api.klay.requests.get_tokens, params)
+        self._utils.validate_data(self._validators.klay.requests.get_tokens, params)
 
         if 'types' in params:
             params['types'] = ','.join(params['types'])
 
         params.update(api_key)
 
-        validators.update({200: self._validators.api.klay.responses.get_tokens})
+        validators.update({200: self._validators.klay.responses.get_tokens})
 
         return self._http.get(url='{}/tokens/search'.format(self._coin_url), params=params, validators=validators)
 
@@ -56,18 +52,14 @@ class Tokens:
         skip: Optional[int] = None,
         limit: Optional[int] = None,
         addresses: List[str] = None
-    ) -> Dict[str,
-              Any]:
+    ) -> Dict[str, Any]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     Union[str,
-                           int,
-                           List[str]]] = {
-                               'token': token
-                           }
+        params: Dict[str, Union[str, int, List[str]]] = {
+            'token': token
+        }
 
         if skip is not None:
             params.update({'skip': skip})
@@ -78,7 +70,7 @@ class Tokens:
         if addresses is not None:
             params.update({'addresses': addresses})
 
-        self._utils.validate_data(self._validators.api.klay.requests.get_token_transfers_by_token_address, params)
+        self._utils.validate_data(self._validators.klay.requests.get_token_transfers_by_token_address, params)
 
         if 'addresses' in params:
             params['addresses'] = ','.join(params['addresses'])
@@ -87,30 +79,23 @@ class Tokens:
 
         params.update(api_key)
 
-        validators.update({200: self._validators.api.klay.responses.get_token_transfers_by_token_address})
+        validators.update({200: self._validators.klay.responses.get_token_transfers_by_token_address})
 
         return self._http.get(
-            url='{}/tokens/{}/transfers'.format(self._coin_url,
-                                                token),
-            params=params,
-            validators=validators
+            url='{}/tokens/{}/transfers'.format(self._coin_url, token), params=params, validators=validators
         )
 
     def get_token_contract(self, address: str) -> Dict[str, Any]:
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     str] = {
-                         'address': address
-                     }
+        params: Dict[str, str] = {
+            'address': address
+        }
 
-        self._utils.validate_data(self._validators.api.klay.requests.get_token_contract, params)
+        self._utils.validate_data(self._validators.klay.requests.get_token_contract, params)
 
-        validators.update({200: self._validators.api.klay.responses.get_token_contract})
+        validators.update({200: self._validators.klay.responses.get_token_contract})
 
         return self._http.get(
-            url='{}/tokens/{}'.format(self._coin_url,
-                                      params['address']),
-            params=api_key,
-            validators=validators
+            url='{}/tokens/{}'.format(self._coin_url, params['address']), params=api_key, validators=validators
         )

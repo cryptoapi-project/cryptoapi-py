@@ -4,16 +4,10 @@ from typing import Any, Callable, Optional
 class Testnet:
 
     def __init__(
-        self,
-        ws_wrapper: Callable,
-        config: Any,
-        validators: Any,
-        utils: Any,
-        api_key: str,
-        debug: bool
+        self, ws_wrapper: Callable, config: Any, validators: Any, utils: Any, api_key: str, debug: bool
     ) -> None:
         coin_prefix: str = 'eth'
-        self._ws: Any = ws_wrapper(url=config.events.WS_TESTNET_URL + coin_prefix, api_key=api_key, debug=debug)
+        self._ws: Any = ws_wrapper(url=config.WS_TESTNET_URL + coin_prefix, api_key=api_key, debug=debug)
         self._validators: Any = validators
         self._utils: Any = utils
 
@@ -28,51 +22,35 @@ class Testnet:
         self._ws.disconnect()
 
     def on_block(self, callback: Callable, confirmations: int = 0) -> int:
-        self._utils.validate_data(self._validators.events.confirmations, confirmations)
-        return self._ws.on_event(['new_block',
-                                  confirmations],
-                                 callback,
-                                 self._validators.events.notifications.eth_block_notification)
+        self._utils.validate_data(self._validators.confirmations, confirmations)
+        return self._ws.on_event(['new_block', confirmations], callback,
+                                 self._validators.notifications.eth_block_notification)
 
     def on_address_transactions(self, address: str, callback: Callable, confirmations: int = 0) -> int:
-        self._utils.validate_data(self._validators.events.address, address)
-        self._utils.validate_data(self._validators.events.confirmations, confirmations)
-        return self._ws.on_event(['new_transaction',
-                                  address,
-                                  confirmations],
-                                 callback,
-                                 self._validators.events.notifications.eth_transaction_notification)
+        self._utils.validate_data(self._validators.address, address)
+        self._utils.validate_data(self._validators.confirmations, confirmations)
+        return self._ws.on_event(['new_transaction', address, confirmations], callback,
+                                 self._validators.notifications.eth_transaction_notification)
 
     def on_address_balance(self, address: str, callback: Callable, confirmations: int = 0) -> int:
-        self._utils.validate_data(self._validators.events.address, address)
-        self._utils.validate_data(self._validators.events.confirmations, confirmations)
-        return self._ws.on_event(['new_balance',
-                                  address,
-                                  confirmations],
-                                 callback,
-                                 self._validators.events.notifications.balance_notification)
+        self._utils.validate_data(self._validators.address, address)
+        self._utils.validate_data(self._validators.confirmations, confirmations)
+        return self._ws.on_event(['new_balance', address, confirmations], callback,
+                                 self._validators.notifications.balance_notification)
 
     def on_token_transfers(self, token: str, address: str, callback: Callable, confirmations: int = 0) -> int:
-        self._utils.validate_data(self._validators.events.address, address)
-        self._utils.validate_data(self._validators.events.token, token)
-        self._utils.validate_data(self._validators.events.confirmations, confirmations)
-        return self._ws.on_event(['new_transfer',
-                                  token,
-                                  address,
-                                  confirmations],
-                                 callback,
-                                 self._validators.events.notifications.transfer_notification)
+        self._utils.validate_data(self._validators.address, address)
+        self._utils.validate_data(self._validators.token, token)
+        self._utils.validate_data(self._validators.confirmations, confirmations)
+        return self._ws.on_event(['new_transfer', token, address, confirmations], callback,
+                                 self._validators.notifications.transfer_notification)
 
     def on_token_balance(self, token: str, address: str, callback: Callable, confirmations: int = 0) -> int:
-        self._utils.validate_data(self._validators.events.address, address)
-        self._utils.validate_data(self._validators.events.token, token)
-        self._utils.validate_data(self._validators.events.confirmations, confirmations)
-        return self._ws.on_event(['new_token_balance',
-                                  token,
-                                  address,
-                                  confirmations],
-                                 callback,
-                                 self._validators.events.notifications.token_balance_notification)
+        self._utils.validate_data(self._validators.address, address)
+        self._utils.validate_data(self._validators.token, token)
+        self._utils.validate_data(self._validators.confirmations, confirmations)
+        return self._ws.on_event(['new_token_balance', token, address, confirmations], callback,
+                                 self._validators.notifications.token_balance_notification)
 
     def on_contract_log(
         self,
@@ -83,31 +61,22 @@ class Testnet:
         to: Optional[str] = None,
         topics: Optional[str] = None
     ) -> int:
-        self._utils.validate_data(self._validators.events.address, address)
-        self._utils.validate_data(self._validators.events.confirmations, confirmations)
+        self._utils.validate_data(self._validators.address, address)
+        self._utils.validate_data(self._validators.confirmations, confirmations)
         if _from:
-            self._utils.validate_data(self._validators.events._from, _from)
+            self._utils.validate_data(self._validators._from, _from)
         if to:
-            self._utils.validate_data(self._validators.events.to, to)
+            self._utils.validate_data(self._validators.to, to)
         if topics:
-            self._utils.validate_data(self._validators.events.topics, topics)
-        return self._ws.on_event(['new_contract_log',
-                                  address,
-                                  confirmations,
-                                  _from,
-                                  to,
-                                  topics],
-                                 callback,
-                                 self._validators.events.notifications.eth_contract_log_notification)
+            self._utils.validate_data(self._validators.topics, topics)
+        return self._ws.on_event(['new_contract_log', address, confirmations, _from, to, topics], callback,
+                                 self._validators.notifications.eth_contract_log_notification)
 
     def on_transaction_confirmations(self, _hash: str, callback: Callable, confirmations: int = 0) -> int:
-        self._utils.validate_data(self._validators.events.hash, _hash)
-        self._utils.validate_data(self._validators.events.confirmations, confirmations)
-        return self._ws.on_event(['new_confirmation',
-                                  _hash,
-                                  confirmations],
-                                 callback,
-                                 self._validators.events.notifications.transaction_confirmation_notification)
+        self._utils.validate_data(self._validators.hash, _hash)
+        self._utils.validate_data(self._validators.confirmations, confirmations)
+        return self._ws.on_event(['new_confirmation', _hash, confirmations], callback,
+                                 self._validators.notifications.transaction_confirmation_notification)
 
     def on_connected(self, callback: Callable) -> None:
         if not callable(callback):
@@ -120,5 +89,5 @@ class Testnet:
         self._ws.on_disconnected_callbacks.append(callback)
 
     def unsubscribe(self, subscription_id: int) -> bool:
-        self._utils.validate_data(self._validators.events.subscription_id, subscription_id)
+        self._utils.validate_data(self._validators.subscription_id, subscription_id)
         return self._ws.unsubscribe(subscription_id)

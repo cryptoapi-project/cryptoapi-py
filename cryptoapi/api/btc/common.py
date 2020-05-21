@@ -17,7 +17,7 @@ class Common:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        validators.update({200: self._validators.api.btc.responses.get_network_information})
+        validators.update({200: self._validators.btc.responses.get_network_information})
 
         return self._http.get(url='{}/network'.format(self._coin_url), params=api_key, validators=validators)
 
@@ -26,6 +26,6 @@ class Common:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        validators.update({200: self._validators.api.btc.responses.get_estimate_fee})
+        validators.update({200: self._validators.btc.responses.get_estimate_fee})
 
         return self._http.get(url='{}/estimate-fee'.format(self._coin_url), params=api_key, validators=validators)

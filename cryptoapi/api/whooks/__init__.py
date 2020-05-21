@@ -1,9 +1,9 @@
-from typing import Any, List, Dict, Optional, Union
+from typing import Any, Dict, Optional, Union
 
 
 class Whooks:
 
-    def __init__(self, http: Any, validators: Any, utils: Any, debug: bool, api_key: str):
+    def __init__(self, http: Any, validators: Any, utils: Any, api_key: str) -> None:
         self._http: Any = http
         self._api_key: str = api_key
         self._validators: Any = validators
@@ -45,14 +45,12 @@ class Whooks:
         if _type is not None:
             params.update({'type': _type})
 
-        self._utils.validate_data(self._validators.api.whooks.requests.get_hook_events, params)
+        self._utils.validate_data(self._validators.whooks.requests.get_hook_events, params)
 
-        validators.update({200: self._validators.api.whooks.responses.get_hook_events})
+        validators.update({200: self._validators.whooks.responses.get_hook_events})
 
         params.update(api_key)
 
         return self._http.get(
-            url='/web-hooks/{}/events'.format(params.pop('hook_id')),
-            params=params,
-            validators=validators
+            url='/web-hooks/{}/events'.format(params.pop('hook_id')), params=params, validators=validators
         )

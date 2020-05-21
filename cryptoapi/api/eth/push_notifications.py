@@ -17,62 +17,48 @@ class PushNotifications:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     List[str]] = {
-                         'addresses': addresses
-                     }
+        params: Dict[str, List[str]] = {
+            'addresses': addresses
+        }
 
-        data: Dict[str,
-                   str] = {
-                       'firebase_token': firebase_token
-                   }
+        data: Dict[str, str] = {
+            'firebase_token': firebase_token
+        }
 
         self._utils.validate_data(
-            self._validators.api.eth.requests.subscribe_to_addresses_notifications_params,
-            params
+            self._validators.eth.requests.subscribe_to_addresses_notifications_params, params
         )
-        self._utils.validate_data(
-            self._validators.api.eth.requests.subscribe_to_addresses_notifications_body,
-            data
-        )
+        self._utils.validate_data(self._validators.eth.requests.subscribe_to_addresses_notifications_body, data)
 
-        validators.update({200: self._validators.api.eth.responses.subscribe_to_addresses_notifications})
+        validators.update({200: self._validators.eth.responses.subscribe_to_addresses_notifications})
 
         return self._http.post(
             url='{}/push-notifications/addresses/{}/balance'.format(
-                self._coin_url,
-                ','.join(params.pop('addresses'))
+                self._coin_url, ','.join(params.pop('addresses'))
             ),
             data=data,
             params=api_key,
             validators=validators
         )
 
-    def unsubscribe_from_addresses_notifications(self,
-                                                 addresses: List[str],
+    def unsubscribe_from_addresses_notifications(self, addresses: List[str],
                                                  firebase_token: str) -> Optional[error_static_type]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     Union[str,
-                           List[str]]] = {
-                               'addresses': addresses,
-                               'firebase_token': firebase_token
-                           }
+        params: Dict[str, Union[str, List[str]]] = {
+            'addresses': addresses,
+            'firebase_token': firebase_token
+        }
 
-        self._utils.validate_data(
-            self._validators.api.eth.requests.unsubscribe_from_addresses_notifications,
-            params
-        )
+        self._utils.validate_data(self._validators.eth.requests.unsubscribe_from_addresses_notifications, params)
 
         params.update(api_key)
 
         return self._http.delete(
             url='{}/push-notifications/addresses/{}/balance'.format(
-                self._coin_url,
-                ','.join(params.pop('addresses'))
+                self._coin_url, ','.join(params.pop('addresses'))
             ),
             params=params,
             validators=validators

@@ -55,8 +55,7 @@ def mainnet_tests(session: nox.session) -> None:
     if python_version:
         session.run(*install_requires)
     session.run(
-        *run_tests,
-        env={'MAINNET': 'true'}
+        *run_tests, env={'MAINNET': 'true'}
     )
 
 

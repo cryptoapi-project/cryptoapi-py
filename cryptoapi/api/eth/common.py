@@ -15,7 +15,7 @@ class Common:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        validators.update({200: self._validators.api.eth.responses.get_network_info})
+        validators.update({200: self._validators.eth.responses.get_network_info})
 
         return self._http.get(url='{}/network'.format(self._coin_url), params=api_key, validators=validators)
 
@@ -24,21 +24,17 @@ class Common:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        post_data: Dict[str,
-                   str] = {
-                       'from': _from,
-                       'to': to,
-                       'data': data,
-                       'value': value
-                   }
+        post_data: Dict[str, str] = {
+            'from': _from,
+            'to': to,
+            'data': data,
+            'value': value
+        }
 
-        self._utils.validate_data(self._validators.api.eth.requests.estimate_gas, post_data)
+        self._utils.validate_data(self._validators.eth.requests.estimate_gas, post_data)
 
-        validators.update({200: self._validators.api.eth.responses.estimate_gas})
+        validators.update({200: self._validators.eth.responses.estimate_gas})
 
         return self._http.post(
-            url='{}/estimate-gas'.format(self._coin_url),
-            data=post_data,
-            params=api_key,
-            validators=validators
+            url='{}/estimate-gas'.format(self._coin_url), data=post_data, params=api_key, validators=validators
         )

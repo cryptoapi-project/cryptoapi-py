@@ -6,20 +6,21 @@ stages:
 
 .analyzers:
   stage: static analysis
+  before_script:
+    - pip3 install nox
+  variables:
+    PYTHON_VERSION: 3
   only:
     - web
     - trigger
-    - merge requests
+    - merge_requests
   tags:
-    - pp-new-develop
-
-.analyzers-with-requirements:
-  extends: .analyzers
-  before_script:
-    - pip3 install -r requirements_dev.txt --no-cache-dir
+    - docker
 
 .tests:
   stage: tests
+  before_script:
+    - pip3 install nox
   variables:
     PYTHON_VERSION: 3
   artifacts:
@@ -30,29 +31,27 @@ stages:
   only:
     - web
     - trigger
-    - merge requests
+    - merge_requests
   tags:
-    - pp-new-develop
+    - docker
 
 flake8:
-  extends: .analyzers-with-requirements
+  extends: .analyzers
   script:
     - nox -s flake8
 
 isort:
-  extends: .analyzers-with-requirements
+  extends: .analyzers
   script:
     - nox -s isort -- check
 
 yapf:
-  extends: .analyzers-with-requirements
+  extends: .analyzers
   script:
     - nox -s yapf -- check
 
 mypy:
   extends: .analyzers
-  variables:
-    PYTHON_VERSION: 3
   script:
     - nox -s mypy
 

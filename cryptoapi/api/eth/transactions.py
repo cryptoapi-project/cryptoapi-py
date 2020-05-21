@@ -17,15 +17,12 @@ class Transactions:
         skip: Optional[int] = None,
         limit: Optional[int] = None,
         block_number: Optional[int] = None
-    ) -> Dict[str,
-              Any]:
+    ) -> Dict[str, Any]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     Union[str,
-                           int]] = {}
+        params: Dict[str, Union[str, int]] = {}
 
         if _from is not None:
             params.update({'from': _from})
@@ -42,11 +39,11 @@ class Transactions:
         if block_number is not None:
             params.update({'block_number': block_number})
 
-        self._utils.validate_data(self._validators.api.eth.requests.get_transactions, params)
+        self._utils.validate_data(self._validators.eth.requests.get_transactions, params)
 
         params.update(api_key)
 
-        validators.update({200: self._validators.api.eth.responses.get_transactions})
+        validators.update({200: self._validators.eth.responses.get_transactions})
 
         return self._http.get(url='{}/transactions'.format(self._coin_url), params=params, validators=validators)
 
@@ -55,20 +52,16 @@ class Transactions:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     str] = {
-                         'hash': _hash
-                     }
+        params: Dict[str, str] = {
+            'hash': _hash
+        }
 
-        self._utils.validate_data(self._validators.api.eth.requests.get_transaction_information, params)
+        self._utils.validate_data(self._validators.eth.requests.get_transaction_information, params)
 
-        validators.update({200: self._validators.api.eth.responses.get_transaction_information})
+        validators.update({200: self._validators.eth.responses.get_transaction_information})
 
         return self._http.get(
-            url='{}/transactions/{}'.format(self._coin_url,
-                                            params['hash']),
-            params=api_key,
-            validators=validators
+            url='{}/transactions/{}'.format(self._coin_url, params['hash']), params=api_key, validators=validators
         )
 
     def get_transaction_receipt(self, _hash: str) -> Dict[str, Any]:
@@ -76,18 +69,16 @@ class Transactions:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     str] = {
-                         'hash': _hash
-                     }
+        params: Dict[str, str] = {
+            'hash': _hash
+        }
 
-        self._utils.validate_data(self._validators.api.eth.requests.get_transaction_receipt, params)
+        self._utils.validate_data(self._validators.eth.requests.get_transaction_receipt, params)
 
-        validators.update({200: self._validators.api.eth.responses.get_transaction_receipt})
+        validators.update({200: self._validators.eth.responses.get_transaction_receipt})
 
         return self._http.get(
-            url='{}/transactions/{}/receipt'.format(self._coin_url,
-                                                    params['hash']),
+            url='{}/transactions/{}/receipt'.format(self._coin_url, params['hash']),
             params=api_key,
             validators=validators
         )
@@ -97,14 +88,13 @@ class Transactions:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        data: Dict[str,
-                   str] = {
-                       'tx': tx
-                   }
+        data: Dict[str, str] = {
+            'tx': tx
+        }
 
-        self._utils.validate_data(self._validators.api.eth.requests.send_transaction, data)
+        self._utils.validate_data(self._validators.eth.requests.send_transaction, data)
 
-        validators.update({200: self._validators.api.eth.responses.send_transaction})
+        validators.update({200: self._validators.eth.responses.send_transaction})
 
         return self._http.post(
             url='{}/transactions/raw/send'.format(self._coin_url),
@@ -118,14 +108,13 @@ class Transactions:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        data: Dict[str,
-                   str] = {
-                       'tx': tx
-                   }
+        data: Dict[str, str] = {
+            'tx': tx
+        }
 
-        self._utils.validate_data(self._validators.api.eth.requests.decode_transaction, data)
+        self._utils.validate_data(self._validators.eth.requests.decode_transaction, data)
 
-        validators.update({200: self._validators.api.eth.responses.decode_transaction})
+        validators.update({200: self._validators.eth.responses.decode_transaction})
 
         return self._http.post(
             url='{}/transactions/raw/decode'.format(self._coin_url),

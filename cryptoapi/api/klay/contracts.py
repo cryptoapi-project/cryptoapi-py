@@ -20,18 +20,12 @@ class Contracts:
         to_block: Optional[int] = None,
         addresses: Optional[List[str]] = None,
         topics: Optional[List[str]] = None
-    ) -> Union[List[Dict[str,
-                         Any]],
-               error_static_type]:
+    ) -> Union[List[Dict[str, Any]], error_static_type]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     Union[int,
-                           str,
-                           bool,
-                           List[str]]] = {}
+        params: Dict[str, Union[int, str, bool, List[str]]] = {}
         if cursor is not None:
             params.update({'cursor': cursor})
 
@@ -50,7 +44,7 @@ class Contracts:
         if topics is not None:
             params.update({'topics': topics})
 
-        self._utils.validate_data(self._validators.api.klay.requests.get_contracts_logs, params)
+        self._utils.validate_data(self._validators.klay.requests.get_contracts_logs, params)
 
         if 'addresses' in params:
             params['addresses'] = ','.join(params['addresses'])
@@ -58,43 +52,35 @@ class Contracts:
         if 'topics' in params:
             params['topics'] = ','.join(params['topics'])
 
-        validators.update({200: self._validators.api.klay.responses.get_contracts_logs})
+        validators.update({200: self._validators.klay.responses.get_contracts_logs})
 
         params.update(api_key)
 
         return self._http.get(url='{}/contracts/logs'.format(self._coin_url), params=params, validators=validators)
 
-    def contract_call(self,
-                      address: str,
-                      sender: str,
-                      amount: int,
-                      bytecode: str) -> Union[str,
-                                              error_static_type]:
+    def contract_call(self, address: str, sender: str, amount: int,
+                      bytecode: str) -> Union[str, error_static_type]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     str] = {
-                         'address': address
-                     }
+        params: Dict[str, str] = {
+            'address': address
+        }
 
-        data: Dict[str,
-                   Union[int,
-                         str]] = {
-                             'sender': sender,
-                             'amount': amount,
-                             'bytecode': bytecode
-                         }
+        data: Dict[str, Union[int, str]] = {
+            'sender': sender,
+            'amount': amount,
+            'bytecode': bytecode
+        }
 
-        self._utils.validate_data(self._validators.api.klay.requests.contract_call_params, params)
-        self._utils.validate_data(self._validators.api.klay.requests.contract_call_body, data)
+        self._utils.validate_data(self._validators.klay.requests.contract_call_params, params)
+        self._utils.validate_data(self._validators.klay.requests.contract_call_body, data)
 
-        validators.update({200: self._validators.api.klay.responses.contract_call})
+        validators.update({200: self._validators.klay.responses.contract_call})
 
         return self._http.post(
-            url='{}/contracts/{}/call'.format(self._coin_url,
-                                              params.pop('address')),
+            url='{}/contracts/{}/call'.format(self._coin_url, params.pop('address')),
             data=data,
             params=api_key,
             validators=validators
@@ -105,18 +91,16 @@ class Contracts:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str,
-                     str] = {
-                         'address': address
-                     }
+        params: Dict[str, str] = {
+            'address': address
+        }
 
-        self._utils.validate_data(self._validators.api.klay.requests.get_contract_general_information, params)
+        self._utils.validate_data(self._validators.klay.requests.get_contract_general_information, params)
 
-        validators.update({200: self._validators.api.klay.responses.get_contract_general_information})
+        validators.update({200: self._validators.klay.responses.get_contract_general_information})
 
         return self._http.get(
-            url='{}/contracts/{}'.format(self._coin_url,
-                                         params.pop('address')),
+            url='{}/contracts/{}'.format(self._coin_url, params.pop('address')),
             params=api_key,
             validators=validators
         )
