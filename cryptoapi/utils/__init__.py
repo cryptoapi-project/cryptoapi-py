@@ -12,10 +12,10 @@ class CustomValidator:
     def __init__(self, func: Callable, error_text: str) -> None:
         self._func: Callable = func
         self._error_text: str = error_text
-        self._errors: Optional[str] = None
+        self._errors: Optional[Union[List[str], str]] = None
 
     @property
-    def errors(self) -> Optional[str]:
+    def errors(self) -> Optional[Union[List[str], str]]:
         return self._errors
 
     def validate(self, data: Any) -> bool:
@@ -31,17 +31,14 @@ class Validator:
     def __init__(self, schema: Union[Dict[Any, Any], Tuple[Callable, str]], item: bool = False) -> None:
         if not isinstance(schema, (dict, tuple)):
             raise Exception('Validator schema must be a dict or tuple(callable, str) types object')
-        if isinstance(schema, dict):
-            schema = CerberusValidator(schema)
 
-        if isinstance(schema, tuple):
-            schema = CustomValidator(*schema)
-
-        self._validator = schema
+        self._validator: Union[
+            CerberusValidator,
+            CustomValidator] = CerberusValidator(schema) if isinstance(schema, dict) else CustomValidator(*schema)
         self._item = item
 
     @property
-    def errors(self) -> List[str]:
+    def errors(self) -> Optional[Union[List[str], str]]:
         return self._validator.errors
 
     def validate(self, data: Any) -> bool:
@@ -53,7 +50,7 @@ class Validator:
 class Utils:
 
     def __init__(self) -> None:
-        self.validator = Validator
+        self.validator: Callable = Validator
 
     @staticmethod
     def api_method_preprocessing(api: Any) -> api_method_preprocessing_return_static_type:

@@ -34,12 +34,13 @@ class Addresses:
 
         self._utils.validate_data(self._validators.ltc.requests.get_outputs_by_addresses, params)
 
+        del params['addresses']
         params.update(api_key)
 
         validators.update({200: self._validators.ltc.responses.get_outputs_by_addresses})
 
         return self._http.get(
-            url='{}/addresses/{}/outputs'.format(self._coin_url, ','.join(params.pop('addresses'))),
+            url='{}/addresses/{}/outputs'.format(self._coin_url, ','.join(addresses)),
             params=params,
             validators=validators
         )
@@ -58,7 +59,7 @@ class Addresses:
         validators.update({200: self._validators.ltc.responses.get_utxo_coin_addresses_info})
 
         return self._http.get(
-            url='{}/addresses/{}'.format(self._coin_url, ','.join(params.pop('addresses'))),
+            url='{}/addresses/{}'.format(self._coin_url, ','.join(addresses)),
             params=api_key,
             validators=validators
         )
@@ -71,7 +72,7 @@ class Addresses:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str, Union[List[str], int]] = {
+        params: Dict[str, Union[List[str], int, str]] = {
             'addresses': addresses
         }
 
@@ -83,12 +84,13 @@ class Addresses:
 
         self._utils.validate_data(self._validators.ltc.requests.get_utxo_coin_addresses_history, params)
 
+        del params['addresses']
         params.update(api_key)
 
         validators.update({200: self._validators.ltc.responses.get_utxo_coin_addresses_history})
 
         return self._http.get(
-            url='{}/addresses/{}/transactions'.format(self._coin_url, ','.join(params.pop('addresses'))),
+            url='{}/addresses/{}/transactions'.format(self._coin_url, ','.join(addresses)),
             params=params,
             validators=validators
         )

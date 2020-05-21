@@ -61,7 +61,7 @@ class Transactions:
         validators.update({200: self._validators.eth.responses.get_transaction_information})
 
         return self._http.get(
-            url='{}/transactions/{}'.format(self._coin_url, params['hash']), params=api_key, validators=validators
+            url='{}/transactions/{}'.format(self._coin_url, _hash), params=api_key, validators=validators
         )
 
     def get_transaction_receipt(self, _hash: str) -> Dict[str, Any]:
@@ -78,9 +78,7 @@ class Transactions:
         validators.update({200: self._validators.eth.responses.get_transaction_receipt})
 
         return self._http.get(
-            url='{}/transactions/{}/receipt'.format(self._coin_url, params['hash']),
-            params=api_key,
-            validators=validators
+            url='{}/transactions/{}/receipt'.format(self._coin_url, _hash), params=api_key, validators=validators
         )
 
     def send_transaction(self, tx: str) -> Dict[str, Any]:

@@ -23,9 +23,7 @@ class Testnet:
 
         validators.update({200: self._validators.rates.responses.get_coins_rates})
 
-        return self._http.get(
-            url='/rates/{}/'.format(','.join(params['coins'])), params=api_key, validators=validators
-        )
+        return self._http.get(url='/rates/{}/'.format(','.join(coins)), params=api_key, validators=validators)
 
     def get_coins_history(
         self, coins: List[str]
@@ -43,5 +41,5 @@ class Testnet:
         validators.update({200: self._validators.rates.responses.get_coins_history})
 
         return self._http.get(
-            url='/rates/{}/history'.format(','.join((params['coins']))), params=api_key, validators=validators
+            url='/rates/{}/history'.format(','.join((coins))), params=api_key, validators=validators
         )

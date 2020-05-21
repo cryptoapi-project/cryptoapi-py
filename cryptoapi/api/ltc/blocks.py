@@ -23,9 +23,7 @@ class Blocks:
         validators.update({200: self._validators.ltc.responses.get_block})
 
         return self._http.get(
-            url='{}/blocks/{}'.format(self._coin_url, params['block_height_or_hash']),
-            params=api_key,
-            validators=validators
+            url='{}/blocks/{}'.format(self._coin_url, block_height_or_hash), params=api_key, validators=validators
         )
 
     def get_blocks(self, skip: Optional[int] = None, limit: Optional[int] = None) -> Dict[str, Any]:

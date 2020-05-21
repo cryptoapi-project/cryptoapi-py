@@ -49,8 +49,7 @@ class Whooks:
 
         validators.update({200: self._validators.whooks.responses.get_hook_events})
 
+        del params['hook_id']
         params.update(api_key)
 
-        return self._http.get(
-            url='/web-hooks/{}/events'.format(params.pop('hook_id')), params=params, validators=validators
-        )
+        return self._http.get(url='/web-hooks/{}/events'.format(hook_id), params=params, validators=validators)

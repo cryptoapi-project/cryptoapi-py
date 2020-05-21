@@ -33,9 +33,7 @@ class PushNotifications:
         validators.update({200: self._validators.btc.responses.subscribe_to_addresses_notifications})
 
         return self._http.post(
-            url='{}/push-notifications/addresses/{}/balance'.format(
-                self._coin_url, ','.join(params.pop('addresses'))
-            ),
+            url='{}/push-notifications/addresses/{}/balance'.format(self._coin_url, ','.join(addresses)),
             data=data,
             params=api_key,
             validators=validators
@@ -54,12 +52,11 @@ class PushNotifications:
 
         self._utils.validate_data(self._validators.btc.requests.unsubscribe_from_addresses_notifications, params)
 
+        del params['addresses']
         params.update(api_key)
 
         return self._http.delete(
-            url='{}/push-notifications/addresses/{}/balance'.format(
-                self._coin_url, ','.join(params.pop('addresses'))
-            ),
+            url='{}/push-notifications/addresses/{}/balance'.format(self._coin_url, ','.join(addresses)),
             params=params,
             validators=validators
         )

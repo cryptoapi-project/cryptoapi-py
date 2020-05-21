@@ -37,8 +37,8 @@ class Tokens:
 
         self._utils.validate_data(self._validators.klay.requests.get_tokens, params)
 
-        if 'types' in params:
-            params['types'] = ','.join(params['types'])
+        if types:
+            params['types'] = ','.join(types)
 
         params.update(api_key)
 
@@ -72,10 +72,10 @@ class Tokens:
 
         self._utils.validate_data(self._validators.klay.requests.get_token_transfers_by_token_address, params)
 
-        if 'addresses' in params:
-            params['addresses'] = ','.join(params['addresses'])
+        if addresses:
+            params['addresses'] = ','.join(addresses)
 
-        token = params.pop('token')
+        del params['token']
 
         params.update(api_key)
 
@@ -97,5 +97,5 @@ class Tokens:
         validators.update({200: self._validators.klay.responses.get_token_contract})
 
         return self._http.get(
-            url='{}/tokens/{}'.format(self._coin_url, params['address']), params=api_key, validators=validators
+            url='{}/tokens/{}'.format(self._coin_url, address), params=api_key, validators=validators
         )

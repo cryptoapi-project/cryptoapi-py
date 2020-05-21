@@ -46,11 +46,11 @@ class Contracts:
 
         self._utils.validate_data(self._validators.klay.requests.get_contracts_logs, params)
 
-        if 'addresses' in params:
-            params['addresses'] = ','.join(params['addresses'])
+        if addresses:
+            params['addresses'] = ','.join(addresses)
 
-        if 'topics' in params:
-            params['topics'] = ','.join(params['topics'])
+        if topics:
+            params['topics'] = ','.join(topics)
 
         validators.update({200: self._validators.klay.responses.get_contracts_logs})
 
@@ -80,7 +80,7 @@ class Contracts:
         validators.update({200: self._validators.klay.responses.contract_call})
 
         return self._http.post(
-            url='{}/contracts/{}/call'.format(self._coin_url, params.pop('address')),
+            url='{}/contracts/{}/call'.format(self._coin_url, address),
             data=data,
             params=api_key,
             validators=validators
@@ -100,7 +100,5 @@ class Contracts:
         validators.update({200: self._validators.klay.responses.get_contract_general_information})
 
         return self._http.get(
-            url='{}/contracts/{}'.format(self._coin_url, params.pop('address')),
-            params=api_key,
-            validators=validators
+            url='{}/contracts/{}'.format(self._coin_url, address), params=api_key, validators=validators
         )

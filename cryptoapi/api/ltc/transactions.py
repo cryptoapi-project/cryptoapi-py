@@ -61,7 +61,7 @@ class Transactions:
         validators.update({200: self._validators.ltc.responses.get_transaction_by_hash})
 
         return self._http.get(
-            url='{}/transactions/{}'.format(self._coin_url, params['hash']), params=api_key, validators=validators
+            url='{}/transactions/{}'.format(self._coin_url, _hash), params=api_key, validators=validators
         )
 
     def send_transaction(self, _hash: str) -> Dict[str, Any]:
