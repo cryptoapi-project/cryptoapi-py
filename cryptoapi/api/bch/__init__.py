@@ -1,5 +1,6 @@
-from .testnet import Testnet
 from typing import Any
+
+from .testnet import Testnet
 
 
 class Bch(Testnet):

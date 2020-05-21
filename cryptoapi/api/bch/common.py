@@ -1,7 +1,7 @@
-from typing import Any, Dict
-
+from typing import Any, Dict, List, Union
 
 error_static_type = Dict[str, Union[List[Dict[str, str]], int]]
+
 
 class Common:
 

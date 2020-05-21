@@ -1,16 +1,31 @@
+from typing import Any, Dict, Optional
+
+
 class Transactions:
 
-    def __init__(self, http, coin_url, validators, utils, api_key):
-        self._http = http
-        self._coin_url = coin_url
-        self._api_key = api_key
-        self._validators = validators
-        self._utils = utils
+    def __init__(self, http: Any, coin_url: str, validators: Any, utils: Any, api_key: str) -> None:
+        self._http: Any = http
+        self._coin_url: str = coin_url
+        self._api_key: str = api_key
+        self._validators: Any = validators
+        self._utils: Any = utils
 
-    def get_transactions(self, _from=None, to=None, skip=None, limit=None, block_number=None):
+    def get_transactions(
+        self,
+        _from: Optional[str] = None,
+        to: Optional[str] = None,
+        skip: Optional[int] = None,
+        limit: Optional[int] = None,
+        block_number: Optional[int] = None
+    ) -> Dict[str,
+              Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {}
+        params: Dict[str,
+                     Union[str,
+                           int]] = {}
 
         if _from is not None:
             params.update({'from': _from})
@@ -35,12 +50,15 @@ class Transactions:
 
         return self._http.get(url='{}/transactions'.format(self._coin_url), params=params, validators=validators)
 
-    def get_transaction_information(self, _hash):
+    def get_transaction_information(self, _hash: str) -> Dict[str, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'hash': _hash
-        }
+        params: Dict[str,
+                     str] = {
+                         'hash': _hash
+                     }
 
         self._utils.validate_data(self._validators.api.klay.requests.get_transaction_information, params)
 
@@ -53,12 +71,15 @@ class Transactions:
             validators=validators
         )
 
-    def get_transaction_receipt(self, _hash):
+    def get_transaction_receipt(self, _hash: str) -> Dict[str, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'hash': _hash
-        }
+        params: Dict[str,
+                     str] = {
+                         'hash': _hash
+                     }
 
         self._utils.validate_data(self._validators.api.klay.requests.get_transaction_receipt, params)
 
@@ -71,12 +92,15 @@ class Transactions:
             validators=validators
         )
 
-    def send_transaction(self, tx):
+    def send_transaction(self, tx: str) -> Dict[str, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        data = {
-            'tx': tx
-        }
+        data: Dict[str,
+                   str] = {
+                       'tx': tx
+                   }
 
         self._utils.validate_data(self._validators.api.klay.requests.send_transaction, data)
 
@@ -89,12 +113,15 @@ class Transactions:
             validators=validators
         )
 
-    def decode_transaction(self, tx):
+    def decode_transaction(self, tx: str) -> Dict[str, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        data = {
-            'tx': tx
-        }
+        data: Dict[str,
+                   str] = {
+                       'tx': tx
+                   }
 
         self._utils.validate_data(self._validators.api.klay.requests.decode_transaction, data)
 

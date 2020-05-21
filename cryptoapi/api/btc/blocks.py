@@ -1,4 +1,4 @@
-from typing import Any, Dict, Union
+from typing import Any, Dict, Optional, Union
 
 
 class Blocks:
@@ -36,7 +36,9 @@ class Blocks:
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str, Union[int, str]] = {}
+        params: Dict[str,
+                     Union[int,
+                           str]] = {}
         if skip is not None:
             params.update({'skip': skip})
 

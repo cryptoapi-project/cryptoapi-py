@@ -1,4 +1,5 @@
-from typing import Any, Dict, Union, List
+from typing import Any, Dict, List, Optional, Union
+
 error_static_type = Dict[str, Union[List[Dict[str, str]], int]]
 
 
@@ -47,12 +48,15 @@ class PushNotifications:
             validators=validators
         )
 
-    def unsubscribe_from_addresses_notifications(self, addresses: str, firebase_token: str) -> Optional[error_static_type]:
+    def unsubscribe_from_addresses_notifications(self,
+                                                 addresses: str,
+                                                 firebase_token: str) -> Optional[error_static_type]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params: Dict[str, str] = {
+        params: Dict[str,
+                     str] = {
                          'addresses': addresses,
                          'firebase_token': firebase_token
                      }

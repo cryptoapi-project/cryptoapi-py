@@ -1,18 +1,35 @@
+from typing import Any, Dict, List, Optional, Union
+
+error_static_type = Dict[str, Union[List[Dict[str, str]], int]]
+
+
 class Addresses:
 
-    def __init__(self, http, coin_url, validators, utils, api_key):
-        self._http = http
-        self._coin_url = coin_url
-        self._api_key = api_key
-        self._validators = validators
-        self._utils = utils
+    def __init__(self, http: Any, coin_url: str, validators: Any, utils: Any, api_key: str) -> None:
+        self._http: Any = http
+        self._coin_url: str = coin_url
+        self._api_key: str = api_key
+        self._validators: Any = validators
+        self._utils: Any = utils
 
-    def get_transactions_by_addresses(self, addresses, skip=None, limit=None, positive=None):
+    def get_transactions_by_addresses(
+        self,
+        addresses: List[str],
+        skip: Optional[int] = None,
+        limit: Optional[int] = None,
+        positive: Optional[str] = None
+    ) -> Dict[str,
+              Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'addresses': addresses
-        }
+        params: Dict[str,
+                     Union[int,
+                           str,
+                           List[str]]] = {
+                               'addresses': addresses
+                           }
 
         if skip is not None:
             params.update({'skip': skip})
@@ -36,12 +53,23 @@ class Addresses:
             validators=validators
         )
 
-    def get_transaction_intersections_by_addresses(self, addresses, skip=None, limit=None):
+    def get_transaction_intersections_by_addresses(
+        self,
+        addresses: List[str],
+        skip: Optional[int] = None,
+        limit: Optional[int] = None
+    ) -> Dict[str,
+              Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'addresses': addresses
-        }
+        params: Dict[str,
+                     Union[int,
+                           str,
+                           List[str]]] = {
+                               'addresses': addresses
+                           }
 
         if skip is not None:
             params.update({'skip': skip})
@@ -65,12 +93,15 @@ class Addresses:
             validators=validators
         )
 
-    def get_balances_by_addresses(self, addresses):
+    def get_balances_by_addresses(self, addresses: List[str]) -> Union[List[Dict[str, str]], error_static_type]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'addresses': addresses
-        }
+        params: Dict[str,
+                     List[str]] = {
+                         'addresses': addresses
+                     }
 
         self._utils.validate_data(self._validators.api.eth.requests.get_balances_by_addresses, params)
 
@@ -83,12 +114,18 @@ class Addresses:
             validators=validators
         )
 
-    def get_general_information_by_addresses(self, addresses):
+    def get_general_information_by_addresses(self,
+                                             addresses: List[str]) -> Union[List[Dict[str,
+                                                                                      Any]],
+                                                                            error_static_type]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'addresses': addresses
-        }
+        params: Dict[str,
+                     List[str]] = {
+                         'addresses': addresses
+                     }
 
         self._utils.validate_data(self._validators.api.eth.requests.get_general_information_by_addresses, params)
 
@@ -101,13 +138,25 @@ class Addresses:
             validators=validators
         )
 
-    def get_token_transfers_by_addresses(self, addresses, token, skip=None, limit=None):
+    def get_token_transfers_by_addresses(
+        self,
+        addresses: List[str],
+        token: str,
+        skip: Optional[int] = None,
+        limit: Optional[int] = None
+    ) -> Dict[str,
+              Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'addresses': addresses,
-            'token': token
-        }
+        params: Dict[str,
+                     Union[int,
+                           str,
+                           List[str]]] = {
+                               'addresses': addresses,
+                               'token': token
+                           }
 
         if skip is not None:
             params.update({'skip': skip})
@@ -130,12 +179,23 @@ class Addresses:
             validators=validators
         )
 
-    def get_tokens_balances_by_holders(self, addresses, skip=None, limit=None):
+    def get_tokens_balances_by_holders(
+        self,
+        addresses: List[str],
+        skip: Optional[int] = None,
+        limit: Optional[int] = None
+    ) -> Dict[str,
+              Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'addresses': addresses
-        }
+        params: Dict[str,
+                     Union[int,
+                           str,
+                           List[str]]] = {
+                               'addresses': addresses
+                           }
 
         if skip is not None:
             params.update({'skip': skip})
@@ -156,13 +216,25 @@ class Addresses:
             validators=validators
         )
 
-    def get_token_balance_by_holders_and_token(self, addresses, token, skip=None, limit=None):
+    def get_token_balance_by_holders_and_token(
+        self,
+        addresses: List[str],
+        token: str,
+        skip: Optional[int] = None,
+        limit: Optional[int] = None
+    ) -> Dict[str,
+              Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
-            'addresses': addresses,
-            'token': token
-        }
+        params: Dict[str,
+                     Union[int,
+                           str,
+                           List[str]]] = {
+                               'addresses': addresses,
+                               'token': token
+                           }
 
         if skip is not None:
             params.update({'skip': skip})

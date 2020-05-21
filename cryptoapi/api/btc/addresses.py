@@ -1,7 +1,7 @@
 from typing import Any, Dict, List, Union
 
-
 error_static_type = Dict[str, Union[List[Dict[str, str]], int]]
+
 
 class Addresses:
 
@@ -16,7 +16,9 @@ class Addresses:
                                  addresses: List[str],
                                  status: str,
                                  skip: int = None,
-                                 limit: int = None) -> Union[List[Dict[str, Any], error_static_type]]:
+                                 limit: int = None) -> Union[List[Dict[str,
+                                                                       Any]],
+                                                             error_static_type]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -48,7 +50,7 @@ class Addresses:
             validators=validators
         )
 
-    def get_utxo_coin_addresses_info(self, addresses: List[str]) -> Union[List[Dict[str, Any], error_static_type]]:
+    def get_utxo_coin_addresses_info(self, addresses: List[str]) -> Union[List[Dict[str, Any]], error_static_type]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -72,7 +74,8 @@ class Addresses:
     def get_utxo_coin_addresses_history(self,
                                         addresses: List[str],
                                         skip: int = None,
-                                        limit: int = None) -> Dict[str, Any]:
+                                        limit: int = None) -> Dict[str,
+                                                                   Any]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
