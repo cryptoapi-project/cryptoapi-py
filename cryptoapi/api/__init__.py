@@ -7,7 +7,7 @@ from .rates import Rates
 from .testnet import Testnet
 from .whooks import Whooks
 
-from typing import Any, Callalbe
+from typing import Any, Callable
 
 
 class Api(Testnet):
