@@ -23,6 +23,3 @@ class Events:
         self.btc: Btc = Btc(WS, self._config, self._validators, self._utils, api_key, debug)
         self.bch: Bch = Bch(WS, self._config, self._validators, self._utils, api_key, debug)
         self.ltc: Ltc = Ltc(WS, self._config, self._validators, self._utils, api_key, debug)
-
-
-__all__ = ['WS', 'Config', 'Utils', 'Validators']
