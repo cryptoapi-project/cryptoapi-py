@@ -1,24 +1,29 @@
+from typing import Any, List, Dict, Optional, Union
+
+
 class Whooks:
 
-    def __init__(self, http, validators, utils, debug, api_key):
-        self._http = http
-        self._api_key = api_key
-        self._validators = validators
-        self._utils = utils
+    def __init__(self, http: Any, validators: Any, utils: Any, debug: bool, api_key: str):
+        self._http: Any = http
+        self._api_key: str = api_key
+        self._validators: Any = validators
+        self._utils: Any = utils
 
     def get_hook_events(
         self,
-        hook_id,
-        start_id=None,
-        end_id=None,
-        only_failed=None,
-        skip=None,
-        limit=None,
-        _type=None
-    ):
+        hook_id: int,
+        start_id: Optional[int] = None,
+        end_id: Optional[int] = None,
+        only_failed: Optional[bool] = None,
+        skip: Optional[int] = None,
+        limit: Optional[int] = None,
+        _type: Optional[str] = None
+    ) -> Dict[Any, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
+        params: Dict[str, Union[str, int, bool]] = {
             'hook_id': hook_id
         }
 

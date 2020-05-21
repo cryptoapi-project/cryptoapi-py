@@ -1,14 +1,22 @@
+from typing import Any, Dict, List
+
+
 class Testnet:
 
-    def __init__(self, http, validators, utils, debug, api_key):
-        self._http = http
-        self._api_key = api_key
-        self._validators = validators
-        self._utils = utils
+    def __init__(self, http: Any, validators: Any, utils: Any, debug: bool, api_key: str):
+        self._http: Any = http
+        self._api_key: str = api_key
+        self._validators: Any = validators
+        self._utils: Any = utils
 
-    def get_coins_rates(self, coins):
+    def get_coins_rates(self, coins: List[str]) -> Union[
+        List[Dict[str, Union[str, Dict[str, str]]]], 
+        Dict[str, Union[List[Dict[str, str]], int]]
+    ]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
-        params = {
+        params: Dict[str, List[str]] = {
             'coins': coins
         }
 
@@ -22,9 +30,14 @@ class Testnet:
             validators=validators
         )
 
-    def get_coins_history(self, coins):
+    def get_coins_history(self, coins: List[str])-> Union[
+        List[Dict[str, Union[str, List[Dict[str, Union[str, Dict[str, str]]]]]]],
+        Dict[str, Union[List[Dict[str, str]], int]]
+    ]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
-        params = {
+        params: Dict[str, List[str]] = {
             'coins': coins
         }
 
