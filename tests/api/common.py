@@ -1,6 +1,6 @@
 import unittest
 
-from cryptoapi import Client
+from cryptoapi.api import Api
 
 from .config import client_api_key, mainnet
 
@@ -8,12 +8,10 @@ from .config import client_api_key, mainnet
 class CommonTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.client = Client(client_api_key)
-        if mainnet:
-            self.client = self.client.api
-        else:
-            self.client = self.client.api.testnet
+        self.api = Api(client_api_key)
+        if not mainnet:
+            self.api = self.api.testnet
 
     def test_get_coins(self):
-        coins = self.client.get_coins()
+        coins = self.api.get_coins()
         self.assertNotIn('errors', coins)

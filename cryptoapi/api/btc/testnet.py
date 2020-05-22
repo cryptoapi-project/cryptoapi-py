@@ -1,3 +1,5 @@
+from typing import Any
+
 from .addresses import Addresses
 from .blocks import Blocks
 from .common import Common
@@ -7,28 +9,28 @@ from .transactions import Transactions
 
 class Testnet:
 
-    def __init__(self, http, validators, utils, debug, api_key):
-        self._http = http
-        self._coin_url = '/coins/btc'
-        self._api_key = api_key
-        self._validators = validators
-        self._utils = utils
+    def __init__(self, http: Any, validators: Any, utils: Any, api_key: str) -> None:
+        self._http: Any = http
+        self._coin_url: str = '/coins/btc'
+        self._api_key: str = api_key
+        self._validators: Any = validators
+        self._utils: Any = utils
 
         self._init_modules()
 
-    def _init_modules(self):
-        self.addresses = Addresses(self._http, self._coin_url, self._validators, self._utils, self._api_key)
-
-        self.blocks = Blocks(self._http, self._coin_url, self._validators, self._utils, self._api_key)
-
-        self.common = Common(self._http, self._coin_url, self._validators, self._utils, self._api_key)
-
-        self.push_notifications = PushNotifications(
-            self._http,
-            self._coin_url,
-            self._validators,
-            self._utils,
-            self._api_key
+    def _init_modules(self) -> None:
+        self.addresses: Addresses = Addresses(
+            self._http, self._coin_url, self._validators, self._utils, self._api_key
         )
 
-        self.transactions = Transactions(self._http, self._coin_url, self._validators, self._utils, self._api_key)
+        self.blocks: Blocks = Blocks(self._http, self._coin_url, self._validators, self._utils, self._api_key)
+
+        self.common: Common = Common(self._http, self._coin_url, self._validators, self._utils, self._api_key)
+
+        self.push_notifications: PushNotifications = PushNotifications(
+            self._http, self._coin_url, self._validators, self._utils, self._api_key
+        )
+
+        self.transactions: Transactions = Transactions(
+            self._http, self._coin_url, self._validators, self._utils, self._api_key
+        )

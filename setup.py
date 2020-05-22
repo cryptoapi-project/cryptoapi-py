@@ -19,9 +19,7 @@ setup(
     author='PixelPlex inc',
     author_email='dev@pixelplex.io',
     url='https://apikey.io/',
-    keywords=['blockchain',
-              'api',
-              'rpc'],
+    keywords=['blockchain', 'api', 'rpc'],
     packages=packages,
     classifiers=[
         'License :: OSI Approved :: MIT License',

@@ -3,9 +3,11 @@ from typing import List, Union
 
 import nox  # type: ignore
 
-python_version: Union[str, bool] = os.environ.get('PYTHON_VERSION', False)
+python_version: Union[str, bool, List[str]] = os.environ.get('PYTHON_VERSION', False)
+if isinstance(python_version, str):
+    python_version = python_version.split(':')
 files: List[str] = ['cryptoapi', 'tests', 'noxfile.py', 'setup.py', 'test_runner.py']
-install_requires: List[str] = ['pip', 'install', '-r', 'requirements_dev.txt', '--no-cache-dir']
+install_requires: List[str] = ['pip', 'install', '-r', 'requirements-dev.txt', '--no-cache-dir']
 run_tests: List[str] = ['python', 'test_runner.py']
 
 
@@ -55,8 +57,7 @@ def mainnet_tests(session: nox.session) -> None:
     if python_version:
         session.run(*install_requires)
     session.run(
-        *run_tests,
-        env={'MAINNET': 'true'}
+        *run_tests, env={'MAINNET': 'true'}
     )
 
 
