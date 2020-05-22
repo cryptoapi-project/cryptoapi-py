@@ -1,6 +1,6 @@
 import unittest
 
-from cryptoapi import Client
+from cryptoapi.api import Api
 
 from ..config import client_api_key, eth_trx_hash, eth_trx_hex, mainnet
 
@@ -11,22 +11,22 @@ class TransactionsTestCase(unittest.TestCase):
         self.trx_hash = eth_trx_hash
         self.trx_hex = eth_trx_hex
 
-        self.client = Client(client_api_key)
+        self.api = Api(client_api_key).eth
         if mainnet:
-            self.client = self.client.api.eth.transactions
+            self.api = self.api.transactions
         else:
-            self.client = self.client.api.eth.testnet.transactions
+            self.api = self.api.testnet.transactions
 
     def test_get_transactions(self):
-        trx = self.client.get_transactions()
+        trx = self.api.get_transactions()
         self.assertNotIn('errors', trx)
 
     def test_get_transaction_information(self):
-        trx_information = self.client.get_transaction_information(self.trx_hash)
+        trx_information = self.api.get_transaction_information(self.trx_hash)
         self.assertNotIn('errors', trx_information)
 
     def test_get_transaction_receipt(self):
-        trx_receipt = self.client.get_transaction_receipt(self.trx_hash)
+        trx_receipt = self.api.get_transaction_receipt(self.trx_hash)
         self.assertNotIn('errors', trx_receipt)
 
     @unittest.skip('Transfer')
@@ -34,5 +34,5 @@ class TransactionsTestCase(unittest.TestCase):
         pass
 
     def test_decode_transaction(self):
-        decode_transactions = self.client.decode_transaction(self.trx_hex)
+        decode_transactions = self.api.decode_transaction(self.trx_hex)
         self.assertNotIn('errors', decode_transactions)

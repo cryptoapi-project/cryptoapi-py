@@ -1,4 +1,4 @@
-image: 'python:3.7'
+image: 'thekevjames/nox'
 
 stages:
   - static analysis
@@ -6,14 +6,14 @@ stages:
 
 .analyzers:
   stage: static analysis
-  before_script:
-    - pip3 install -r requirements_dev.txt --no-cache-dir
+  variables:
+    PYTHON_VERSION: 3
   only:
     - web
     - trigger
-    - merge requests
+    - merge_requests
   tags:
-    - pp-new-develop
+    - docker
 
 .tests:
   stage: tests
@@ -27,9 +27,9 @@ stages:
   only:
     - web
     - trigger
-    - merge requests
+    - merge_requests
   tags:
-    - pp-new-develop
+    - docker
 
 flake8:
   extends: .analyzers
@@ -45,6 +45,11 @@ yapf:
   extends: .analyzers
   script:
     - nox -s yapf -- check
+
+mypy:
+  extends: .analyzers
+  script:
+    - nox -s mypy
 
 mainnet:
   extends: .tests
