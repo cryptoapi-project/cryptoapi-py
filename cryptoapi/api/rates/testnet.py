@@ -1,5 +1,7 @@
 from typing import Any, Dict, List, Union
 
+error_static_type = Dict[str, Union[List[Dict[str, str]], int]]
+
 
 class Testnet:
 
@@ -9,9 +11,8 @@ class Testnet:
         self._validators: Any = validators
         self._utils: Any = utils
 
-    def get_coins_rates(
-        self, coins: List[str]
-    ) -> Union[List[Dict[str, Union[str, Dict[str, str]]]], Dict[str, Union[List[Dict[str, str]], int]]]:
+    def get_coins_rates(self,
+                        coins: List[str]) -> Union[List[Dict[str, Union[str, Dict[str, str]]]], error_static_type]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
@@ -27,8 +28,7 @@ class Testnet:
 
     def get_coins_history(
         self, coins: List[str]
-    ) -> Union[List[Dict[str, Union[str, List[Dict[str, Union[str, Dict[str, str]]]]]]], Dict[str, Union[List[Dict[
-            str, str]], int]]]:
+    ) -> Union[List[Dict[str, Union[str, List[Dict[str, Union[str, Dict[str, str]]]]]]], error_static_type]:
         api_key: Dict[str, str]
         validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
