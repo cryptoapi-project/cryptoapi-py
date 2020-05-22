@@ -1,3 +1,4 @@
+# type: ignore
 from .api.bch.addresses import AddressesTestCase as BchAddressesTestCase
 from .api.bch.blocks import BlocksTestCase as BchBlocksTestCase
 from .api.bch.common import CommonTestCase as BchCommonTestCase
@@ -21,26 +22,10 @@ from .api.ltc.transactions import TransactionsTestCase as LtcTransactionsTestCas
 from .api.rates import RatesTestCase
 
 imported_tests = [
-    CommonTestCase,
-    RatesTestCase,
-    BtcAddressesTestCase,
-    BtcBlocksTestCase,
-    BtcCommonTestCase,
-    BtcTransactionsTestCase,
-    BchAddressesTestCase,
-    BchBlocksTestCase,
-    BchCommonTestCase,
-    BchTransactionsTestCase,
-    EthAddressesTestCase,
-    EthBlocksTestCase,
-    EthCommonTestCase,
-    EthContractsTestCase,
-    EthTokensTestCase,
-    EthTransactionsTestCase,
-    LtcAddressesTestCase,
-    LtcBlocksTestCase,
-    LtcCommonTestCase,
-    LtcTransactionsTestCase
+    CommonTestCase, RatesTestCase, BtcAddressesTestCase, BtcBlocksTestCase, BtcCommonTestCase,
+    BtcTransactionsTestCase, BchAddressesTestCase, BchBlocksTestCase, BchCommonTestCase, BchTransactionsTestCase,
+    EthAddressesTestCase, EthBlocksTestCase, EthCommonTestCase, EthContractsTestCase, EthTokensTestCase,
+    EthTransactionsTestCase, LtcAddressesTestCase, LtcBlocksTestCase, LtcCommonTestCase, LtcTransactionsTestCase
 ]
 
 if not mainnet:
