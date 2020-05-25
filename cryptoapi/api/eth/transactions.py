@@ -1,15 +1,28 @@
+from typing import Any, Dict, Optional, Union
+
+
 class Transactions:
 
-    def __init__(self, http, models, utils, api_key):
-        self._http = http
-        self._api_key = api_key
-        self._models = models
-        self._utils = utils
+    def __init__(self, http: Any, coin_url: str, validators: Any, utils: Any, api_key: str) -> None:
+        self._http: Any = http
+        self._coin_url: str = coin_url
+        self._api_key: str = api_key
+        self._validators: Any = validators
+        self._utils: Any = utils
 
-    def get_transactions(self, _from=None, to=None, skip=None, limit=None, block_number=None):
+    def get_transactions(
+        self,
+        _from: Optional[str] = None,
+        to: Optional[str] = None,
+        skip: Optional[int] = None,
+        limit: Optional[int] = None,
+        block_number: Optional[int] = None
+    ) -> Dict[str, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {}
+        params: Dict[str, Union[str, int]] = {}
 
         if _from is not None:
             params.update({'from': _from})
@@ -26,66 +39,84 @@ class Transactions:
         if block_number is not None:
             params.update({'block_number': block_number})
 
-        self._utils.validate_data(self._models.api.eth.requests.get_transactions, params)
+        self._utils.validate_data(self._validators.eth.requests.get_transactions, params)
 
         params.update(api_key)
 
-        validators.update({200: self._models.api.eth.responses.get_transactions})
+        validators.update({200: self._validators.eth.responses.get_transactions})
 
-        return self._http.get(url='/transactions', params=params, validators=validators)
+        return self._http.get(url='{}/transactions'.format(self._coin_url), params=params, validators=validators)
 
-    def get_transaction_information(self, _hash):
+    def get_transaction_information(self, _hash: str) -> Dict[str, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
+        params: Dict[str, str] = {
             'hash': _hash
         }
 
-        self._utils.validate_data(self._models.api.eth.requests.get_transaction_information, params)
+        self._utils.validate_data(self._validators.eth.requests.get_transaction_information, params)
 
-        validators.update({200: self._models.api.eth.responses.get_transaction_information})
-
-        return self._http.get(url='/transactions/{}'.format(params['hash']), params=api_key, validators=validators)
-
-    def get_transaction_receipt(self, _hash):
-        api_key, validators = self._utils.api_method_preprocessing(self)
-
-        params = {
-            'hash': _hash
-        }
-
-        self._utils.validate_data(self._models.api.eth.requests.get_transaction_receipt, params)
-
-        validators.update({200: self._models.api.eth.responses.get_transaction_receipt})
+        validators.update({200: self._validators.eth.responses.get_transaction_information})
 
         return self._http.get(
-            url='/transactions/{}/receipt'.format(params['hash']),
+            url='{}/transactions/{}'.format(self._coin_url, _hash), params=api_key, validators=validators
+        )
+
+    def get_transaction_receipt(self, _hash: str) -> Dict[str, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
+        api_key, validators = self._utils.api_method_preprocessing(self)
+
+        params: Dict[str, str] = {
+            'hash': _hash
+        }
+
+        self._utils.validate_data(self._validators.eth.requests.get_transaction_receipt, params)
+
+        validators.update({200: self._validators.eth.responses.get_transaction_receipt})
+
+        return self._http.get(
+            url='{}/transactions/{}/receipt'.format(self._coin_url, _hash), params=api_key, validators=validators
+        )
+
+    def send_transaction(self, tx: str) -> Dict[str, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
+        api_key, validators = self._utils.api_method_preprocessing(self)
+
+        data: Dict[str, str] = {
+            'tx': tx
+        }
+
+        self._utils.validate_data(self._validators.eth.requests.send_transaction, data)
+
+        validators.update({200: self._validators.eth.responses.send_transaction})
+
+        return self._http.post(
+            url='{}/transactions/raw/send'.format(self._coin_url),
+            data=data,
             params=api_key,
             validators=validators
         )
 
-    def send_transaction(self, tx):
+    def decode_transaction(self, tx: str) -> Dict[str, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        data = {
+        data: Dict[str, str] = {
             'tx': tx
         }
 
-        self._utils.validate_data(self._models.api.eth.requests.send_transaction, data)
+        self._utils.validate_data(self._validators.eth.requests.decode_transaction, data)
 
-        validators.update({200: self._models.api.eth.responses.send_transaction})
+        validators.update({200: self._validators.eth.responses.decode_transaction})
 
-        return self._http.post(url='/transactions/raw/send', data=data, params=api_key, validators=validators)
-
-    def decode_transaction(self, tx):
-        api_key, validators = self._utils.api_method_preprocessing(self)
-
-        data = {
-            'tx': tx
-        }
-
-        self._utils.validate_data(self._models.api.eth.requests.decode_transaction, data)
-
-        validators.update({200: self._models.api.eth.responses.decode_transaction})
-
-        return self._http.post(url='/transactions/raw/decode', data=data, params=api_key, validators=validators)
+        return self._http.post(
+            url='{}/transactions/raw/decode'.format(self._coin_url),
+            data=data,
+            params=api_key,
+            validators=validators
+        )

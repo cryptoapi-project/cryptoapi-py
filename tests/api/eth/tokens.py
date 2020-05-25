@@ -1,23 +1,29 @@
 import unittest
 
-from cryptoapi import Client
+from cryptoapi.api import Api
 
-from .config import client_api_key, token
+from ..config import client_api_key, eth_token, mainnet
 
 
 class TokensTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.client = Client(client_api_key).api.eth.testnet.tokens
+        self.token = eth_token
+
+        self.api = Api(client_api_key).eth
+        if mainnet:
+            self.api = self.api.tokens
+        else:
+            self.api = self.api.testnet.tokens
 
     def test_get_tokens(self):
-        tokens = self.client.get_tokens()
+        tokens = self.api.get_tokens()
         self.assertNotIn('errors', tokens)
 
     def test_get_token_transfers_by_token_address(self):
-        token_transfers = self.client.get_token_transfers_by_token_address(token)
+        token_transfers = self.api.get_token_transfers_by_token_address(self.token)
         self.assertNotIn('errors', token_transfers)
 
     def test_get_token_contract(self):
-        token_contract = self.client.get_token_contract(token)
+        token_contract = self.api.get_token_contract(self.token)
         self.assertNotIn('errors', token_contract)

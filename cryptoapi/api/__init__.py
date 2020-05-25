@@ -1,31 +1,38 @@
+from typing import Any
+
+from ..utils import Utils
 from .bch import Bch
 from .btc import Btc
+from .config import Config
 from .eth import Eth
 from .klay import Klay
 from .ltc import Ltc
 from .rates import Rates
+from .rpc import HTTP
+from .testnet import Testnet
+from .validators import Validators
 from .whooks import Whooks
 
 
-class Api:
+class Api(Testnet):
 
-    def __init__(self, http_wrapper, config, models, utils, api_key, debug):
-        self._config = config
-        self._http = http_wrapper(self._config.api.BASE_HTTP_URL, debug)
-        self._api_key = api_key
-        self._models = models
-        self._utils = utils
+    def __init__(self, api_key: str, debug: bool = False, utils: Any = Utils()) -> None:
+        self._api_key: str = api_key
+        self._utils: Utils = utils
+        self._validators: Validators = Validators(self._utils)
+        self._config: Config = Config()
 
-        self.rates = Rates(http_wrapper, self._models, self._config, self._utils, debug, api_key)
-        self.eth = Eth(http_wrapper, self._models, self._config, self._utils, debug, api_key)
-        self.btc = Btc(http_wrapper, self._models, self._config, self._utils, debug, api_key)
-        self.bch = Bch(http_wrapper, self._models, self._config, self._utils, debug, api_key)
-        self.ltc = Ltc(http_wrapper, self._models, self._config, self._utils, debug, api_key)
-        self.klay = Klay(http_wrapper, self._models, self._config, self._utils, debug, api_key)
-        self.whooks = Whooks(http_wrapper, self._models, self._config, self._utils, debug, api_key)
+        mainnet_http: HTTP = HTTP(url=self._config.BASE_HTTP_URL, debug=debug)
+        testnet_http: HTTP = HTTP(url=self._config.BASE_TESTNET_HTTP_URL, debug=debug)
+        whooks_http: HTTP = HTTP(url=self._config.BASE_WEB_HOOKS_URL, debug=debug)
+        self._http: Any = mainnet_http
 
-    def get_coins(self):
-        api_key, validators = self.utils.api_method_preprocessing(self)
-        validators.update({200: self._models.get_coins})
+        self.testnet: Testnet = Testnet(testnet_http, utils, self._api_key)
 
-        return self._http.get(url='/coins', params=api_key, validators=validators)
+        self.rates: Rates = Rates(mainnet_http, testnet_http, self._validators, self._utils, self._api_key)
+        self.eth: Eth = Eth(mainnet_http, testnet_http, self._validators, self._utils, self._api_key)
+        self.btc: Btc = Btc(mainnet_http, testnet_http, self._validators, self._utils, self._api_key)
+        self.bch: Bch = Bch(mainnet_http, testnet_http, self._validators, self._utils, self._api_key)
+        self.ltc: Ltc = Ltc(mainnet_http, testnet_http, self._validators, self._utils, self._api_key)
+        self.klay: Klay = Klay(mainnet_http, testnet_http, self._validators, self._utils, self._api_key)
+        self.whooks: Whooks = Whooks(whooks_http, self._validators, self._utils, self._api_key)

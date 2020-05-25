@@ -1,19 +1,23 @@
 import unittest
 
-from cryptoapi import Client
+from cryptoapi.api import Api
 
-from .config import client_api_key
+from ..config import client_api_key, mainnet
 
 
 class CommonTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.client = Client(client_api_key).api.bch.testnet.common
+        self.api = Api(client_api_key).bch
+        if mainnet:
+            self.api = self.api.common
+        else:
+            self.api = self.api.testnet.common
 
     def test_get_estimate_fee(self):
-        estimate_fee = self.client.get_estimate_fee()
+        estimate_fee = self.api.get_estimate_fee()
         self.assertIs(type(estimate_fee), float)
 
     def test_get_network_information(self):
-        network_information = self.client.get_network_information()
+        network_information = self.api.get_network_information()
         self.assertNotIn('errors', network_information)
