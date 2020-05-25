@@ -8,7 +8,7 @@ from .api.btc.blocks import BlocksTestCase as BtcBlocksTestCase
 from .api.btc.common import CommonTestCase as BtcCommonTestCase
 from .api.btc.transactions import TransactionsTestCase as BtcTransactionsTestCase
 from .api.common import CommonTestCase
-from .api.config import mainnet
+# from .api.config import mainnet
 from .api.eth.addresses import AddressesTestCase as EthAddressesTestCase
 from .api.eth.blocks import BlocksTestCase as EthBlocksTestCase
 from .api.eth.common import CommonTestCase as EthCommonTestCase
@@ -27,7 +27,7 @@ imported_tests = [
     EthAddressesTestCase, EthBlocksTestCase, EthCommonTestCase, EthContractsTestCase, EthTokensTestCase,
     EthTransactionsTestCase, LtcAddressesTestCase, LtcBlocksTestCase, LtcCommonTestCase, LtcTransactionsTestCase
 ]
-
+"""
 if not mainnet:
     from .api.klay.addresses import AddressesTestCase as KlayAddressesTestCase
     from .api.klay.blocks import BlocksTestCase as KlayBlocksTestCase
@@ -43,5 +43,6 @@ if not mainnet:
         KlayTokensTestCase,
         KlayTransactionsTestCase,
     ])
+"""
 
 __all__ = imported_tests

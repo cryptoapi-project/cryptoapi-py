@@ -19,7 +19,6 @@ class CommonTestCase(unittest.TestCase):
         network_info = self.api.get_network_info()
         self.assertNotIn('errors', network_info)
 
-    @unittest.skip("TODO: fix test")
     def test_estimate_gas(self):
         estimate_gas = self.api.estimate_gas(_from=self._from, to=self.to, data=self.data, value=self.value)
         self.assertNotIn('errors', estimate_gas)
