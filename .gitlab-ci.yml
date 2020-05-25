@@ -1,56 +1,62 @@
-image: 'python:3.7'
-
-before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  - pip install -r requirements_dev.txt
+image: 'thekevjames/nox'
 
 stages:
   - static analysis
   - tests
 
-flake8:
+.analyzers:
   stage: static analysis
+  variables:
+    PYTHON_VERSION: 3
+  only:
+    - web
+    - trigger
+    - merge_requests
+  tags:
+    - docker
+
+.tests:
+  stage: tests
+  variables:
+    PYTHON_VERSION: 3
+  artifacts:
+    paths:
+      - reports
+    expire_in: 3 hours
+    when: always
+  only:
+    - web
+    - trigger
+    - merge_requests
+  tags:
+    - docker
+
+flake8:
+  extends: .analyzers
   script:
     - nox -s flake8
-  only:
-    - web
-    - trigger
-    - merge requests
-  tags:
-    - pp-new-develop
-
 
 isort:
-  stage: static analysis
+  extends: .analyzers
   script:
     - nox -s isort -- check
-  only:
-    - web
-    - trigger
-    - merge requests
-  tags:
-    - pp-new-develop
-
 
 yapf:
-  stage: static analysis
+  extends: .analyzers
   script:
     - nox -s yapf -- check
-  only:
-    - web
-    - trigger
-    - merge requests
-  tags:
-    - pp-new-develop
 
-
-tests:
-  stage: tests
+mypy:
+  extends: .analyzers
   script:
-    - nox -s tests
-  only:
-    - web
-    - trigger
-    - merge requests
-  tags:
-    - pp-new-develop
+    - nox -s mypy
+
+mainnet:
+  extends: .tests
+  script:
+    - nox -s mainnet-tests
+  
+testnet:
+  extends: .tests
+  script:
+    - nox -s testnet-tests

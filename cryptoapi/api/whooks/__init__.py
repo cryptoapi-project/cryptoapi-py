@@ -1,24 +1,29 @@
+from typing import Any, Dict, Optional, Union
+
+
 class Whooks:
 
-    def __init__(self, http_wrapper, models, config, utils, debug, api_key):
-        self._http = http_wrapper(url=config.api.BASE_WEB_HOOKS_URL, debug=debug)
-        self._api_key = api_key
-        self._models = models
-        self._utils = utils
+    def __init__(self, http: Any, validators: Any, utils: Any, api_key: str) -> None:
+        self._http: Any = http
+        self._api_key: str = api_key
+        self._validators: Any = validators
+        self._utils: Any = utils
 
     def get_hook_events(
         self,
-        hook_id,
-        start_id=None,
-        end_id=None,
-        only_failed=None,
-        skip=None,
-        limit=None,
-        _type=None
-    ):
+        hook_id: int,
+        start_id: Optional[int] = None,
+        end_id: Optional[int] = None,
+        only_failed: Optional[bool] = None,
+        skip: Optional[int] = None,
+        limit: Optional[int] = None,
+        _type: Optional[str] = None
+    ) -> Dict[Any, Any]:
+        api_key: Dict[str, str]
+        validators: Dict[int, Dict[str, Any]]
         api_key, validators = self._utils.api_method_preprocessing(self)
 
-        params = {
+        params: Dict[str, Union[str, int, bool]] = {
             'hook_id': hook_id
         }
 
@@ -40,14 +45,11 @@ class Whooks:
         if _type is not None:
             params.update({'type': _type})
 
-        self._utils.validate_data(self._models.api.whooks.requests.get_hook_events, params)
+        self._utils.validate_data(self._validators.whooks.requests.get_hook_events, params)
 
-        validators.update({200: self._models.api.whooks.responses.get_hook_events})
+        validators.update({200: self._validators.whooks.responses.get_hook_events})
 
+        del params['hook_id']
         params.update(api_key)
 
-        return self._http.get(
-            url='/web-hooks/{}/events'.format(params.pop('hook_id')),
-            params=params,
-            validators=validators
-        )
+        return self._http.get(url='/web-hooks/{}/events'.format(hook_id), params=params, validators=validators)
